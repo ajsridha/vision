@@ -1,0 +1,6 @@
+pipenv install
+pipenv shell
+
+export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
+
+python vision/vision.py
