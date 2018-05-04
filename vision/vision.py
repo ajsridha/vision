@@ -9,6 +9,16 @@ from google.cloud.vision import types
 client = vision.ImageAnnotatorClient()
 
 response = client.annotate_image({
-    'image': {'source': {'image_uri': 'gs://my-test-bucket/image.jpg'}},
-    'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],
+    'image': {
+        'source': {
+            'image_uri': 'http://www.researchpaperspot.com/wp-content/uploads/2017/09/home-depot-receipt-template-professional-templates-for-home-depot-receipt-template.jpg'
+        },
+    },
+    'features': [
+        {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+        {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+    ],
 })
+
+print(response.logo_annotations)
+print(response.full_text_annotation.text)
