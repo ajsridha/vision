@@ -1,3 +1,5 @@
+# Vision
+![](http://www.freepngimg.com/download/marvel_vision/9-2-marvel-vision-png-image.png)
 
 1. Create a `.env` file:
 ```
@@ -9,7 +11,12 @@ GOOGLE_APPLICATION_CREDENTIALS="/path/to/credentials.json"
 pipenv install
 ```
 
-3. Run the app
+3. Activate the shell
+```
+pipenv shell
+```
+
+4. Run the app
 ```bash
 python vision/vision.py
 ```
