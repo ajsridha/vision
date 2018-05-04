@@ -22,9 +22,14 @@ def extract_tax(sentence):
     match = re.search(r"\d", sentence)
     number_index = match.start()
     tax = sentence[:number_index].strip()
+
+    amount = extract_amount(sentence)
+    if "%" in amount:
+        percentage_index = amount.index("%")
+        amount = amount[percentage_index + 1:]
     return {
         "tax": tax,
-        "amount": extract_amount(sentence)
+        "amount": amount
     }
 
 # Instantiates a client
