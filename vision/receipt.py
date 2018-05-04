@@ -2,6 +2,7 @@ import io
 import re
 import os
 import requests
+import sys
 from PIL import Image, ImageDraw
 from babel.numbers import parse_decimal
 from enum import Enum
@@ -9,6 +10,7 @@ from enum import Enum
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
+
 
 def extract_amount(sentence):
     # find index where number begins
@@ -32,8 +34,13 @@ def extract_tax(sentence):
         "amount": amount
     }
 
+
+if len(sys.argv) != 2:
+    print("[Usage] receipt.py path-to-image")
+    exit()
+
 # Instantiates a client
-image_uri = 'https://d85ecz8votkqa.cloudfront.net/support/help_center/Print_Payment_Receipt.JPG'
+image_uri = sys.argv[1]
 client = vision.ImageAnnotatorClient()
 google_response = client.annotate_image({
     'image': {
