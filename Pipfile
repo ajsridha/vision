@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 google-cloud-vision = "*"
+requests = "*"
+pillow = "*"
 
 [dev-packages]
 
