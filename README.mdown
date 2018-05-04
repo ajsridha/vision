@@ -1,6 +1,15 @@
+
+1. Create a `.env` file:
+```
+GOOGLE_APPLICATION_CREDENTIALS="/path/to/credentials.json"
+```
+
+2. Install dependencies
+```bash
 pipenv install
-pipenv shell
+```
 
-export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
-
+3. Run the app
+```bash
 python vision/vision.py
+```
