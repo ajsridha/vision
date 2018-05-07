@@ -4,7 +4,6 @@ import os
 import requests
 import sys
 from PIL import Image, ImageDraw
-from babel.numbers import parse_decimal
 from enum import Enum
 
 # Imports the Google Cloud client library
