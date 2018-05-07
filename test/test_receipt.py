@@ -28,6 +28,10 @@ class ReceiptTest(TestCase):
         expense = self.analyzer.analyze(
             "https://i1.wp.com/fsatips.com/wp-content/uploads/2016/04/health_receipt_target.jpg"
         )
-        assert(expense["total"] == 43.59)
+        eq_(expense, {
+            'vendor': 'Target',
+            'taxes': [],
+            'total': '43.59'
+          })
 
 

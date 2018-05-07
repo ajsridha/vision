@@ -16,12 +16,18 @@ class Receipt(object):
         # find index where number begins
         # get everything to the right
         match = re.search(r"\d", sentence)
+        if not match:
+            return sentence
+
         number_index = match.start()
         amount = sentence[number_index:]
         return re.sub(r"\s", "", amount)
 
     def extract_tax(self, sentence):
         match = re.search(r"\d", sentence)
+        if not match:
+            return None
+
         number_index = match.start()
         tax = sentence[:number_index].strip()
 
@@ -125,7 +131,9 @@ class Receipt(object):
             if "total" in sentence.lower() and "sub" not in sentence.lower():
                 total = self.extract_amount(sentence)
             if "tax" in sentence.lower():
-                taxes.append(self.extract_tax(sentence))
+                tax = self.extract_tax(sentence)
+                if tax:
+                    taxes.append(tax)
         print({
             "vendor": vendor,
             "taxes": taxes,
