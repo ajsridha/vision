@@ -1,0 +1,17 @@
+TOTAL="Total"
+SUBTOTAL="Subtotal"
+SALES_TAX="Sales Tax"
+HST_TAX = "HST"
+
+GRAND_TOTAL_FIELDS = [
+    TOTAL
+]
+
+SUBTOTAL_FIELDS = [
+    SUBTOTAL
+]
+
+TAX_FIELDS = [
+    SALES_TAX,
+    HST_TAX
+]
