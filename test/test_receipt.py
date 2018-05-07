@@ -1,0 +1,33 @@
+import vcr
+from vision.receipt import Receipt
+from unittest import TestCase
+from nose.tools import eq_
+
+class ReceiptTest(TestCase):
+    def setUp(self):
+      self.analyzer = Receipt()
+
+    @vcr.use_cassette('fixtures/vcr_cassettes/walmart.yaml')
+    def test_walmart(self):
+        expense = self.analyzer.analyze(
+            "http://4xhost.club/wp-content/uploads/2017/09/walmart-receipt-mart-receipt-receipt-plan-template-business-plan-in-receipt-template-mart-receipt-tax-codes-walmart-receipt-policy-checking.jpg"
+        )
+        eq_(expense, {
+            'vendor': 'Walmart',
+            'taxes': [
+                {
+                    'tax': 'TAX',
+                    'amount': '0.28'
+                }
+            ],
+            'total': '4.03'
+          })
+
+    @vcr.use_cassette('fixtures/vcr_cassettes/target.yaml')
+    def test_target(self):
+        expense = self.analyzer.analyze(
+            "https://i1.wp.com/fsatips.com/wp-content/uploads/2016/04/health_receipt_target.jpg"
+        )
+        assert(expense["total"] == 43.59)
+
+
