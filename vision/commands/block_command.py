@@ -8,6 +8,7 @@ class Word():
         self.is_money = False
         self.text = self.clean(text)
         self.bounding_box = bounding_box
+        self.normalized_y_coordinate = bounding_box.vertices[2].y
 
     def average_x_position(self):
         vertices = self.bounding_box.vertices
@@ -20,6 +21,10 @@ class Word():
     def height(self):
         vertices = self.bounding_box.vertices
         return vertices[2].y - vertices[0].y
+
+    def height_tuple(self):
+        vertices = self.bounding_box.vertices
+        return (vertices[0].y, vertices[2].y)
 
     def clean(self, text):
         if text.startswith("$"):
@@ -51,13 +56,14 @@ class BlockCommand():
         self.words = self.build_words(annotated_image_response.full_text_annotation)
         self.lines = self.build_lines(self.words)
 
-        for line in self.lines:
-            for word in line:
+        for key in sorted(self.lines.keys()):
+            for word in self.lines[key]:
                 print(word.text, end=" ")
             print("\n")
 
-        amount = self.search_for_amount()
-        print("Total: " + amount)
+        # import pdb; pdb.set_trace()
+        # amount = self.search_for_amount()
+        # print("Total: " + amount)
 
     def build_words(self, full_text_annotation):
         words_in_document = []
@@ -85,7 +91,7 @@ class BlockCommand():
 
             word = words_in_document[index]
             try:
-                if word.is_number and words_in_document[index+1].text == "." and words_in_document[index+2].is_number:
+                if word.is_number and words_in_document[index+1].text == "." and words_in_document[index+2].is_number and index + 2 < len(words_in_document):
                     new_word = Word(
                         text=word.text + "." + words_in_document[index+2].text,
                         bounding_box=word.bounding_box)
@@ -101,23 +107,26 @@ class BlockCommand():
 
 
     def build_lines(self, words):
-        lines = []
-        current_line = []
+        # sort all the words by x coordinate first, so we can ensure
+        # reading order
+        words = sorted(
+            words,
+            key=lambda k: k.bounding_box.vertices[0].x)
 
-        y_position = words[0].average_y_position()
-        previous_height = words[0].height()
-
+        lines_map = {}
         for word in words:
-            # the 10 is an episolon value
-            if word.average_y_position() - y_position > previous_height - 10:
-                lines.append(current_line)
-                current_line = []
+            key = word.bounding_box.vertices[0].y
+            for y_coordinate in lines_map.keys():
+                if abs(key - y_coordinate) < word.height():
+                    key = y_coordinate
+                    break
 
-            current_line.append(word)
-            y_position = word.average_y_position()
-            previous_height = word.height()
+            if lines_map.get(key):
+                lines_map[key].append(word)
+            else:
+                lines_map[key] = [word]
 
-        return lines
+        return lines_map
 
     def search_for_total(self):
         for index_of_line, line in enumerate(self.lines):
