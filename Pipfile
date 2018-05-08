@@ -7,8 +7,10 @@ name = "pypi"
 google-cloud-vision = "*"
 requests = "*"
 pillow = "*"
+vcrpy = "*"
 
 [dev-packages]
+nose = "*"
 
 [requires]
 python_version = "3.6"
