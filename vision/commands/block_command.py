@@ -1,4 +1,5 @@
 from decimal import Decimal
+import re
 import unicodedata
 from constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
 
@@ -10,13 +11,22 @@ class Word():
         self.text = self.clean(text)
         self.bounding_box = bounding_box
 
+    def max_y(self):
+        return max(self.bounding_box.vertices[2].y, self.bounding_box.vertices[3].y)
+
+    def min_y(self):
+        return min(self.bounding_box.vertices[0].y, self.bounding_box.vertices[1].y)
+
     def height(self):
-        vertices = self.bounding_box.vertices
-        return vertices[2].y - vertices[0].y
+        return self.max_y() - self.min_y()
 
     def clean(self, text):
         if text.startswith("$"):
             text = text[1:]
+            self.is_money = True
+
+        pattern = re.compile('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$')
+        if pattern.match(text):
             self.is_money = True
 
         try:
@@ -66,8 +76,9 @@ class BlockCommand():
                     for symbol in word.symbols:
                         string_representation = string_representation + symbol.text
 
-                    words_in_document.append(
-                        Word(text=string_representation, bounding_box=word.bounding_box))
+                    if string_representation.strip():
+                        words_in_document.append(
+                            Word(text=string_representation.strip(), bounding_box=word.bounding_box))
 
         # Goolge sometimes breaks aparts numbers. Stitch them back together
         fixed_words_in_document = []
@@ -102,7 +113,7 @@ class BlockCommand():
 
         lines_map = {}
         for word in words:
-            key = word.bounding_box.vertices[0].y
+            key = word.max_y()
             for y_coordinate in lines_map.keys():
                 if abs(key - y_coordinate) < word.height():
                     key = y_coordinate
@@ -120,32 +131,35 @@ class BlockCommand():
         words_of_interest = []
         fields_of_interest = GRAND_TOTAL_FIELDS + SUBTOTAL_FIELDS + TAX_FIELDS
 
-        for key in self.lines.keys():
-            for index_of_word, word in enumerate(self.lines[key]):
+        # get lines in an array so we can fetch nearby lines
+        lines = []
+        for key in sorted(self.lines.keys()):
+            lines.append(self.lines[key])
+
+        for index_of_line, line in enumerate(lines):
+            for index_of_word, word in enumerate(line):
                 if str(word.text).upper() in (field.upper() for field in fields_of_interest):
                     targeted_words.append(word.text)
-                    words_of_interest.extend(self.lines[key])
+                    words_of_interest.extend(line)
+                    # get nearby lines to account for slanted receipts
+                    if index_of_line + 1 < len(lines):
+                        words_of_interest.extend(lines[index_of_line + 1])
+                    if index_of_line - 1 > 0:
+                        words_of_interest.extend(lines[index_of_line - 1])
 
         # find a value for each targetted words
         proposed_amounts = []
-        for word in words_of_interest:
-            if word.is_number:
-                proposed_amounts.append(word)
+        for word in set(words_of_interest):
+            if word.is_money and word.is_number:
+                proposed_amounts.append(word.text)
 
         if not proposed_amounts:
             print("Shit, failed.")
             return
 
         sorted_proposed_amounts = sorted(
-            proposed_amounts,
-            key=lambda k: Decimal(k.text))
+            set(proposed_amounts),
+            key=lambda k: Decimal(k))
 
-        print("Total: " + sorted_proposed_amounts[-1].text)
-        print("Tax: " + sorted_proposed_amounts[0].text)
-
-
-    def search_for_amount(self):
-        index_of_line, index_of_word = self.search_for_total()
-        for word in self.lines[index_of_line]:
-            if word.is_number:
-                return word.text
+        print("Total: " + sorted_proposed_amounts[-1])
+        print("Tax: " + sorted_proposed_amounts[0])
