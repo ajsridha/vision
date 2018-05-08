@@ -1,5 +1,6 @@
+from decimal import Decimal
 import unicodedata
-from constants import GRAND_TOTAL_FIELDS
+from constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
 
 
 class Word():
@@ -8,23 +9,10 @@ class Word():
         self.is_money = False
         self.text = self.clean(text)
         self.bounding_box = bounding_box
-        self.normalized_y_coordinate = bounding_box.vertices[2].y
-
-    def average_x_position(self):
-        vertices = self.bounding_box.vertices
-        return (vertices[1].x + vertices[0].x) / 2
-
-    def average_y_position(self):
-        vertices = self.bounding_box.vertices
-        return (vertices[2].y + vertices[0].y) / 2
 
     def height(self):
         vertices = self.bounding_box.vertices
         return vertices[2].y - vertices[0].y
-
-    def height_tuple(self):
-        vertices = self.bounding_box.vertices
-        return (vertices[0].y, vertices[2].y)
 
     def clean(self, text):
         if text.startswith("$"):
@@ -51,19 +39,18 @@ class BlockCommand():
         self.words = []
         self.lines = []
 
-    def generate_receipt(self, annotated_image_response):
+    def generate_receipt(self, annotated_image_response, print_entire_receipt=False):
         pages = annotated_image_response.full_text_annotation.pages
         self.words = self.build_words(annotated_image_response.full_text_annotation)
         self.lines = self.build_lines(self.words)
 
-        for key in sorted(self.lines.keys()):
-            for word in self.lines[key]:
-                print(word.text, end=" ")
-            print("\n")
+        if print_entire_receipt:
+            for key in sorted(self.lines.keys()):
+                for word in self.lines[key]:
+                    print(word.text, end=" ")
+                print("\n")
 
-        # import pdb; pdb.set_trace()
-        # amount = self.search_for_amount()
-        # print("Total: " + amount)
+        self.print_total()
 
     def build_words(self, full_text_annotation):
         words_in_document = []
@@ -128,11 +115,34 @@ class BlockCommand():
 
         return lines_map
 
-    def search_for_total(self):
-        for index_of_line, line in enumerate(self.lines):
-            for index_of_word, word in enumerate(line):
-                if str(word.text).upper() in (field.upper() for field in GRAND_TOTAL_FIELDS):
-                    return index_of_line, index_of_word
+    def print_total(self):
+        targeted_words = []
+        words_of_interest = []
+        fields_of_interest = GRAND_TOTAL_FIELDS + SUBTOTAL_FIELDS + TAX_FIELDS
+
+        for key in self.lines.keys():
+            for index_of_word, word in enumerate(self.lines[key]):
+                if str(word.text).upper() in (field.upper() for field in fields_of_interest):
+                    targeted_words.append(word.text)
+                    words_of_interest.extend(self.lines[key])
+
+        # find a value for each targetted words
+        proposed_amounts = []
+        for word in words_of_interest:
+            if word.is_number:
+                proposed_amounts.append(word)
+
+        if not proposed_amounts:
+            print("Shit, failed.")
+            return
+
+        sorted_proposed_amounts = sorted(
+            proposed_amounts,
+            key=lambda k: Decimal(k.text))
+
+        print("Total: " + sorted_proposed_amounts[-1].text)
+        print("Tax: " + sorted_proposed_amounts[0].text)
+
 
     def search_for_amount(self):
         index_of_line, index_of_word = self.search_for_total()
