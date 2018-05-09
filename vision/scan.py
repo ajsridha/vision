@@ -45,13 +45,13 @@ def build_receipt(lines):
     for index, line in enumerate(lines):
         for field in SUBTOTAL_FIELDS:
             if any(word.text.upper() == field.upper() for word in line):
-                sub_total = find_amount(lines, index)
+                sub_total = find_amount(line, index)
                 break
 
     for index, line in enumerate(lines):
         for field in GRAND_TOTAL_FIELDS:
             if any(word.text.upper() == field.upper() for word in line):
-                grand_total = find_amount(lines, index)
+                grand_total = find_amount(line, index)
                 break
 
     for index, line in enumerate(lines):
@@ -61,35 +61,41 @@ def build_receipt(lines):
                 break
 
     # The most important part of the receipt of the total.
-    # If we could not find an amount, return the highest found amount
-    if not grand_total or not grand_total.numeric_money_amount:
-        largest_amount = Word('0.00')
-        for line in lines:
-            for word in line:
-                if word.is_money() and word.numeric_money_amount() > largest_amount.numeric_money_amount():
-                    largest_amount = word
+    # If we could not find an amount, let's try a different approach
+    if not grand_total or not grand_total.numeric_money_amount():
+        new_grand_total, new_sub_total = scan_for_totals(lines)
+        # trust the initial sub_total
+        if sub_total:
+            new_sub_total = sub_total
 
+        # since we couldn't figure out the taxes correctly,
+        # don't attempt to infer the tax
         return {
-            'sub_total': largest_amount.numeric_money_amount(),
+            'sub_total': new_sub_total.numeric_money_amount(),
             'taxes': [],
-            'grand_total': largest_amount.numeric_money_amount()
+            'grand_total': new_grand_total.numeric_money_amount()
         }
+
     return {
         'sub_total': sub_total.numeric_money_amount(),
         'taxes': taxes,
         'grand_total': grand_total.numeric_money_amount()
     }
 
-def find_amount(lines, index):
-    word = search_for_amount(lines[index])
-    if word:
-        return word
+def scan_for_totals(lines):
+    amounts = []
+    for line in lines:
+        for word in line:
+            if word.is_money():
+                amounts.append(word)
 
-    word = search_for_amount(lines[index + 1])
-    if word:
-        return word
+    amounts.sort(key=lambda x: x.numeric_money_amount(), reverse=True)
+    if amounts:
+        return amounts[0], amounts[1]
+    return None
 
-    word = search_for_amount(lines[index - 1])
+def find_amount(line, index):
+    word = search_for_amount(line)
     if word:
         return word
 
