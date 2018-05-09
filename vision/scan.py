@@ -1,47 +1,29 @@
-from __future__ import print_function
 import re
 from decimal import Decimal
 from google.cloud import vision
-from constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
+from vision.word import Word
+from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
 
 
-class Word():
-    def __init__(self, text):
-        self.text = self.clean(text)
+def scan(image_uri):
+    # Instantiates a client
+    client = vision.ImageAnnotatorClient()
+    annotated_image_response = client.annotate_image({
+        'image': {
+            'source': {
+                'image_uri': image_uri
+            },
+        },
+        'features': [
+            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+        ],
+    })
+    print(build(annotated_image_response))
 
-    def clean(self, text):
-        # remove any non alpha numeric characters, decimals and dash
-        return re.sub(r'[^a-zA-Z0-9.\-\%]', '', text)
 
-    def is_money(self):
-        pattern = re.compile('^(-?\$?(\d)*\.(\d))')
-        return pattern.match(self.text) is not None
-
-    def is_number(self):
-        try:
-            float(self.text)
-            return True
-        except ValueError:
-            return False
-
-    def is_percentage(self):
-        return '%' in self.text
-
-    def numeric_money_amount(self):
-        if not self.is_money():
-            return None
-
-        number = ''
-        pattern = re.compile('^\d')
-        for char in self.text:
-            if char == "." or pattern.match(char):
-                number = number + char
-
-        return Decimal(number)
-
-def scan(annotated_image_response):
+def build(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
-    print(description)
     lines = build_lines(description)
     return build_receipt(lines)
 
@@ -143,7 +125,6 @@ def eligible_tax_amount(tax_amount, sub_total):
 
     return True
 
-
 def search_for_amount(line, ignore_percentage=False):
     line.reverse()
     for word in line:
@@ -151,29 +132,3 @@ def search_for_amount(line, ignore_percentage=False):
             continue
         if word.is_money():
             return word
-
-
-def analyze(image_uri):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'source': {
-                'image_uri': image_uri
-            },
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-
-    receipt = scan(annotated_image_response)
-    print(receipt)
-    return receipt
-
-
-if __name__ == '__main__':
-    analyze(
-        "https://cdn-images-1.medium.com/max/800/1*ysuMPZXOxyPLGwhMBJfxow.jpeg"
-    )
