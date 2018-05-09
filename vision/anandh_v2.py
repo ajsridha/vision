@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 from decimal import Decimal
 from google.cloud import vision
@@ -42,9 +43,8 @@ def scan(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
     print(description)
     lines = build_lines(description)
-    receipt = build_receipt(lines)
+    return build_receipt(lines)
 
-    print(receipt)
 
 def build_lines(description):
     lines = []
@@ -143,6 +143,7 @@ def eligible_tax_amount(tax_amount, sub_total):
 
     return True
 
+
 def search_for_amount(line, ignore_percentage=False):
     line.reverse()
     for word in line:
@@ -166,7 +167,13 @@ def analyze(image_uri):
             {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
         ],
     })
-    scan(annotated_image_response)
 
-analyze(
-    "https://cdn-images-1.medium.com/max/800/1*ysuMPZXOxyPLGwhMBJfxow.jpeg")
+    receipt = scan(annotated_image_response)
+    print(receipt)
+    return receipt
+
+
+if __name__ == '__main__':
+    analyze(
+        "https://cdn-images-1.medium.com/max/800/1*ysuMPZXOxyPLGwhMBJfxow.jpeg"
+    )
