@@ -20,16 +20,19 @@ def analyze(image_uri):
     generate_receipt(annotated_image_response)
 
 
-def generate_receipt(annotated_image_response, print_entire_receipt=False):
+def generate_receipt(annotated_image_response):
+    # import pdb; pdb.set_trace()
+    print(annotated_image_response.text_annotations[0])
+
     pages = annotated_image_response.full_text_annotation.pages
     words = build_words(annotated_image_response.full_text_annotation)
     lines = build_lines(words)
 
-    if print_entire_receipt:
-        for key in sorted(lines.keys()):
-            for word in lines[key]:
-                print(word.text, end=" ")
-            print("\n")
+
+    for line in lines:
+        for word in line:
+            print(word.text, end=" ")
+        print("\n")
 
     print_total(lines)
 
@@ -135,5 +138,4 @@ def print_total(lines):
     print("Tax: " + sorted_proposed_amounts[0])
 
 analyze(
-    "http://4xhost.club/wp-content/uploads/2017/09/walmart-receipt-mart-receipt-receipt-plan-template-business-plan-in-receipt-template-mart-receipt-tax-codes-walmart-receipt-policy-checking.jpg"
-)
+    "http://4xhost.club/wp-content/uploads/2017/11/target-receipt-lookup-target-receipt-number-target-receipt-number-target-survey-completion-guide-at-com-target-receipt-number-target-receipt-does-target-do-receipt-lookup.jpg")

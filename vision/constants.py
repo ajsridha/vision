@@ -1,5 +1,6 @@
 TOTAL="Total"
 SUBTOTAL="Subtotal"
+SUB="Sub"
 SALES_TAX="Sales Tax"
 TAX="Tax"
 HST_TAX = "HST"
@@ -11,7 +12,8 @@ GRAND_TOTAL_FIELDS = [
 ]
 
 SUBTOTAL_FIELDS = [
-    SUBTOTAL
+    SUBTOTAL,
+    SUB
 ]
 
 TAX_FIELDS = [
