@@ -68,6 +68,8 @@ def build_receipt(lines):
             if any(word.text.upper() == field.upper() for word in line):
                 grand_total = find_total(lines, index)
                 break
+        if grand_total.numeric_money_amount():
+            break
 
     for index, line in enumerate(lines):
         for field in TAX_FIELDS:
