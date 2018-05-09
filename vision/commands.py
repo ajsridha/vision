@@ -1,5 +1,5 @@
-from vision.scan import analyze
+from vision.scan import scan
 
 commands = {
-    'scan': analyze
+    'scan': scan
 }

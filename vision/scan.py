@@ -38,13 +38,28 @@ class Word():
 
         return Decimal(number)
 
-def scan(annotated_image_response):
-    description = annotated_image_response.text_annotations[0].description
-    print(description)
-    lines = build_lines(description)
-    receipt = build_receipt(lines)
+def scan(image_uri):
+    # Instantiates a client
+    client = vision.ImageAnnotatorClient()
+    annotated_image_response = client.annotate_image({
+        'image': {
+            'source': {
+                'image_uri': image_uri
+            },
+        },
+        'features': [
+            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+        ],
+    })
+    print(build(annotated_image_response))
 
-    print(receipt)
+
+def build(annotated_image_response):
+    description = annotated_image_response.text_annotations[0].description
+    lines = build_lines(description)
+    return build_receipt(lines)
+
 
 def build_lines(description):
     lines = []
@@ -150,20 +165,3 @@ def search_for_amount(line, ignore_percentage=False):
             continue
         if word.is_money():
             return word
-
-
-def analyze(image_uri):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'source': {
-                'image_uri': image_uri
-            },
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-    scan(annotated_image_response)
