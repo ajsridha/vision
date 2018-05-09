@@ -26,7 +26,8 @@ def check_receipt(image, total):
         #         errors.append("tax2 (ex: {}, ac: {})".format(tax2, taxes[1]))
 
         if str(expense['grand_total']) != total:
-            errors.append("total (expected: {} != actual: {})".format(total, expense['grand_total']))
+            if total != "Fail" and str(expense['grand_total'] != "0.00":
+                errors.append("total (expected: {} != actual: {})".format(total, expense['grand_total']))
         return errors
     except:
         return ["Scan fail"]
