@@ -1,6 +1,7 @@
 import re
 from decimal import Decimal
 from google.cloud import vision
+from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
 
 
