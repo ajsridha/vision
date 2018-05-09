@@ -1,3 +1,5 @@
+import re
+
 class Word():
     def __init__(self, text):
         self.text = self.clean(text)

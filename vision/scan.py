@@ -1,4 +1,3 @@
-import re
 from decimal import Decimal
 from google.cloud import vision
 from vision.word import Word
