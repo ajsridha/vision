@@ -20,6 +20,28 @@ def scan(image_uri):
     return build(annotated_image_response)
 
 
+def scan_file(file_path):
+    # Instantiates a client
+    with open(file_path, 'rb') as fp:
+        data = fp.read()
+        return scan_content(data)
+
+
+def scan_content(content):
+    # Instantiates a client
+    client = vision.ImageAnnotatorClient()
+    annotated_image_response = client.annotate_image({
+        'image': {
+            'content': content
+        },
+        'features': [
+            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+        ],
+    })
+    return build(annotated_image_response)
+
+
 def build(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
     lines = build_lines(description)
