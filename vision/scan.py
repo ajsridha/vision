@@ -18,7 +18,7 @@ def scan(image_uri):
             {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
         ],
     })
-    print(build(annotated_image_response))
+    return build(annotated_image_response)
 
 
 def build(annotated_image_response):
