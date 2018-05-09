@@ -134,7 +134,6 @@ def eligible_tax_amount(tax_amount, grand_total):
     return True
 
 def search_for_amount(line, ignore_percentage=False):
-    line.reverse()
     for word in line:
         if ignore_percentage and word.is_percentage():
             continue
