@@ -1,4 +1,6 @@
 import re
+from decimal import Decimal
+
 
 class Word():
     def __init__(self, text):
