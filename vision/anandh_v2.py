@@ -34,8 +34,9 @@ class Word():
 
         return Decimal(number)
 
-def generate_receipt(annotated_image_response):
+def scan(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
+    print(description)
     lines = build_lines(description)
     receipt = build_receipt(lines)
 
@@ -53,60 +54,71 @@ def build_lines(description):
     return lines
 
 def build_receipt(lines):
-    grand_total = 0
-    sub_total = 0
+    grand_total = Word('')
+    sub_total = Word('')
     taxes = []
 
     for index, line in enumerate(lines):
         for field in SUBTOTAL_FIELDS:
             if any(word.text.upper() == field.upper() for word in line):
-                sub_total = find_amount(lines, index, field)
+                sub_total = find_amount(lines, index)
                 break
 
     for index, line in enumerate(lines):
         for field in GRAND_TOTAL_FIELDS:
             if any(word.text.upper() == field.upper() for word in line):
-                grand_total = find_amount(lines, index, field)
+                grand_total = find_amount(lines, index)
                 break
 
     for index, line in enumerate(lines):
         for field in TAX_FIELDS:
-            if any(word.text.upper() == field.upper() for word in line):
+            if any(field.upper() in word.text.upper() for word in line):
                 taxes.append(find_taxes(lines, index, field))
                 break
 
     return {
-        'sub_total': sub_total,
+        'sub_total': sub_total.numeric_money_amount(),
         'taxes': taxes,
-        'grand_total': grand_total
+        'grand_total': grand_total.numeric_money_amount()
     }
 
-def find_amount(lines, index, field):
-    for word in lines[index]:
-        if word.is_money():
-            return word.numeric_money_amount()
+def find_amount(lines, index):
+    word = search_for_amount(lines[index])
+    if word:
+        return word
 
-    # if couldn't find amout, search next row
-    for word in lines[index+1]:
-        if word.is_money():
-            return word.numeric_money_amount()
+    word = search_for_amount(lines[index + 1])
+    if word:
+        return word
+
+    word = search_for_amount(lines[index - 1])
+    if word:
+        return word
+
 
 def find_taxes(lines, index, field):
-    possible_amounts = []
-    for word in lines[index]:
-        if not word.is_percentage() and word.is_money():
-            possible_amounts.append(word.numeric_money_amount())
+    word = search_for_amount(lines[index], ignore_percentage=True)
+    if word:
+        return { 'name': field, 'amount': word.numeric_money_amount() }
 
-    # try looking at the next amount
-    if not possible_amounts:
-        for word in lines[index+1]:
-            if not word.is_percentage() and word.is_money():
-                possible_amounts.append(word.numeric_money_amount())
+    word = search_for_amount(lines[index + 1], ignore_percentage=True)
+    if word:
+        return { 'name': field, 'amount': word.numeric_money_amount() }
 
-    if not possible_amounts:
-        return {}
-    # temp return smallest tax amount
-    return { 'name': field, 'amount': sorted(possible_amounts)[0] }
+    word = search_for_amount(lines[index  - 1], ignore_percentage=True)
+    if word:
+        return { 'name': field, 'amount': word.numeric_money_amount() }
+
+    return {}
+
+def search_for_amount(line, ignore_percentage=False):
+    line.reverse()
+    for word in line:
+        if ignore_percentage and word.is_percentage():
+            continue
+        if word.is_money():
+            return word
+
 
 def analyze(image_uri):
     # Instantiates a client
@@ -122,7 +134,7 @@ def analyze(image_uri):
             {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
         ],
     })
-    generate_receipt(annotated_image_response)
+    scan(annotated_image_response)
 
 analyze(
-    "https://cdn0.opinion-corp.com/review-media/pictures/c1/2d/3993/best-buy_best-buy-discontinued-service-of-my-8-month-old-item-20110416232667_c12d-gallery.jpeg")
+    "https://forum.smartcanucks.ca/attachments/canadian-deals-bragging-discussion/213580d1391211437-80-bars-dove-soap-4-57-loblaws-m_photo-3.jpg")

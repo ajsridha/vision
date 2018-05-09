@@ -3,6 +3,8 @@ SUBTOTAL="Subtotal"
 SUB="Sub"
 SALES_TAX="Sales Tax"
 TAX="Tax"
+GST="GST"
+PST="PST"
 HST_TAX = "HST"
 BALANCE_DUE  = 'Balance Due'
 
@@ -19,5 +21,7 @@ SUBTOTAL_FIELDS = [
 TAX_FIELDS = [
     SALES_TAX,
     HST_TAX,
-    TAX
+    TAX,
+    GST,
+    PST
 ]
