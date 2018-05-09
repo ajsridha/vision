@@ -1,0 +1,35 @@
+interactions:
+- request:
+    body: assertion=eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiY2Y4MzA5NmM4OTZhODk4ODhkZjJjYWZkNWIyZWUyM2MzMWU4MDVjYiJ9.eyJpYXQiOiAxNTI1ODc4MjQzLCAiZXhwIjogMTUyNTg4MTg0MywgImlzcyI6ICJ2aXNpb25Ac2FwaWVudC1vcmlnaW4tMjAyOTIwLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgImF1ZCI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvdG9rZW4iLCAic2NvcGUiOiAiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vYXV0aC9jbG91ZC1wbGF0Zm9ybSBodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9hdXRoL2Nsb3VkLXZpc2lvbiJ9.gncZ_IrWjw4Bgi4Mb3gIqx6i1XgEhM92AvtfRdWP0Cx4FqKJwv-ZKlp8kxznWRcTxnFY2DU1hIOyiGg7vaS3O9qN7FqgsVHpRQNZtn_WUx4dvPgelI_ZanvmEBI6Lb_yE64ZYsurEti7-J_ezjwXNvnhiGAb1eugnVA3p7B7tMBuQjL_YBX3KWyqEFuO_44ebppTmOt0cr3Whxwt3F8RTSVNgTvlmITaz0v5iurIyYOiwGk8luoWTkbcFkX1laV_FkLNSmFMpFyVR2RGQd7PQYQ5mtTInNTdYYtuoEyEStXAwUzS-TNyQ0bWjVCTt-ti7GpMCRpy3BgZUu_RnXjL6Q%3D%3D&grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['877']
+      User-Agent: [python-requests/2.18.4]
+      content-type: [application/x-www-form-urlencoded]
+    method: POST
+    uri: https://accounts.google.com/o/oauth2/token
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAC/xzOSw/BMAAA4LtfsfQssoeVue3pkSA2YXZZqoqNadeW6cR/F7t+p+/T0zSAMCZC
+        5JLeyANoEw0oZDoDPAjvyvQO9dCm1SajbpzpMoja6wm6cFv6OKjtrLKn3H9aq/TsyGCrWGWe32Wy
+        iI71kjOD+qvxU9xnEJdNNBqZTZUm3IdtFCO1ZuHOIC+xN/aMNlas08uhgMiRcxlO09xtQP9/I29W
+        cCLyoptZUNc77q65VIx0YY8gTjjofX8AAAD//wMA1b/ZvtAAAAA=
+    headers:
+      Alt-Svc: ['hq=":443"; ma=2592000; quic=51303433; quic=51303432; quic=51303431;
+          quic=51303339; quic=51303335,quic=":443"; ma=2592000; v="43,42,41,39,35"']
+      Cache-Control: ['no-cache, no-store, max-age=0, must-revalidate']
+      Content-Disposition: [attachment; filename="json.txt"; filename*=UTF-8''json.txt]
+      Content-Encoding: [gzip]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 09 May 2018 15:04:03 GMT']
+      Expires: ['Mon, 01 Jan 1990 00:00:00 GMT']
+      Pragma: [no-cache]
+      Server: [ESF]
+      X-Content-Type-Options: [nosniff]
+      X-Frame-Options: [SAMEORIGIN]
+      X-XSS-Protection: [1; mode=block]
+    status: {code: 200, message: OK}
+version: 1
