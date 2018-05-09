@@ -10,7 +10,7 @@ class Word():
 
     def clean(self, text):
         # remove any non alpha numeric characters, decimals and dash
-        return re.sub(r'[^a-zA-Z0-9.-]', '', text)
+        return re.sub(r'[^a-zA-Z0-9.\-\%]', '', text)
 
     def is_money(self):
         pattern = re.compile('^(-?\$?(\d)*\.(\d))')
@@ -169,4 +169,4 @@ def analyze(image_uri):
     scan(annotated_image_response)
 
 analyze(
-    "https://i.imgur.com/0z5tk73.jpg")
+    "https://cdn-images-1.medium.com/max/800/1*ysuMPZXOxyPLGwhMBJfxow.jpeg")
