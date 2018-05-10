@@ -1,6 +1,9 @@
 # Vision
 ![](http://www.freepngimg.com/download/marvel_vision/9-2-marvel-vision-png-image.png)
 
+
+## Installation
+
 1. Create a `.env` file:
 ```
 GOOGLE_APPLICATION_CREDENTIALS="/path/to/credentials.json"
@@ -19,4 +22,17 @@ pipenv shell
 4. Run the app
 ```bash
 python vision/vision.py
+```
+
+
+## Measuring Accuracy
+
+### Running all 100 tests
+```bash
+$ python measure.py
+```
+
+### Running a specific image
+```bash
+$ python measure.py 3002745-189919.jpeg
 ```
