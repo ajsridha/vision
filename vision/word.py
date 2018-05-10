@@ -33,5 +33,7 @@ class Word():
         for char in self.text:
             if char == "." or pattern.match(char):
                 number = number + char
-
-        return Decimal(number)
+        try:
+            return Decimal(number)
+        except:
+            return None

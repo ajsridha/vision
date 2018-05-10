@@ -43,6 +43,11 @@ def scan_content(content):
 
 
 def build(annotated_image_response):
+    if not annotated_image_response.text_annotations:
+        return {
+            'grand_total': '0.00',
+            'taxes': []
+        }
     description = annotated_image_response.text_annotations[0].description
     lines = build_lines(description)
     return build_receipt(lines)
@@ -98,6 +103,7 @@ def find_total(lines, index):
                 amounts.append(word)
 
     if amounts:
+        amounts = list(filter(lambda x: x.numeric_money_amount() is not None, amounts))
         amounts.sort(key=lambda x: x.numeric_money_amount(), reverse=True)
         return amounts[0]
 
