@@ -1,12 +1,15 @@
 from decimal import Decimal
 from vision.scan import scan
+from prettytable import PrettyTable
 import csv
 import os
 import sys
 
-def check_receipt(image, total):
+def check_receipt(image, expected_total):
     try:
-        errors = []
+        result = {
+            'status': 'ok'
+        }
         url = "http://afn85.webfactional.com/receipts/{}".format(image)
         expense = scan(url)
         # if str(expense['sub_total']) != sub_total:
@@ -25,41 +28,71 @@ def check_receipt(image, total):
         #     elif taxes[1] != tax2:
         #         errors.append("tax2 (ex: {}, ac: {})".format(tax2, taxes[1]))
 
-        if str(expense['grand_total']) != total:
-            if total != "Fail" and str(expense['grand_total'] != "0.00":
-                errors.append("total (expected: {} != actual: {})".format(total, expense['grand_total']))
-        return errors
+        actual_total = str(expense['grand_total'])
+        result['total'] = {
+            'expected': expected_total,
+            'actual': expense['grand_total']
+        }
+        if actual_total != expected_total:
+            if expected_total != "Fail" and actual_total != "0.00":
+                result['status'] = 'failed'
+            else:
+                result['total']['actual'] = 'Fail'
+
+        return result
+    except KeyboardInterrupt:
+        exit()
     except:
-        return ["Scan fail"]
+        result['status'] = 'failed'
+        return result
 
 def main():
-    filename = 'measure.csv'
+    image_override = None
     if len(sys.argv) > 1:
-        filename = sys.argv[1]
+        image_override = sys.argv[1]
 
-    with open(filename, 'r') as csvfile:
+    with open('measure.csv', 'r') as csvfile:
         num_success = 0
         num_receipts = 0
         image = 0
         total = 1
-
+        results_table = PrettyTable(['#', 'Image', 'Expected Total', 'Actual Total', 'Status'])
         receipts = csv.reader(csvfile, delimiter=',', quotechar='"')
         for i, receipt in enumerate(receipts):
+            if image_override and image_override != receipt[image]:
+                    continue
+            # Show progress
 
-            errors = check_receipt(
+            result = check_receipt(
                 receipt[image],
                 receipt[total]
             )
-            print("Receipt {}) {} status:".format(i + 1, receipt[image]))
-            if len(errors) == 0:
-                num_success = num_success + 1
-                print("Success")
-            else:
-                pretty_errors = " | ".join(errors)
-                print("Failures: {}".format(pretty_errors))
-            num_receipts = num_receipts + 1
+            results_table.add_row([
+                i + 1,
+                receipt[image],
+                result['total']['expected'],
+                result['total']['actual'],
+                result['status']
+            ])
 
-        print ("{}/{}".format(num_success, num_receipts))
+            num_receipts = num_receipts + 1
+            if result['status'] == 'failed':
+                print('F', end='')
+                continue
+
+            num_success = num_success + 1
+            print('.', end='')
+
+
+        results_table.add_row(['','','','',''])
+        results_table.add_row([
+            'Results',
+            "{}/{} Succeeded".format(num_success, num_receipts),
+            '',
+            '',
+            ''
+        ])
+        print(results_table)
 
 
 if __name__ == "__main__":
