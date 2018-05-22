@@ -11,7 +11,7 @@ class Word():
         return re.sub(r'[^a-zA-Z0-9.\-\%]', '', text)
 
     def is_money(self):
-        pattern = re.compile('^(-?\$?(\d)*\.(\d))')
+        pattern = re.compile('^(-?\$?(\d)*\.(\d)+$)')
         return pattern.match(self.text) is not None
 
     def is_number(self):
@@ -31,7 +31,7 @@ class Word():
         number = ''
         pattern = re.compile('^\d')
         for char in self.text:
-            if char == "." or pattern.match(char):
+            if char in [".", '-'] or pattern.match(char):
                 number = number + char
         try:
             return Decimal(number)
