@@ -1,3 +1,4 @@
+from urllib import request
 from google.cloud import vision
 from vision.algorithms.text_analysis import find_total_on_line
 from vision.algorithms.largest_amount import find_largest_amount
@@ -10,6 +11,11 @@ def scan_file(file_path):
     with open(file_path, 'rb') as fp:
         data = fp.read()
         return scan_content(data)
+
+
+def scan(image_uri):
+    content = request.urlopen(image_uri).read()
+    return scan_content(content)
 
 
 def scan_content(content):
@@ -26,22 +32,6 @@ def scan_content(content):
     })
     return build(annotated_image_response)
 
-
-def scan(image_uri):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'source': {
-                'image_uri': image_uri
-            },
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-    return build(annotated_image_response)
 
 def build(annotated_image_response):
     if not annotated_image_response.text_annotations:
