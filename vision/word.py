@@ -37,3 +37,6 @@ class Word():
             return Decimal(number)
         except:
             return None
+
+    def __repr__(self):
+        return self.text

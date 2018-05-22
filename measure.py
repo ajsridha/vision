@@ -62,7 +62,6 @@ def main():
         total = 1
         results_table = PrettyTable(['#', 'Image', 'Expected Total', 'Actual Total', 'Status'])
         receipts = csv.reader(csvfile, delimiter=',', quotechar='"')
-        import pdb; pdb.set_trace()
         print('Progress:')
         for i, receipt in enumerate(receipts):
             if image_override and image_override != receipt[image]:

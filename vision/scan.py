@@ -1,23 +1,8 @@
 from google.cloud import vision
+from vision.algorithms.text_analysis import find_total_on_line
+from vision.algorithms.largest_amount import find_largest_amount
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
-
-
-def scan(image_uri):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'source': {
-                'image_uri': image_uri
-            },
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-    return build(annotated_image_response)
 
 
 def scan_file(file_path):
@@ -42,16 +27,45 @@ def scan_content(content):
     return build(annotated_image_response)
 
 
+def scan(image_uri):
+    # Instantiates a client
+    client = vision.ImageAnnotatorClient()
+    annotated_image_response = client.annotate_image({
+        'image': {
+            'source': {
+                'image_uri': image_uri
+            },
+        },
+        'features': [
+            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+        ],
+    })
+    return build(annotated_image_response)
+
 def build(annotated_image_response):
     if not annotated_image_response.text_annotations:
         return {
+            'vendor': None,
             'grand_total': '0.00',
             'taxes': []
         }
-    description = annotated_image_response.text_annotations[0].description
-    lines = build_lines(description)
-    return build_receipt(lines)
 
+    vendor = determine_vendor(annotated_image_response)
+    grand_total, taxes = build_amounts(annotated_image_response)
+
+    return {
+        'vendor': vendor,
+        'grand_total': grand_total,
+        'taxes': taxes
+    }
+
+
+def determine_vendor(annotated_image_response):
+    if not annotated_image_response.logo_annotations:
+        return None
+
+    return annotated_image_response.logo_annotations[0].description
 
 def build_lines(description):
     lines = []
@@ -60,11 +74,15 @@ def build_lines(description):
         for word in words.split(' '):
             word = Word(word)
             line.append(word)
+        # print(line)
         lines.append(line)
 
     return lines
 
-def build_receipt(lines):
+
+def build_amounts(annotated_image_response):
+    lines = build_lines(
+        annotated_image_response.text_annotations[0].description)
     grand_total = Word('0.00')
     taxes = []
 
@@ -82,30 +100,18 @@ def build_receipt(lines):
                 taxes.append(find_taxes(lines, index, field, grand_total))
                 break
 
-    return {
-        'grand_total': grand_total.numeric_money_amount(),
-        'taxes': taxes
-    }
+    return grand_total.numeric_money_amount(), taxes
+
 
 def find_total(lines, index):
-    total = search_for_amount(lines[index])
+    total = find_total_on_line(lines, index)
     if total:
         return total
 
-    # The most important part of the receipt of the total.
-    # If we could not find it, try a weaker alterative
+    total = find_largest_amount(lines, index)
+    if total:
+        return total
 
-    # scan the document for the highest money amount
-    amounts = []
-    for line in lines[index:]:
-        for word in line:
-            if word.is_money():
-                amounts.append(word)
-
-    if amounts:
-        amounts = list(filter(lambda x: x.numeric_money_amount() is not None, amounts))
-        amounts.sort(key=lambda x: x.numeric_money_amount(), reverse=True)
-        return amounts[0]
 
     return Word('0.00')
 
