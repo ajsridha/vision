@@ -1,5 +1,6 @@
 from urllib import request
 from google.cloud import vision
+from date_detector import Parser
 from vision.algorithms.text_analysis import find_total_on_line
 from vision.algorithms.largest_amount import find_largest_amount
 from vision.word import Word
@@ -37,15 +38,18 @@ def build(annotated_image_response):
     if not annotated_image_response.text_annotations:
         return {
             'vendor': None,
+            'date': None,
             'grand_total': '0.00',
             'taxes': []
         }
 
     vendor = determine_vendor(annotated_image_response)
+    date = determine_date(annotated_image_response)
     grand_total, taxes = build_amounts(annotated_image_response)
 
     return {
         'vendor': vendor,
+        'date': date,
         'grand_total': grand_total,
         'taxes': taxes
     }
@@ -56,6 +60,13 @@ def determine_vendor(annotated_image_response):
         return None
 
     return annotated_image_response.logo_annotations[0].description
+
+
+def determine_date(annotated_image_response):
+    description = annotated_image_response.text_annotations[0].description
+    parser = Parser()
+    for match in parser.parse(description):
+        return match.date
 
 def build_lines(description):
     lines = []
