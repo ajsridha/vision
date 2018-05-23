@@ -74,13 +74,14 @@ def main():
                 receipt[image],
                 receipt[total]
             )
+
             results_table.add_row([
                 i + 1,
                 receipt[image],
                 result['total']['expected'],
                 result['total']['actual'],
-                result['vendor'],
-                result['date'],
+                result.get('vendor'),
+                result.get('date'),
                 result['status']
             ])
 

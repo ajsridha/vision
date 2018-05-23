@@ -95,11 +95,20 @@ def build_amounts(annotated_image_response):
         if grand_total.numeric_money_amount():
             break
 
+    # if we couldn't find the word total on the receipt, look for the largest
+    # number
+    if not grand_total or grand_total.numeric_money_amount() == 0:
+        grand_total = find_largest_amount(lines, index=0)
+
+
     for index, line in enumerate(lines):
         for field in TAX_FIELDS:
             if any(field.upper() in word.text.upper() for word in line):
                 taxes.append(find_taxes(lines, index, field, grand_total))
                 break
+
+    if not grand_total:
+        grand_total = Word('0.00')
 
     return grand_total.numeric_money_amount(), taxes
 
