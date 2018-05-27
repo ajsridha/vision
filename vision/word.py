@@ -37,3 +37,9 @@ class Word():
             return Decimal(number)
         except:
             return None
+
+    def __repr__(self):
+        if self.is_money():
+            str(self.numeric_money_amount())
+
+        return self.text

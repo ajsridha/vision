@@ -8,26 +8,15 @@ import sys
 def check_receipt(image, expected_total):
     try:
         result = {
-            'status': 'ok'
+            'status': 'ok',
+            'sub_total': 'Unknown',
+            'taxes': 'Unknown'
         }
         url = "http://afn85.webfactional.com/receipts/{}".format(image)
         expense = scan(url)
-        # if str(expense['sub_total']) != sub_total:
-        #     errors.append("sub_total (ex: {}, ac: {})".format(sub_total, expense['sub_total']))
 
-        # taxes = expense['taxes']
-        # if tax1:
-        #     if len(taxes) == 0:
-        #         errors.append("tax1 missing")
-        #     elif taxes[0] != tax1:
-        #         errors.append("tax1 (ex: {}, ac: {})".format(tax1, taxes[0]))
-
-        # if tax2:
-        #     if len(taxes) < 2:
-        #         errors.append("tax2 missing")
-        #     elif taxes[1] != tax2:
-        #         errors.append("tax2 (ex: {}, ac: {})".format(tax2, taxes[1]))
-
+        result['sub_total'] = str(expense['sub_total'])
+        result['taxes'] = expense['taxes']
         actual_total = str(expense['grand_total'])
         result['total'] = {
             'expected': expected_total,
@@ -60,9 +49,9 @@ def main():
         num_receipts = 0
         image = 0
         total = 1
-        results_table = PrettyTable(['#', 'Image', 'Expected Total', 'Actual Total', 'Status'])
+        results_table = PrettyTable(['#', 'Image', 'Result', 'Subtotal', 'Taxes', 'Total', 'Status'])
         receipts = csv.reader(csvfile, delimiter=',', quotechar='"')
-        import pdb; pdb.set_trace()
+
         print('Progress:')
         for i, receipt in enumerate(receipts):
             if image_override and image_override != receipt[image]:
@@ -75,10 +64,22 @@ def main():
             results_table.add_row([
                 i + 1,
                 receipt[image],
+                'Expected',
+                '',
+                '',
                 result['total']['expected'],
-                result['total']['actual'],
                 result['status']
             ])
+            results_table.add_row([
+                '',
+                '',
+                'Actual',
+                result['sub_total'],
+                result['taxes'],
+                result['total']['actual'],
+                ''
+            ])
+            results_table.add_row(['','','','','','',''])
 
             num_receipts = num_receipts + 1
             if result['status'] == 'failed':
@@ -89,10 +90,12 @@ def main():
             print('.', end='', flush=True)
 
 
-        results_table.add_row(['','','','',''])
+        results_table.add_row(['','','','','','',''])
         results_table.add_row([
             'Results',
             "{}/{} Succeeded".format(num_success, num_receipts),
+            '',
+            '',
             '',
             '',
             ''

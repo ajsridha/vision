@@ -1,3 +1,4 @@
+from decimal import Decimal
 from google.cloud import vision
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
@@ -66,75 +67,99 @@ def build_lines(description):
 
 def build_receipt(lines):
     grand_total = Word('0.00')
+    sub_total = Word('0.00')
     taxes = []
+    grand_total_line = None
+    sub_total_line = None
 
     for index, line in enumerate(lines):
         for field in GRAND_TOTAL_FIELDS:
             if any(word.text.upper() == field.upper() for word in line):
-                grand_total = find_total(lines, index)
+                grand_total_line, grand_total = find_total(lines, index)
                 break
         if grand_total.numeric_money_amount():
             break
 
-    for index, line in enumerate(lines):
-        for field in TAX_FIELDS:
-            if any(field.upper() in word.text.upper() for word in line):
-                taxes.append(find_taxes(lines, index, field, grand_total))
+    if grand_total_line:
+        # Look for the next highest number before the grand total
+        for index, line in enumerate(lines[:grand_total_line]):
+            for field in SUBTOTAL_FIELDS:
+                if any(word.text.upper() == field.upper() for word in line):
+                    sub_total_line, sub_total = find_total(lines, index, ignore_amount=grand_total)
+                    break
+            if sub_total.numeric_money_amount():
                 break
+
+    if grand_total_line and sub_total_line:
+        tax_lines = lines[sub_total_line + 1:grand_total_line]
+        taxes = find_taxes(tax_lines, sub_total, grand_total)
+        # taxes.append(find_taxes(lines, grand_total_line, sub_total_line, field, grand_total, sub_total))
 
     return {
         'grand_total': grand_total.numeric_money_amount(),
+        'sub_total': sub_total.numeric_money_amount(),
         'taxes': taxes
     }
 
-def find_total(lines, index):
+def find_total(lines, index, ignore_amount=None):
     total = search_for_amount(lines[index])
     if total:
-        return total
+        return index, total
 
     # The most important part of the receipt of the total.
     # If we could not find it, try a weaker alterative
 
     # scan the document for the highest money amount
     amounts = []
-    for line in lines[index:]:
+    for line_number, line in enumerate(lines[index:]):
         for word in line:
             if word.is_money():
-                amounts.append(word)
+                if ignore_amount and word.numeric_money_amount() == ignore_amount.numeric_money_amount:
+                    continue
+
+                amounts.append({
+                    'line_number': index + line_number,
+                    'word': word
+                })
 
     if amounts:
-        amounts = list(filter(lambda x: x.numeric_money_amount() is not None, amounts))
-        amounts.sort(key=lambda x: x.numeric_money_amount(), reverse=True)
-        return amounts[0]
+        amounts = list(filter(lambda x: x["word"].numeric_money_amount() is not None, amounts))
+        if ignore_amount:
+            amounts = list(filter(lambda x: x["word"].numeric_money_amount() != ignore_amount.numeric_money_amount(), amounts))
+        amounts.sort(key=lambda x: x["word"].numeric_money_amount(), reverse=True)
+        return amounts[0]['line_number'], amounts[0]['word']
 
-    return Word('0.00')
+    return 0, Word('0.00')
 
 
-def find_taxes(lines, index, field, grand_total):
+def find_taxes(lines, sub_total, grand_total):
     # A safe assumption to make is that the taxes will be lower than the
     # subtotal. Often receipts have "X% of SUBTOTAL" as a line item.
     # We want to ignore any amounts that are >= to the subtotal
-    word = search_for_amount(lines[index], ignore_percentage=True)
-    if word and eligible_tax_amount(word, grand_total):
-        return { 'name': field, 'amount': word.numeric_money_amount() }
 
-    word = search_for_amount(lines[index + 1], ignore_percentage=True)
-    if word and eligible_tax_amount(word, grand_total):
-        return { 'name': field, 'amount': word.numeric_money_amount() }
+    taxes = []
+    for line in lines:
+        word = search_for_amount(line, ignore_percentage=True)
+        if word and eligible_tax_amount(word, sub_total, grand_total):
+            taxes.append(word)
 
-    word = search_for_amount(lines[index  - 1], ignore_percentage=True)
-    if word and eligible_tax_amount(word, grand_total):
-        return { 'name': field, 'amount': word.numeric_money_amount() }
+    return taxes
 
-    return {}
-
-def eligible_tax_amount(tax_amount, grand_total):
+def eligible_tax_amount(tax_amount, sub_total, grand_total):
     # if grand_total is 0, comparing the tax amount isn't useful
     if not grand_total.numeric_money_amount():
         return True
 
+    # ignore zero dollar taxes
+    if tax_amount.numeric_money_amount() == Decimal('0.00'):
+        return False
+
     # most likely did not pick out the right amount
-    if grand_total.numeric_money_amount() < tax_amount.numeric_money_amount():
+    if grand_total.numeric_money_amount() <= tax_amount.numeric_money_amount():
+        return False
+
+    # most likely did not pick out the right amount
+    if sub_total.numeric_money_amount() <= tax_amount.numeric_money_amount():
         return False
 
     return True
