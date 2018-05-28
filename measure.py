@@ -22,6 +22,9 @@ def check_receipt(image, expected_total):
             'expected': expected_total,
             'actual': expense['grand_total']
         }
+        result['vendor'] = expense['vendor']
+        result['date'] = expense['date']
+
         if actual_total != expected_total:
             if expected_total != "Fail" and actual_total != "0.00":
                 result['status'] = 'failed'
@@ -49,8 +52,6 @@ def main():
         num_receipts = 0
         image = 0
         total = 1
-        results_table = PrettyTable(['#', 'Image', 'Result', 'Subtotal', 'Taxes', 'Total', 'Status'])
-        receipts = csv.reader(csvfile, delimiter=',', quotechar='"')
 
         print('Progress:')
         for i, receipt in enumerate(receipts):
@@ -61,13 +62,14 @@ def main():
                 receipt[image],
                 receipt[total]
             )
+
             results_table.add_row([
                 i + 1,
                 receipt[image],
                 'Expected',
                 '',
                 '',
-                result['total']['expected'],
+                result['total']['expected']
                 result['status']
             ])
             results_table.add_row([
@@ -89,8 +91,6 @@ def main():
             num_success = num_success + 1
             print('.', end='', flush=True)
 
-
-        results_table.add_row(['','','','','','',''])
         results_table.add_row([
             'Results',
             "{}/{} Succeeded".format(num_success, num_receipts),

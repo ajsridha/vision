@@ -9,21 +9,29 @@ PST="PST"
 HST_TAX = "HST"
 BALANCE_DUE  = 'Balance Due'
 
+CASH = 'Cash'
+EFECTIVO = 'efectivo'
+
 GRAND_TOTAL_FIELDS = [
-    TOTAL,
-    BALANCE_DUE
+    TOTAL.upper(),
+    BALANCE_DUE.upper()
 ]
 
 SUBTOTAL_FIELDS = [
-    SUBTOTAL,
-    SUB,
-    SUB_TOTAL
+    SUBTOTAL.upper(),
+    SUB.upper(),
+    SUB_TOTAL.upper()
 ]
 
 TAX_FIELDS = [
-    SALES_TAX,
-    HST_TAX,
-    TAX,
-    GST,
-    PST
+    SALES_TAX.upper(),
+    HST_TAX.upper(),
+    TAX.upper(),
+    GST.upper(),
+    PST.upper()
+]
+
+CASH_FIELDS = [
+    CASH.upper(),
+    EFECTIVO.upper()
 ]

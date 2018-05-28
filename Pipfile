@@ -10,6 +10,7 @@ pillow = "*"
 vcrpy = "*"
 vcrpy-unittest = "*"
 prettytable = "*"
+date-detector = "*"
 
 [dev-packages]
 nose = "*"

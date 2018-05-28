@@ -8,10 +8,10 @@ class Word():
 
     def clean(self, text):
         # remove any non alpha numeric characters, decimals and dash
-        return re.sub(r'[^a-zA-Z0-9.\-\%]', '', text)
+        return re.sub(r'[^a-zA-Z0-9.,\-\%]', '', text)
 
     def is_money(self):
-        pattern = re.compile('^(-?\$?(\d)*\.(\d))')
+        pattern = re.compile('^(-?\$?(\d)*(\.|\,)(\d)+$)')
         return pattern.match(self.text) is not None
 
     def is_number(self):
@@ -31,15 +31,20 @@ class Word():
         number = ''
         pattern = re.compile('^\d')
         for char in self.text:
-            if char == "." or pattern.match(char):
+            if char in [".", '-'] or pattern.match(char):
                 number = number + char
+            if char == ",":
+                number = number + "."
         try:
             return Decimal(number)
         except:
             return None
 
     def __repr__(self):
+<<<<<<< HEAD
         if self.is_money():
             str(self.numeric_money_amount())
 
+=======
+>>>>>>> 0dc12f43009683f441eb74741e80208588deadbd
         return self.text

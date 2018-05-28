@@ -1,24 +1,14 @@
+<<<<<<< HEAD
 from decimal import Decimal
+=======
+from urllib import request
+>>>>>>> 0dc12f43009683f441eb74741e80208588deadbd
 from google.cloud import vision
+from date_detector import Parser
+from vision.algorithms.text_analysis import find_total_on_line
+from vision.algorithms.largest_amount import find_largest_amount
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
-
-
-def scan(image_uri):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'source': {
-                'image_uri': image_uri
-            },
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-    return build(annotated_image_response)
 
 
 def scan_file(file_path):
@@ -26,6 +16,11 @@ def scan_file(file_path):
     with open(file_path, 'rb') as fp:
         data = fp.read()
         return scan_content(data)
+
+
+def scan(image_uri):
+    content = request.urlopen(image_uri).read()
+    return scan_content(content)
 
 
 def scan_content(content):
@@ -46,13 +41,36 @@ def scan_content(content):
 def build(annotated_image_response):
     if not annotated_image_response.text_annotations:
         return {
+            'vendor': None,
+            'date': None,
             'grand_total': '0.00',
             'taxes': []
         }
-    description = annotated_image_response.text_annotations[0].description
-    lines = build_lines(description)
-    return build_receipt(lines)
 
+    vendor = determine_vendor(annotated_image_response)
+    date = determine_date(annotated_image_response)
+    grand_total, taxes = build_amounts(annotated_image_response)
+
+    return {
+        'vendor': vendor,
+        'date': date,
+        'grand_total': grand_total,
+        'taxes': taxes
+    }
+
+
+def determine_vendor(annotated_image_response):
+    if not annotated_image_response.logo_annotations:
+        return None
+
+    return annotated_image_response.logo_annotations[0].description
+
+
+def determine_date(annotated_image_response):
+    description = annotated_image_response.text_annotations[0].description
+    parser = Parser()
+    for match in parser.parse(description):
+        return match.date
 
 def build_lines(description):
     lines = []
@@ -61,11 +79,15 @@ def build_lines(description):
         for word in words.split(' '):
             word = Word(word)
             line.append(word)
+        # print(line)
         lines.append(line)
 
     return lines
 
-def build_receipt(lines):
+
+def build_amounts(annotated_image_response):
+    lines = build_lines(
+        annotated_image_response.text_annotations[0].description)
     grand_total = Word('0.00')
     sub_total = Word('0.00')
     taxes = []
@@ -80,6 +102,7 @@ def build_receipt(lines):
         if grand_total.numeric_money_amount():
             break
 
+<<<<<<< HEAD
     if grand_total_line:
         # Look for the next highest number before the grand total
         for index, line in enumerate(lines[:grand_total_line]):
@@ -103,9 +126,32 @@ def build_receipt(lines):
 
 def find_total(lines, index, ignore_amount=None):
     total = search_for_amount(lines[index])
+=======
+    # if we couldn't find the word total on the receipt, look for the largest
+    # number
+    if not grand_total or grand_total.numeric_money_amount() == 0:
+        grand_total = find_largest_amount(lines, index=0)
+
+
+    for index, line in enumerate(lines):
+        for field in TAX_FIELDS:
+            if any(field.upper() in word.text.upper() for word in line):
+                taxes.append(find_taxes(lines, index, field, grand_total))
+                break
+
+    if not grand_total:
+        grand_total = Word('0.00')
+
+    return grand_total.numeric_money_amount(), taxes
+
+
+def find_total(lines, index):
+    total = find_total_on_line(lines, index)
+>>>>>>> 0dc12f43009683f441eb74741e80208588deadbd
     if total:
         return index, total
 
+<<<<<<< HEAD
     # The most important part of the receipt of the total.
     # If we could not find it, try a weaker alterative
 
@@ -128,6 +174,12 @@ def find_total(lines, index, ignore_amount=None):
             amounts = list(filter(lambda x: x["word"].numeric_money_amount() != ignore_amount.numeric_money_amount(), amounts))
         amounts.sort(key=lambda x: x["word"].numeric_money_amount(), reverse=True)
         return amounts[0]['line_number'], amounts[0]['word']
+=======
+    total = find_largest_amount(lines, index)
+    if total:
+        return total
+
+>>>>>>> 0dc12f43009683f441eb74741e80208588deadbd
 
     return 0, Word('0.00')
 
