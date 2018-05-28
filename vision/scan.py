@@ -1,3 +1,6 @@
+import os
+import urllib
+import json
 from urllib import request
 from decimal import Decimal
 from google.cloud import vision
@@ -61,11 +64,34 @@ def build(annotated_image_response):
 
 
 def determine_vendor(annotated_image_response):
-    if not annotated_image_response.logo_annotations:
-        return None
+    if annotated_image_response.logo_annotations:
+        return annotated_image_response.logo_annotations[0].description
 
-    return annotated_image_response.logo_annotations[0].description
+    places_api_key = os.environ.get('GOOGLE_PLACES_API_KEY')
+    if not places_api_key:
+        return
 
+    lines = build_lines(
+        annotated_image_response.text_annotations[0].description)
+
+    search_query = ""
+    enough_data = False
+    for line in lines[0:10]:
+        if len(line) >= 2:
+            for word in line:
+                search_query = search_query + word.text + " "
+            enough_data = enough_data + 1
+            if enough_data > 2:
+                break
+
+    response = request.urlopen(
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
+        + urllib.parse.quote_plus(search_query)
+        + "&key=" + places_api_key)
+
+    data = json.load(response)
+    if data.get('results') and data['results'][0].get('name'):
+        return data['results'][0]['name']
 
 def determine_date(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
@@ -82,7 +108,6 @@ def build_lines(description):
             word = Word(word)
             line.append(word)
         lines.append(line)
-        # print(line)
 
     return lines
 
