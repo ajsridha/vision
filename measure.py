@@ -16,9 +16,11 @@ TAX2_AMOUNT_FIELD = 6
 TAX3_NAME_FIELD = 7
 TAX3_AMOUNT_FIELD = 8
 TOTAL_FIELD = 9
+DATE_FIELD = 10
 
 expense_csv_mapping = {
     'vendor': VENDOR_FIELD,
+    'date': DATE_FIELD,
     'sub_total': SUBTOTAL_FIELD,
     'tax1_amount': TAX1_AMOUNT_FIELD,
     'tax2_amount': TAX2_AMOUNT_FIELD,
@@ -59,7 +61,7 @@ def main():
         num_success = 0
         num_receipts = 0
 
-        results_table = PrettyTable(['#', 'Image', 'Result', 'Vendor', 'Subtotal', 'Tax1', 'Tax2', 'Tax3', 'Total', 'Status'])
+        results_table = PrettyTable(['#', 'Image', 'Result', 'Vendor', 'Date', 'Subtotal', 'Tax1', 'Tax2', 'Tax3', 'Total', 'Status'])
         receipts = csv.reader(csvfile, delimiter=',', quotechar='"')
 
         print('Progress:')
@@ -78,6 +80,7 @@ def main():
                 receipt[IMAGE_FIELD],
                 'Expected',
                 receipt[VENDOR_FIELD],
+                receipt[DATE_FIELD],
                 receipt[SUBTOTAL_FIELD],
                 receipt[TAX1_AMOUNT_FIELD],
                 receipt[TAX2_AMOUNT_FIELD],
@@ -90,6 +93,7 @@ def main():
                 '',
                 'Actual',
                 result['vendor'] if result['vendor'] else '',
+                result['date'] if result['date'] else '',
                 result['sub_total'] if result['sub_total'] else '',
                 result['tax1_amount'],
                 result['tax2_amount'],
@@ -97,7 +101,7 @@ def main():
                 result['grand_total'] if result['grand_total'] else '',
                 ''
             ])
-            results_table.add_row(['-','-','-','-','-','-','-','-','-','-'])
+            results_table.add_row(['-','-','-','-','-','-','-','-','-','-','-'])
 
             num_receipts = num_receipts + 1
             if status != 100:
@@ -109,10 +113,11 @@ def main():
 
 
         correct_percentage = (num_success / (num_receipts * 100)) * 100
-        results_table.add_row(['','','','','','','','','',''])
+        results_table.add_row(['','','','','','','','','','',''])
         results_table.add_row([
             'Results',
             "{}% Succeeded".format(round(correct_percentage, 1)),
+            '',
             '',
             '',
             '',
