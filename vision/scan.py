@@ -89,7 +89,7 @@ def build_amounts(annotated_image_response):
     lines = build_lines(
         annotated_image_response.text_annotations[0].description)
     grand_total = Word('0.00')
-    sub_total = Word('0.00')
+    sub_total = Word('')
     taxes = []
     grand_total_line = None
     sub_total_line = None

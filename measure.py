@@ -34,7 +34,6 @@ def check_receipt(expected):
 
     num_fields = 0
     num_correct = 0
-
     for field, csv_field_index in expense_csv_mapping.items():
         if not expected[csv_field_index]:
             continue
@@ -47,7 +46,7 @@ def check_receipt(expected):
     if not num_correct:
         if not expense['grand_total']:
             return 100, expense
-        return 0, expense
+        return 0.0, expense
 
     return round(num_correct/num_fields * 100, 1), expense
 
@@ -67,7 +66,8 @@ def main():
         for i, receipt in enumerate(receipts):
             if image_override and image_override != receipt[IMAGE_FIELD]:
                     continue
-            text = colored("{}: ".format(receipt[IMAGE_FIELD]), 'blue')
+
+            text = colored(" {}) {}: ".format(i+1, receipt[IMAGE_FIELD]), 'blue')
             print(text, end='')
             status, result = check_receipt(receipt)
 
@@ -89,12 +89,12 @@ def main():
                 '',
                 '',
                 'Actual',
-                result['vendor'],
-                result['sub_total'],
+                result['vendor'] if result['vendor'] else '',
+                result['sub_total'] if result['sub_total'] else '',
                 result['tax1_amount'],
                 result['tax2_amount'],
                 result['tax2_amount'],
-                result['grand_total'],
+                result['grand_total'] if result['grand_total'] else '',
                 ''
             ])
             results_table.add_row(['-','-','-','-','-','-','-','-','-','-'])
