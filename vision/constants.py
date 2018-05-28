@@ -1,4 +1,5 @@
 TOTAL="Total"
+FARE="Fare" # Uber Receipts
 SUBTOTAL="Subtotal"
 SUB="Sub"
 SUB_TOTAL="Sub-Total"
@@ -14,8 +15,8 @@ EFECTIVO = 'efectivo'
 
 GRAND_TOTAL_FIELDS = [
     TOTAL.upper(),
-    BALANCE_DUE.upper()
-]
+    BALANCE_DUE.upper(),
+    FARE.upper()]
 
 SUBTOTAL_FIELDS = [
     SUBTOTAL.upper(),

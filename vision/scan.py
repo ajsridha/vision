@@ -3,7 +3,7 @@ from decimal import Decimal
 from google.cloud import vision
 from date_detector import Parser
 from vision.word import Word
-from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS
+from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
 
 
 def scan_file(file_path):
@@ -124,6 +124,16 @@ def find_total(lines, index, ignore_amount=None):
     if total:
         return index, total
 
+    # check for the presence of the word "cash". When a person pays by
+    # cash, they usually make a payment that is equal to or more the total.
+    # This will be useful so we don't pick the largest amount, but the second
+    # largest amount
+    cash_used = False
+    for line in lines:
+        for word in line:
+            if word.text.upper() in CASH_FIELDS:
+                cash_used = True
+
     # The most important part of the receipt of the total.
     # If we could not find it, try a weaker alterative
 
@@ -146,8 +156,12 @@ def find_total(lines, index, ignore_amount=None):
             amounts = list(filter(lambda x: x["word"].numeric_money_amount() != ignore_amount.numeric_money_amount(), amounts))
         amounts.sort(key=lambda x: x["word"].numeric_money_amount(), reverse=True)
 
+        if cash_used and len(amounts) > 1:
+            return amounts[1]['line_number'], amounts[1]['word']
+
         if amounts:
             return amounts[0]['line_number'], amounts[0]['word']
+
         return 0, Word('')
 
     return 0, Word('')
