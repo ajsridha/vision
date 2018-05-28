@@ -11,6 +11,7 @@ vcrpy = "*"
 vcrpy-unittest = "*"
 prettytable = "*"
 date-detector = "*"
+termcolor = "*"
 
 [dev-packages]
 nose = "*"
