@@ -46,7 +46,7 @@ def check_receipt(expected):
             continue
 
     if not num_correct:
-        if not expense['grand_total']:
+        if not expected[TOTAL_FIELD]:
             return 100, expense
         return 0.0, expense
 
