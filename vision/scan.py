@@ -82,6 +82,7 @@ def build_lines(description):
             word = Word(word)
             line.append(word)
         lines.append(line)
+        # print(line)
 
     return lines
 
@@ -101,6 +102,11 @@ def build_amounts(annotated_image_response):
                 break
         if grand_total.numeric_money_amount():
             break
+
+    # if we couldn't find the word total on the receipt, look for the largest
+    # number
+    if not grand_total or grand_total.numeric_money_amount() == 0:
+        grand_total_line, grand_total = find_largest_amount(lines, index=0)
 
     if grand_total_line:
         # Look for the next highest number before the grand total
@@ -127,6 +133,10 @@ def find_total(lines, index, ignore_amount=None):
     if total:
         return index, total
 
+    return find_largest_amount(lines, index, ignore_amount)
+
+
+def find_largest_amount(lines, index, ignore_amount=None):
     # check for the presence of the word "cash". When a person pays by
     # cash, they usually make a payment that is equal to or more the total.
     # This will be useful so we don't pick the largest amount, but the second
@@ -165,10 +175,9 @@ def find_total(lines, index, ignore_amount=None):
         if amounts:
             return amounts[0]['line_number'], amounts[0]['word']
 
-        return 0, Word('')
+        return 0, Word('0.00')
 
-    return 0, Word('')
-
+    return 0, Word('0.00')
 
 def find_taxes(lines, sub_total, grand_total):
     # A safe assumption to make is that the taxes will be lower than the
