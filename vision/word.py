@@ -41,10 +41,7 @@ class Word():
             return None
 
     def __repr__(self):
-<<<<<<< HEAD
         if self.is_money():
             str(self.numeric_money_amount())
 
-=======
->>>>>>> 0dc12f43009683f441eb74741e80208588deadbd
         return self.text
