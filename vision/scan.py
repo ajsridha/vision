@@ -116,6 +116,9 @@ def build_amounts(annotated_image_response):
         tax_lines = lines[sub_total_line + 1:grand_total_line]
         taxes = find_taxes(tax_lines, sub_total, grand_total)
 
+    if not sub_total.is_money():
+        sub_total = grand_total
+
     return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()
 
 
