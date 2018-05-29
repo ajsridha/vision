@@ -12,6 +12,7 @@ vcrpy-unittest = "*"
 prettytable = "*"
 date-detector = "*"
 termcolor = "*"
+commonregex = "*"
 
 [dev-packages]
 nose = "*"

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "55ba5e86c6bebdb78fa890e25b992993698bb9797c836dda890fa8b50cb636d7"
+            "sha256": "2f3cbae9b904c5bb5010b5482fcb1ac63dfcb6b6a4beedf4a1349c3de2f9eee4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -37,6 +37,13 @@
             ],
             "version": "==3.0.4"
         },
+        "commonregex": {
+            "hashes": [
+                "sha256:271530678ad8af53c0e8c233a762597969e846d0029f12215ac178791f3de0a5"
+            ],
+            "index": "pypi",
+            "version": "==1.5.4"
+        },
         "date-detector": {
             "hashes": [
                 "sha256:9007767ebf7bb69dd4ded857c1107768f5826e2e6385af35663d01c1a9d8d62e"
@@ -53,10 +60,10 @@
         },
         "google-auth": {
             "hashes": [
-                "sha256:34088434cb2a2409360b8f3cbc04195a465df1fb2aafad71ebbded77cbf08803",
-                "sha256:9051802d3dae256036cca9e34633a32c0ed1427730d4ebc513dff91ec8b6dd45"
+                "sha256:e67a59f29a68c44a135328b28992a072cde67ac5646a173b7009047ba994de7d",
+                "sha256:eedf258e04ca8582aca3b6f41e1a582f4fd36c132cbce5abcfc212172636cb37"
             ],
-            "version": "==1.4.1"
+            "version": "==1.4.2"
         },
         "google-cloud-vision": {
             "hashes": [

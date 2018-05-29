@@ -1,6 +1,7 @@
 import os
 import urllib
 import json
+import requests
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -10,6 +11,7 @@ from google.cloud import vision
 from date_detector import Parser
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
+from commonregex import CommonRegex
 
 
 def scan_file(file_path):
@@ -53,8 +55,8 @@ def build(annotated_image_response):
         return receipt
 
     sub_total, taxes, grand_total = build_amounts(annotated_image_response)
-    description = annotated_image_response.text_annotations[0].description
 
+    receipt['address'] = determine_address(annotated_image_response)
     receipt['vendor'] = determine_vendor(annotated_image_response)
     receipt['date'] = determine_date(annotated_image_response)
     receipt['sub_total'] = sub_total
@@ -87,20 +89,30 @@ def determine_vendor(annotated_image_response):
             if enough_data > 2:
                 break
 
-    response = urlopen(
+    response = requests.get(
         'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
         + urllib.parse.quote_plus(search_query)
         + "&key=" + places_api_key)
 
-    data = json.load(response)
+    data = response.json()
     if data.get('results') and data['results'][0].get('name'):
         return data['results'][0]['name']
 
 def determine_date(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
-    parser = Parser()
-    for match in parser.parse(description):
-        return match.date
+    parsed_text = CommonRegex(description.replace('\n', ' '))
+    dates = parsed_text.dates
+    if len(dates):
+        return dates[0]
+    return ''
+
+def determine_address(annotated_image_response):
+    description = annotated_image_response.text_annotations[0].description
+    parsed_text = CommonRegex(description.replace('\n', ' '))
+    addresses = parsed_text.street_addresses
+    if len(addresses):
+        return addresses[0]
+    return ''
 
 
 def build_lines(description):
