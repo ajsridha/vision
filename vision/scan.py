@@ -1,7 +1,10 @@
 import os
 import urllib
 import json
-from urllib import request
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 from decimal import Decimal
 from google.cloud import vision
 from date_detector import Parser
@@ -32,7 +35,7 @@ def scan_content(content):
 
 
 def scan(image_uri):
-    content = request.urlopen(image_uri).read()
+    content = urlopen(image_uri).read()
     return scan_content(content)
 
 
@@ -84,7 +87,7 @@ def determine_vendor(annotated_image_response):
             if enough_data > 2:
                 break
 
-    response = request.urlopen(
+    response = urlopen(
         'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
         + urllib.parse.quote_plus(search_query)
         + "&key=" + places_api_key)
