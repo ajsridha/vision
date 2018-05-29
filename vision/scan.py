@@ -216,7 +216,7 @@ def find_taxes(lines, sub_total, grand_total):
     for line in lines:
         word = search_for_amount(line, ignore_percentage=True)
         if word and eligible_tax_amount(word, sub_total, grand_total):
-            taxes.append(word)
+            taxes.append(word.numeric_money_amount())
 
     return taxes
 
