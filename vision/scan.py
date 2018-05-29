@@ -1,4 +1,10 @@
-from urllib import request
+import os
+import urllib
+import json
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 from decimal import Decimal
 from google.cloud import vision
 from date_detector import Parser
@@ -29,7 +35,7 @@ def scan_content(content):
 
 
 def scan(image_uri):
-    content = request.urlopen(image_uri).read()
+    content = urlopen(image_uri).read()
     return scan_content(content)
 
 
@@ -61,11 +67,34 @@ def build(annotated_image_response):
 
 
 def determine_vendor(annotated_image_response):
-    if not annotated_image_response.logo_annotations:
-        return None
+    if annotated_image_response.logo_annotations:
+        return annotated_image_response.logo_annotations[0].description
 
-    return annotated_image_response.logo_annotations[0].description
+    places_api_key = os.environ.get('GOOGLE_PLACES_API_KEY')
+    if not places_api_key:
+        return
 
+    lines = build_lines(
+        annotated_image_response.text_annotations[0].description)
+
+    search_query = ""
+    enough_data = False
+    for line in lines[0:10]:
+        if len(line) >= 2:
+            for word in line:
+                search_query = search_query + word.text + " "
+            enough_data = enough_data + 1
+            if enough_data > 2:
+                break
+
+    response = urlopen(
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
+        + urllib.parse.quote_plus(search_query)
+        + "&key=" + places_api_key)
+
+    data = json.load(response)
+    if data.get('results') and data['results'][0].get('name'):
+        return data['results'][0]['name']
 
 def determine_date(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
@@ -82,7 +111,6 @@ def build_lines(description):
             word = Word(word)
             line.append(word)
         lines.append(line)
-        # print(line)
 
     return lines
 
@@ -188,7 +216,7 @@ def find_taxes(lines, sub_total, grand_total):
     for line in lines:
         word = search_for_amount(line, ignore_percentage=True)
         if word and eligible_tax_amount(word, sub_total, grand_total):
-            taxes.append(word)
+            taxes.append(word.numeric_money_amount())
 
     return taxes
 
