@@ -6,6 +6,7 @@ try:
     from urllib.request import urlopen
 except ImportError:
     from urllib2 import urlopen
+from datetime import datetime
 from decimal import Decimal
 from google.cloud import vision
 from date_detector import Parser
@@ -100,11 +101,15 @@ def determine_vendor(annotated_image_response):
 
 def determine_date(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
-    parsed_text = CommonRegex(description.replace('\n', ' '))
-    dates = parsed_text.dates
-    if len(dates):
+    parser = Parser()
+    dates = []
+    for match in parser.parse(description):
+        if match.date <= datetime.today().date():
+            dates.append(match.date)
+
+    if dates:
+        dates.sort(reverse=True)
         return dates[0]
-    return ''
 
 def determine_address(annotated_image_response):
     description = annotated_image_response.text_annotations[0].description
