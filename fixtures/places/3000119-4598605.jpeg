@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "696 Elizabeth Road, Winnipeg, MB R2J 1A4, Canada",
+         "geometry" : {
+            "location" : {
+               "lat" : 49.870521,
+               "lng" : -97.08834999999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.87187082989271,
+                  "lng" : -97.08700017010727
+               },
+               "southwest" : {
+                  "lat" : 49.86917117010727,
+                  "lng" : -97.08969982989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "576aeb793e30d0a40a19861a5158b25680adbe63",
+         "name" : "Liberty Tax Service",
+         "opening_hours" : {
+            "open_now" : false,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 500,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105450587651707530668/photos\"\u003eLiberty Tax Service\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAoeo1ERErWg4wOIJzawNs5B3C8tp2WNB6Syqb3a_emrpUbM8aci00acZwUX-AqHHwEp40rIZfW7XONO9QcJhal5xGAN0r6B0kuId578l0ryBh7zhO6xjqGwFpV1pvPX55EhD77-tN_zy6dwf2nRsZuY8PGhRIJcnAfALH6v3XYHrRfsAcp48fAA",
+               "width" : 500
+            }
+         ],
+         "place_id" : "ChIJEx0lHSd36lIRvBa4OP3TTgk",
+         "rating" : 1,
+         "reference" : "CmRbAAAANNx0xO6J1PsXyu_lTT3hY0iZJ-S7bJio9r7AWW8iE7D57Ph0Dni-GAo3-TE5XTc38T4lnQJQlR6DqaOAS4YRbii6tg0S1SIuk6TFOafIk2wp2UkCQDbWzVFcoMw4jATFEhAzAHngWc4On8Ml97cC3bq7GhTNVEsGeXEhxMCIrY5w9iaDup395A",
+         "types" : [ "accounting", "finance", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

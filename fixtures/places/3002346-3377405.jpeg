@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "1501 Melrose Dr, Oceanside, CA 92056, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.2204501,
+               "lng" : -117.2592661
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.22159862989272,
+                  "lng" : -117.2580007201073
+               },
+               "southwest" : {
+                  "lat" : 33.21889897010728,
+                  "lng" : -117.2607003798927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "cb118c0604581fb87dc222cc4f7f2edfc30c6153",
+         "name" : "ARCO",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2988,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110952353484027679916/photos\"\u003eFreedom Rules\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAATzuvEdizzYPZ-XeJQabTK2TkI6zTPwgz8Z8_BVC1inwmr4Q7WCl8V9A-RPp_QLTwseeiXrGFl73TBcRzKqX53BSbhIVmvetM4Jhdg9oFt1fb0dJmbHW4M7uSNHsOxMkhEhCGV9t0WCRHZ2ZDbjyasI4IGhQO4dO3Al0zYHrYI4kf6SUih-Ze3w",
+               "width" : 5312
+            }
+         ],
+         "place_id" : "ChIJo__U-M523IAR4en4g-ty6aQ",
+         "rating" : 3.7,
+         "reference" : "CmRbAAAAR649eRbGaeFa5-lXtFB9sZ3t80WI6OUtMjfmm7VQyUz9A1lz_PqrwYKl53_BlPJ19QTDl8Suj1VDZKLT4jMNPPDU4kVHOntElFmw747Mq72Yf_zbSCkrsZ26_QY4FpuJEhA1wj01LupFhdu5uqnP3PRGGhRZYSraHBRm_hrrO-zAI0Ge-NT9Xw",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

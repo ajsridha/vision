@@ -1,0 +1,189 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "3rd Ave, Newton Park, Port Elizabeth, 6045, South Africa",
+         "geometry" : {
+            "location" : {
+               "lat" : -33.9499881,
+               "lng" : 25.5687747
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -33.94863827010728,
+                  "lng" : 25.57012452989272
+               },
+               "southwest" : {
+                  "lat" : -33.95133792989272,
+                  "lng" : 25.56742487010728
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "9b1bcbfd6cad24b41585eec5789deb391d45ac2e",
+         "name" : "Newton Park SUPERSPAR",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2988,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116194555688367519232/photos\"\u003eBrandon Collier-Reed\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAPAP5T416LoaNL_mXb6lGe1i3cURBnjCsCpNArAUJgG6tTK16HOF8awhbMt9SALLk9OGS2BIkFA611UJWZP0EUrS9rFD7P5Xfmdra-G241hLjKOxS7MhDN983gxmSbJT4EhD3nFV2Ul7aWzY8mGqKoGb3GhQMIEAgzc0ZmxCAwIw_aq4054k_FA",
+               "width" : 5312
+            }
+         ],
+         "place_id" : "ChIJEUPzjdXTeh4RmGdqHJ3At9Q",
+         "rating" : 4.4,
+         "reference" : "CmRbAAAA4DSGglslKlmv8UUXcGSiS8E4sjSooEb6WXeDbVHFRGTK5uMTRALVTIgngOOmZu-hKUX73w84BNnNXNEuAao7mR_JKvfmuSniVJQLuSUY9SNhqpL3Np73Myi2jX_c4z-eEhD3qbG2B27_xZj1kUnJD0SuGhTkUhFLgLM-4-4IivkY8WaRc6oeQg",
+         "types" : [
+            "grocery_or_supermarket",
+            "store",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "formatted_address" : "15 King Edward Rd, Newton Park, Port Elizabeth, 6045, South Africa",
+         "geometry" : {
+            "location" : {
+               "lat" : -33.9485972,
+               "lng" : 25.569979
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -33.94724737010728,
+                  "lng" : 25.57132882989272
+               },
+               "southwest" : {
+                  "lat" : -33.94994702989273,
+                  "lng" : 25.56862917010728
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "e409a137ad7d1ed77b2852225216cc7370aea704",
+         "name" : "Food Lover's Market Newton Park",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 846,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/104470604666317134881/photos\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAxPfNvCPMpyClZS_sR0pGSRlPMh4ZbTVasDSqyN_1KDkDlMob8oMptr-AxzOFjLsgiTuKLpRlvMQwuWYQ4gGfaygDmYdc5B8xO_51qhDy4vCb-IFBCgGOSsS2woUeYjYjEhDPlcSitmbCauPRBC64oqu2GhRgZ9KBS3oMryRmnZnMgveMxB3Jsw",
+               "width" : 1504
+            }
+         ],
+         "place_id" : "ChIJqVZH19XTeh4Rg-NOAdTg_x4",
+         "rating" : 3.7,
+         "reference" : "CmRbAAAAgZLN_bXX1-UrZweGxgI_BqLhZbLiNKOGCrao-wtATIoz7CEq4XnYMTtnr3XwSsbXOe-3LTniUnk8GzKUyk88xkMhtCauqW2w_OqWDGRak4oFrcfr38LNczK30y3wog-SEhA1LuZp2IZbzHIgYRdUl6BcGhSmA8toN5fY4rFUBe2-P2GVnNfGcA",
+         "types" : [
+            "supermarket",
+            "grocery_or_supermarket",
+            "store",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "formatted_address" : "Big Ben Centre Cnr Hurd Street and, 6th Ave, Newton Park, Port Elizabeth, 6045, South Africa",
+         "geometry" : {
+            "location" : {
+               "lat" : -33.9487303,
+               "lng" : 25.5576751
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -33.94743962010728,
+                  "lng" : 25.55932542989272
+               },
+               "southwest" : {
+                  "lat" : -33.95013927989272,
+                  "lng" : 25.55662577010727
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "3f2551dab6380682a4c247c1bb8638b775ed9800",
+         "name" : "Checkers Newton Park",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3776,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106108588231717435197/photos\"\u003eJay Chen\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAviwvKpec3g_9XsgTQadsDKHuFDhTr0MKWnrMqUdVNfGqm3zBHSgwzmpBlFNhR5X_VlEE2FQBmh_Sxg2JrSSBZT9wX_caKOFiS0nV3ksyBrhf9ZorlIUrOJ2nTM31DBGqEhBKAgFKR5FDM0z8bpcCcTikGhR4CLj63erMvbPzKfBI70LfIcuuxw",
+               "width" : 17104
+            }
+         ],
+         "place_id" : "ChIJQXEGZ3rReh4RnZbmKennZb0",
+         "rating" : 4,
+         "reference" : "CmRbAAAA1EeeP2_ws_fmdyjuT6uW6tsKCAglZAS-ZbYjTqpboGz0mYspPui5hHrd1m1pEaN-h-qunp6nEoNJymQ3RW7w0Y3WvRzZf5zTicCwGyrI-juOHsc-CWzIYOlP0rcJFpFZEhB6E_DdT7kn5__SgM0pe9AfGhSiIaL9dXRdbjbrH4BhfyH-XUmy0g",
+         "types" : [
+            "supermarket",
+            "bakery",
+            "travel_agency",
+            "grocery_or_supermarket",
+            "finance",
+            "store",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "formatted_address" : "Shop 13, Newton Spar Centre, 3rd Ave, Newton Park, Port Elizabeth, 6045, South Africa",
+         "geometry" : {
+            "location" : {
+               "lat" : -33.949796,
+               "lng" : 25.5700559
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : -33.94821242010728,
+                  "lng" : 25.57094805
+               },
+               "southwest" : {
+                  "lat" : -33.95091207989272,
+                  "lng" : 25.56737945
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "452f45f8a32c9d7072563b3c59f84b0ebc9b1b9a",
+         "name" : "Little Angel Decor",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1536,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/104591368751388511285/photos\"\u003eAgisilaos Demetriades\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAALl4-Ev4U-LTjE5cxyrcjt9TOcl1CLka4Z_2kCCJBbtWALIi-mKO3ovrevLmc9F0KAZeHVf2X3Nr45hPhNDxrUXEZC7drcRdMOQD9-dEcB6dMWGhQiDhr0pG9op-lKgQaEhDf6uQ3MEJXefQtnL75NwYOGhQ0DEggwStLccQD3c1Z--3php_vKg",
+               "width" : 2304
+            }
+         ],
+         "place_id" : "ChIJMXWA9dXTeh4REs18H0Y6daE",
+         "rating" : 4.1,
+         "reference" : "CmRbAAAAM53kyxvySd9EmcNijCCkxIYbUGBW9Dv1kLU48abZ1_ahyZBI3740SgnQHaJvhUVCk1Da9s28TqWMIoI9zR_3M5FOB2efUJ4m8vmFAh5maAkpaqrVM_ybN8TUX-B_QScuEhD2hzV7FML1enmxBSYxlUnaGhQHNXV7K_X1GdkOqw1b_Nhnrlj8KA",
+         "types" : [ "store", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

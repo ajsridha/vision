@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "16-2615 Lancaster Rd, Ottawa, ON K1B 5N2, Canada",
+         "geometry" : {
+            "location" : {
+               "lat" : 45.399467,
+               "lng" : -75.6101525
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.40048527989272,
+                  "lng" : -75.60925542010727
+               },
+               "southwest" : {
+                  "lat" : 45.39778562010728,
+                  "lng" : -75.61195507989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "1cbd980e4e7dd55da950f0a464272b29316ef036",
+         "name" : "Futech Ottawa Inc",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1836,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/108938566373108813843/photos\"\u003eDamien Robitaille\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA1Jy2HX0tUY1HCVgzumDPO7sEutzkMVTTjJi8hgY-jd7KgXaLVTsboWMMNzfre0KEteg9FEcCJ3XTY85Dr3Z_MgZva1tEhQAuM7cV6e9JuCCwZrqpHBW1qCbXQhpKiCJIEhDkpoXSr9F38b9eP1b03tGGGhRm5I0Z7G8BdgBVO50hDm_CSpkmvQ",
+               "width" : 3264
+            }
+         ],
+         "place_id" : "ChIJab94dxwPzkwRjb5-BtSBekE",
+         "rating" : 4.4,
+         "reference" : "CmRbAAAAXVXlUqiOgv-tMZZuA8dgcB1dYj8H3ugq-najcMIU2sGSz1olq5kBGsiCO1_3A1Dy5DxG6aGxhC0JQmxeQ5odsA_A0BrRv_bXw8Hyj6RALny4og8sngIoV_EzRP3OiKzFEhA_2-UFTl_WTpNXwRqBjunwGhSjOYFQEsgBC0EloLDnyfiXtvBTew",
+         "types" : [ "store", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

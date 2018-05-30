@@ -1,0 +1,504 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "64660 Van Dyke, Washington, MI 48095, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.77059089999999,
+               "lng" : -83.01615270000001
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.77205557989272,
+                  "lng" : -83.01501102010728
+               },
+               "southwest" : {
+                  "lat" : 42.76935592010728,
+                  "lng" : -83.01771067989273
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "62bd55ff3e77d73d34d829b7e52928b9bdf0e6be",
+         "name" : "Kroger",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1152,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/101169930365434219742/photos\"\u003eSaundra Kiczenski\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAC2FgyK9RplMK4zAnzR0tQN-QJLbrgocMQOyLzKZ5fMp3VN9Jl2zLc7aTF1OoxdakjpU1w_UFrzcz8NStjsnK754fm999bz0GcIrUdFXR5ODViIMBrLJvoku3RRCGSHxpEhCFlqlpb5dp28sgw7njNQvXGhSm3dPRaZmFwt1LQcjnyQRe7cjhVg",
+               "width" : 2048
+            }
+         ],
+         "place_id" : "ChIJoyxh7vTkJIgRhhtIDYGF4HI",
+         "price_level" : 2,
+         "rating" : 4.3,
+         "reference" : "CmRbAAAARxkhlmpKx0hb9tILSwOAZPEyS9_bTdi6oKOPuSABh15vp3ChLgqQeyplRXzwDky4MkXZ5M1L35hbZbReccCPd91aRMvp3qYCTQyTMBHvpWDBdpDDf6MUfFNJLT6s2Mj5EhAL3uOB3oaVd4AYfbDZcM_xGhQ5Q9Ro7tHYmpz5lR33It_0UOf_1Q",
+         "types" : [
+            "grocery_or_supermarket",
+            "store",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ]
+      },
+      {
+         "formatted_address" : "605 S Lapeer Rd, Lake Orion, MI 48362, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.77472179999999,
+               "lng" : -83.2385843
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.77605812989272,
+                  "lng" : -83.23746907010728
+               },
+               "southwest" : {
+                  "lat" : 42.77335847010728,
+                  "lng" : -83.24016872989273
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "cf26e21ef40a9fedc2443f1eea5887c18861489f",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112646121039226561066/photos\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAYwgLhkVyvcIqQWJaoH9KTUJzvdcVhyQbj92YD9ypVcnI2mASqm1WyXriyZQznEe2QdiARaZr4XXqEecX8-e3ismoPfRzq4mpdiGKAI1N3btVnBGvucKaPG-MT408diPxEhAyXM9GFokd_sD9V71FXObsGhSpf4PNV15zQWkVHCo51dMHpbeIfQ",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJ9_zLai7tJIgRuL-G7DhJ2g0",
+         "price_level" : 2,
+         "rating" : 4.4,
+         "reference" : "CmRbAAAA6SUzYD3ai_DC77VRDVyz-ex_I2dTDaWEzpDlm51qX6749ri9PNrkWZrJLEB5EJ3EZSPerEW1NRsSRBx6aRrjRV7qeoF4n5gQoWby1R1zsrxgEsP52zixXcDwIMNMudYbEhB5_dyGV1ush9a4RXjo6mA6GhRW6o7-8N1QGEc4sr5JQOlB8HMZ1g",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "1100 W Argyle St, Jackson, MI 49202, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.26236129999999,
+               "lng" : -84.42632940000001
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.26365402989272,
+                  "lng" : -84.42496797010728
+               },
+               "southwest" : {
+                  "lat" : 42.26095437010727,
+                  "lng" : -84.42766762989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "386b737d0d5c25cff5f11f3af4e68a8002861bc0",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 270,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110643848942013914379/photos\"\u003eKroger Fuel Center\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRZAAAAfeIb3ySGavtjaZ_UIYmyGhX3AVMqjKjBQV8_e7ZT4ZbrKL96jcA7rkcY-ZXswp3yjJnt2BoU5qnd9PmJAwOlRCcW0uIrYZPplGMiWfO12LCrFhJ8kMKQQGfA3VM7FHiaEhD2kKteOyNGFjRiV1YWANC0GhQuAVzCB5LtbUCIN1rFl4Im4o0hhg",
+               "width" : 480
+            }
+         ],
+         "place_id" : "ChIJfatcM_cvPYgR86ahSUqN-Hw",
+         "price_level" : 2,
+         "rating" : 3,
+         "reference" : "CmRbAAAAyTxdI1kCp931C1dnuf8gYrVSWUk1QPILe0Mr4eldphbPjxS-gY56kby_AJoCZ1hQDyovGVcKn_aO42MlbWwGQEeQEBDtCvJK0SkONVW8aUseSItFvRi-4yRtF3YRQ-gFEhDQFwRF5wyFkP5iLGw4eLu-GhQs5lRcSkTm-MkgOQp-48e3HEUIAA",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "23170 Michigan Ave, Dearborn, MI 48124, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.30297789999999,
+               "lng" : -83.261056
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.30415267989272,
+                  "lng" : -83.25963282010729
+               },
+               "southwest" : {
+                  "lat" : 42.30145302010727,
+                  "lng" : -83.26233247989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "f4201a67fdcb399de287842261f32c26517c6998",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105511091717365216719/photos\"\u003eAnnemarie Zick\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA3x2zJ5uvQ_ZxtLlZ-5hcW6kNuGf1X5dnzQ15QTYATrrjSIZV7LpQsnxBMjOomr1KxbTViHpnr6pICd0EXIrPD9IWkFvPtjoCVqpdUC0N7CYkoM5Q0KWn7jB33t0QfHsOEhDHawRcP49lh-YSvXVDAwhiGhQWLONbEKqwznHED24iSlUcBLO6wQ",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJKdtRg3pKO4gRZfcclLnm0W0",
+         "price_level" : 2,
+         "rating" : 4.3,
+         "reference" : "CmRbAAAAcBm1wuv8gGv83gBF8xW2Jxwo7Tag-0mjF5y-RRDjQMLJ2Ce4uyHHykQC_f7BBGiuhWjVT81jGcjK-FuOTAAgGjOopCIudeETyE-z74ftf34llL5YOhh2Dp4CrWixxRbmEhCLzxBUPFsUNaujjpAOmQZJGhT2hY81dZFX9fGg0W8K45_-fNPQTw",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "5990 Sashabaw Rd, Village of Clarkston, MI 48346, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.7225483,
+               "lng" : -83.37730359999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.72394932989272,
+                  "lng" : -83.37561137010726
+               },
+               "southwest" : {
+                  "lat" : 42.72124967010727,
+                  "lng" : -83.37831102989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "6183d048e049850c18d470eba5ea9853dd256bf1",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100125107376814755204/photos\"\u003eKevin Bartlo\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAArpVpBMFPnU0izxpksee3mSIKpra4SsAU4aGpkK1fc0UWLauUDkr5ckbigQR-QRpQMx5jG450H4F2nKYGMYFOZVk6vI2ik5X5B9ErGAY9lh1Z5snW4i3cR0TufD1uli1CEhDUXM3KHeMnaj3bZlKdek2-GhTpmt8YKcWHqFNsYLKVC7Lsfp9Zbw",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJqzOK6uKWJIgRU7oVeoaWnWg",
+         "price_level" : 2,
+         "rating" : 3.9,
+         "reference" : "CmRbAAAAofiOllBBXhPgax2cwk7EczqczH7qHkUm5EWsJMS2wDyiuXHqGCwYWxg2nbKHv5ndSdyyBTLKEdMjibzCR0rvU3Qlq705c0Es_UIZfbus9YS9a2H391GqnJmMyAXLCM4VEhC6h6LUSRpGDURwG8guFO3EGhRjdZhNyIH0rnVGak0St0G1ygUNdg",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "4887 Rochester Rd, Troy, MI 48098, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.5904023,
+               "lng" : -83.12957759999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.59175547989273,
+                  "lng" : -83.12794262010728
+               },
+               "southwest" : {
+                  "lat" : 42.58905582010728,
+                  "lng" : -83.13064227989273
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "9a417e76ccf26c6434f02f68b2ec6789de6f821f",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105452218611444529788/photos\"\u003eGerald Rice\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAJWbnFRikxHXl6_Aoj8xE0Wv2dumqWhSqpk3guuPVNC9L8-AcMySJKyaY4h7j94PIg1LxuDC4iKZkLPganozYzVmCcbDjXv-LfXXamTSrAeSiIr0-QEENpLaoKjuPEjvaEhClryGnReO8Pt4yTXUukxCTGhTQuOq7n7DF0FOXNIwNrY4JDCet3w",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJhXadKJvDJIgRZGZQsvuSH9U",
+         "price_level" : 2,
+         "rating" : 4.4,
+         "reference" : "CmRbAAAABDKul45dZVxdkcQdmc_uwuTVuZ9Cm-vb1ABruDLIfSLZzUDRQD3VdA-GSa7jWUOItcQ2VVgqEw_kXEZC4NMApYQpMo17c6XA1_vKZgnlyZyOEHKMHsqox-Kjtn2tz2vBEhB0uTpl4pm3MuTrWKyurzyiGhQIqD4QnGvkxXBviNfR2nojnDNjng",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "2733 Union Lake Rd, Commerce Charter Twp, MI 48382, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.5937322,
+               "lng" : -83.4454389
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.59508202989272,
+                  "lng" : -83.44408907010727
+               },
+               "southwest" : {
+                  "lat" : 42.59238237010728,
+                  "lng" : -83.44678872989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "68364660e7c09cf74881b4b2ca5de81ad7b14ed6",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105213098318334183113/photos\"\u003eDavid DiGirolamo\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAzgkCRfXVyNnWZ4y5YhTFFd-EiYiROVShbygUGwHapD5N8t60g7KEPvNnK0Z4DPEbLv5GzFBF2cY8u9c813DnKkaDiNtA-k2lrks_xzCXSwXQq8yckXSh_qduHiVzZcgBEhD5gnMjB_jgd06XfAKTACx-GhQDpKTwLmp0TDTY_5oGjHaxcTOckg",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJ64T-bp-kJIgR0mN0ILUa5Y0",
+         "price_level" : 2,
+         "rating" : 4.5,
+         "reference" : "CmRbAAAAPH6Y76Twd-WEJKwcOWAeQuqkzRD-DvX7j30qxze5Z084EWUc6hL1FUyiN8DjFNhTf2UuX1fLImcSPBdtJ2dBWFsxex_5Xl_lqSLZ_gy1Gmn1TzUMTQ6HxzNn3YAWoEk8EhCkup2gijOZiYywyIw9ZB1fGhTrJ7pdTK1NU8L2smcg29xO68Ic7w",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "26030 Gratiot Ave, Roseville, MI 48066, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.488213,
+               "lng" : -82.9418367
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.48965902989272,
+                  "lng" : -82.94041482010728
+               },
+               "southwest" : {
+                  "lat" : 42.48695937010728,
+                  "lng" : -82.94311447989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "29c354a1abb529f296b8b74b86993bbfa45b8019",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3006,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/113050103316151401670/photos\"\u003ea coop\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAKWS-jEwJAo1SlOZud6KY7ijNqppyn6w-QIeT9IhR6sHNO6jJhRmLQCfxZfaJj6tbqNNDH2cjuV6DHgt4EyO72IHFCKHv69V2PR91-R8qt6qFHpxBWTQjTnXZvfoqWgBiEhCozrBK9ZNDOo9VYunGgz8dGhRF77z_R4Qzfrhm-mnvm3bmrxRCjg",
+               "width" : 5344
+            }
+         ],
+         "place_id" : "ChIJUbMGy4fXJIgRUXH0eyhIeec",
+         "price_level" : 2,
+         "rating" : 4,
+         "reference" : "CmRbAAAAL6zVNqbgUagpJ5eYzKXUGZwLgbKGtc2FHaIKBYfqu8K33Gq5DcxR8D008Gh3sfuNkcCQuWatZuYhppQk65BytxJtcB4viwJnbxfosll6EVfpr66oactbDdeEkvqcBYz6EhAf69dOspgd14DXk3OGW5W8GhQqVWtqIFBUiJgOut5bkqVGpXWBgA",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "23101 John R Rd, Hazel Park, MI 48030, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.4621884,
+               "lng" : -83.10460519999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.46354382989272,
+                  "lng" : -83.10296652010727
+               },
+               "southwest" : {
+                  "lat" : 42.46084417010727,
+                  "lng" : -83.10566617989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "e35f9e4e0c76847724f21d3aed300c7913365b1d",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 270,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/102033684622296423014/photos\"\u003eKroger Fuel Center\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAcldFc2IP5Z0BDCrJ1HU63RoHv9kqpTfjXGRzG74HUgsr7ueV3znHAvkSD8OAtzwQMQmTOj-FOcXpfJlayxk-a3MI2O1l-zRpid4YaVh3mkVtGqj7V1zwFLSLVaQfQ1TMEhB3YFyZUMcw7WcrEwjWl_CDGhTh2rmMcY4BSk-j7eaXEgwYjTBatg",
+               "width" : 480
+            }
+         ],
+         "place_id" : "ChIJb_6suLTPJIgRzOvVwJdYMo0",
+         "price_level" : 2,
+         "rating" : 4.2,
+         "reference" : "CmRbAAAANKGPtwBXwrGMZEbtGKrWl5XRAeQsE8gJQ6q4nfunb13K1DpjNN2xDo5xJZiJfjSQpF8lpUOGuMyX8PKU8dB-yHxJIJ-P1XDLcNNhl9tSHg3rcYTPBI_qr9p-f2gSFZrbEhBehCs-LbeVPl8bAdt7tdNlGhTQSzJRY_mYibvyl8yd2anOQF-F0w",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "44421 Ann Arbor Rd, Plymouth, MI 48170, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.3581401,
+               "lng" : -83.47973759999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.35949277989271,
+                  "lng" : -83.47830647010727
+               },
+               "southwest" : {
+                  "lat" : 42.35679312010727,
+                  "lng" : -83.48100612989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "3c15b6e0a7fbd1985f02fbd55459ae48ca0ebe56",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3464,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110364029084770930582/photos\"\u003eBrian Cylkowski\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAT2eijQhKRJsX-XiFgFykIbqexrSvKlADhR_OG10iCWAJWLghSvK1LaRWrpA0M45hHg9HLGXxTrPXgwKqAPJfbGYzZhD54gAy8_GrssTXHYbmVaWABQ-ZJftVjPD24cxBEhBbcsmHjjbl5a5sUa6dnEw9GhS-7W9hdAOfcDht9gxZw5NfOPjfBg",
+               "width" : 4618
+            }
+         ],
+         "place_id" : "ChIJKwD-ajdTO4gRk9ShfJFN2Qc",
+         "price_level" : 2,
+         "rating" : 4.6,
+         "reference" : "CmRbAAAAJn_6eAlOt8ARtsMRxDrkJU8WfKSinUqvgVqHFPI0zX_85sm5URW9KgnzFdKgnyoHYP-aoFO1mUuOX3lLNJZ0EBvY1HWH395gDu1A_ObAy8K9QaZrH7kxi5qqUO4kg9UAEhCQKy9yCDnQNrkGQ-FA3HORGhQFKQBDVRcamv1hsOpvwnl-PQ6QeQ",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "10805 Highland Rd, White Lake, MI 48386, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.6470274,
+               "lng" : -83.5010029
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.64837722989272,
+                  "lng" : -83.49965307010729
+               },
+               "southwest" : {
+                  "lat" : 42.64567757010727,
+                  "lng" : -83.50235272989273
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "f00abfe177867db70fd55233c8a0d8efb1e6b922",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115726657196652018707/photos\"\u003eAbdullah Farooq\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAkbKb6NnLO-TJ0ITLssE1HQg66VX6iNSn-KyBiPN_vrhWIaNm-ub_86g7YZke6OX-hcgfSG6tFdGOp99625n1S6a0AmOLqlGhP2owtrBnC1YoufHfJzwY18S2e4hW5AuwEhB5n1eWPODm0Tpo9QVw7-7iGhSyaDKKVrPStwAwYaY_XG3SipJxbw",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJYfQc1y6iJIgRaYnOErrkNvI",
+         "price_level" : 2,
+         "rating" : 4.8,
+         "reference" : "CmRbAAAA6tlontjtTrRFIkzmUv_PdnpIeUSSeuhuuGns9ObNil2vmqq2plHPIjXReEN8vgk0HhPJWLRSVRBMLOJ-M401Mc4LuETSROghHte7ZGozAtZZGN6aBC_0w5JrlMe8vV8hEhAgjTYYx3arS721bzudJGn3GhQjhbLizqh8Uu6Pvzoi9g4pKEBccw",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "2222 East 12 Mile Road, Royal Oak, MI 48067, United States",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.5032827,
+               "lng" : -83.11860059999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.50463252989272,
+                  "lng" : -83.11725077010728
+               },
+               "southwest" : {
+                  "lat" : 42.50193287010728,
+                  "lng" : -83.11995042989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "a82ebd0ae102f787f078868821e2311645bd731f",
+         "name" : "Kroger Fuel Center",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 270,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105258742797033103886/photos\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA8opo2do_0Zdj0RcfVxrSciOKF1mWPzsV8gCqB2HFVvfsx5ESc_AZMb4B10YV0l_b3TFhzYvlKMq9NHT4tF29lte7PujSh0P4avYPxV2RNG-t5evLExTckDHYbMvq5XeWEhCeJyVcQVuxBMCOJ0nlA0_vGhQgtPBMCiSlV_lvoBnyxFw-fm9KPg",
+               "width" : 480
+            }
+         ],
+         "place_id" : "ChIJR3MpTn7FJIgRLopHR2pc3po",
+         "price_level" : 2,
+         "rating" : 4.1,
+         "reference" : "CmRbAAAAaC3N0qvOYR8bqJTXvtaR6wKOlVtbist3C_aEli3bzypiPT8UBq8-XP9zxa8TweM87NjMcVlnxyQj1KRJmU_0y5_2S_O36De6SimhnEx4oHAphYQG9xH5ynx6HEjkmH4mEhCq5EkTkSvf3hPHh_ASX_8KGhRldOjmXPJLCgrVN9w1sw7n4YcLNQ",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

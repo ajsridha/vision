@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "198 Archibald St, Winnipeg, MB R2J 0W3, Canada",
+         "geometry" : {
+            "location" : {
+               "lat" : 49.89586800000001,
+               "lng" : -97.10506699999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 49.89718427989272,
+                  "lng" : -97.10389372010728
+               },
+               "southwest" : {
+                  "lat" : 49.89448462010728,
+                  "lng" : -97.10659337989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "d2d9c1bde754953426d4bf7301d2f20359940edf",
+         "name" : "Access Storage - Winnipeg East",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2988,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/100915489541418220779/photos\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAjwD7Ade3_VSCZkbtgzgjo8EmmDGkQ5Gb_N5DaHRMcF3QZMhPgtyWURKGOwq1OKY_8KnPxfsCoCwNNhIgMQ4_1SL879d2LQOT8x15rZb7pXDhAA3bBu1bWcKoyw6ELXKCEhBQ1eZ3uQJlSIuO4RDmR7vhGhQoKQHeY-CGQa48HNqhBjmrAZi34Q",
+               "width" : 5312
+            }
+         ],
+         "place_id" : "ChIJSSWA6SVx6lIR91iVDTDhJNc",
+         "rating" : 4.4,
+         "reference" : "CmRbAAAASGIXNve0OBGUBCXcpYLJRQsRFYdq4OMoCAt3XNMmNTH80KaVIO2A22d4uMPC5u7HuwFqAfzxGHH1LL0Zttmy9hN4LJ7TbMjUGtrn4mNYfOOKUfgZsJELcjgbHRnjCbK7EhBE-rt9JwVaRbDF1ZgKBC1uGhT33WXDiLmnnK6sqe4znJoBuc9MKA",
+         "types" : [ "storage", "store", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

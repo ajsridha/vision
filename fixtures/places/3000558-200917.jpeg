@@ -1,0 +1,53 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "63 3rd St, Troy, NY 12180, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.7299136,
+               "lng" : -73.6909022
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.73124277989272,
+                  "lng" : -73.68938377010727
+               },
+               "southwest" : {
+                  "lat" : 42.72854312010728,
+                  "lng" : -73.69208342989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "69e9364b066ef1ed869316b62ef9878e57244566",
+         "name" : "Ace Hardware of Troy",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3120,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105961557170247987756/photos\"\u003eShawn Lockwood\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAE5pbEjzMdggLbhGTWiS65g6Jis4M8sJcmOJ4oQqjSm1hTRvBVZSqsMsjOm-4LDF3vhn8QxEuz9krxZWaQT-mUvmRtPD2mwQ2VoNekPjey14z_hcZSkQrRvy2xSJZ07h5EhBclNgNmyx6hihIFFDs1yOCGhRpgtC3WyYgUdckEBo9e7sow1VOlQ",
+               "width" : 4160
+            }
+         ],
+         "place_id" : "ChIJff5GlgcP3okRMKc5B6EabjA",
+         "price_level" : 2,
+         "rating" : 4.5,
+         "reference" : "CmRbAAAAJ0kxUUMBfIPeUhDyzEt21AsTXLSt-etO6POT3Lem268veqC7gDBzmb3G2uwUhSdcaAjFepQhhomzByhidzVoN3MYFbq9J-DlqN4XAV6zMw9oemKZlMW-HC6LETQH9YxkEhB5hhqtbyoMNlm0WB7H-wMlGhQ9k0tsLq32WJOEO8X0NzPIO_Q3AQ",
+         "types" : [
+            "hardware_store",
+            "home_goods_store",
+            "store",
+            "point_of_interest",
+            "establishment"
+         ]
+      }
+   ],
+   "status" : "OK"
+}

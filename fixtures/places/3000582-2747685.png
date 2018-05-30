@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "107 Portland St, Toronto, ON M5V 2N3, Canada",
+         "geometry" : {
+            "location" : {
+               "lat" : 43.645279,
+               "lng" : -79.400263
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.64661437989272,
+                  "lng" : -79.39897957010729
+               },
+               "southwest" : {
+                  "lat" : 43.64391472010728,
+                  "lng" : -79.40167922989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png",
+         "id" : "6c0b7034af45cb42d9a1c7ebab883a416a65c7f0",
+         "name" : "Jimmy's Coffee",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3072,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/103715973442291077581/photos\"\u003eJimmy&#39;s Coffee\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAALkfs1FgLBQPc1yw_SNZMznLrQ-TiL2xzaEGXVjFJQiKITjLZ01ojdMxD2LmfT0vy6rejAdAPK-VHk5YUVrtzMyGZdP1os7xLIvOL-EnBVcq7LmIf5I5s_WlLoJ-fS7RCEhBg_1ia7l9kyd3z_rJtTAibGhRpkKMwvfF98v0elfQm-6C4wQFE-Q",
+               "width" : 4608
+            }
+         ],
+         "place_id" : "ChIJmQDJY940K4gRpUwp-pysZnA",
+         "rating" : 4.5,
+         "reference" : "CmRbAAAAi4aL0FlY0sleGHxeAzKR3VLoxga2k1UTc-bcISTupsjYSRqFtsYAVOTZwURVEt-nM6tpiwOhPNIUVH_sfiTCkhY07ZIBS69DT2ifgTEjyL8dlbvf2xv0wsCCh7M0Uve5EhCp6-34D6vSlUgaz2u5zHTgGhSCt7Am_hggYDYjakE25ZsQii0iNA",
+         "types" : [ "cafe", "store", "food", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

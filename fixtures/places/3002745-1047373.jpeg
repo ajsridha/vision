@@ -1,0 +1,47 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "3908 N Druid Hills Rd NE, Decatur, GA 30033, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.81164,
+               "lng" : -84.27380099999999
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.81244452989272,
+                  "lng" : -84.27265372010729
+               },
+               "southwest" : {
+                  "lat" : 33.80974487010728,
+                  "lng" : -84.27535337989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "e3ed7fdb71a23f2b85fbfb0aba53b8566b646a01",
+         "name" : "Sherwin-Williams Paint Store",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 768,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110355748981122834124/photos\"\u003eSherwin-Williams Paint Store\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAzCqso-uqE_p6BYhnqIcmG-c8Ys-8d1r3fIIbJ_0dJTl7XHO2Hbhqd7-gjgJUGENO_stsYKYbVVG-ldNHdwfOPvvKjm12hfrw7lq5L885eWpRJV8BfqnuZUpKJEK39rZNEhBOdqgu7d9v03gMdslhcRq2GhQGEeEv9t7ZEQySqcRw6N4etjM-uw",
+               "width" : 1024
+            }
+         ],
+         "place_id" : "ChIJL9V7N5AH9YgRolU3EsvO1qQ",
+         "price_level" : 2,
+         "rating" : 4.2,
+         "reference" : "CmRbAAAA-JNjPtpLtFUeUizZ3BxE4XoJ9_qtt-QYi0Y2n-afNT7WBaAEmwvwBcPc_H3q2mZekuEBPBVAZ9B1KEzmheQ-INEYXrnLhebNvCqy7xK1qwQZeqCye33RfvOKwHGBmpnuEhCZd9jiWCoUT053UPyJJx5AGhSX095EXxhf86xqMEGLBd20hGurKw",
+         "types" : [ "home_goods_store", "store", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

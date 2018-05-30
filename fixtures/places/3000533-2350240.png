@@ -1,0 +1,276 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "8105 Edgewater Dr, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7392119,
+               "lng" : -122.2015995
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.74068457989273,
+                  "lng" : -122.2000278201073
+               },
+               "southwest" : {
+                  "lat" : 37.73798492010729,
+                  "lng" : -122.2027274798928
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "c946854cd6d3fc90267ae2b3e5c4b32f7a73889a",
+         "name" : "Airport Rent A Car",
+         "opening_hours" : {
+            "open_now" : false,
+            "weekday_text" : []
+         },
+         "place_id" : "ChIJyS9Pl76Fj4ARbcP7QW3AcIE",
+         "rating" : 2,
+         "reference" : "CmRbAAAAKJUVjIg8RKXmYaKpQsvk9zGStV3UYg0WSw64kC417BJjYXq1ucCHIoIkrdLItKcUVDTCFzbgvWHnhKJ8DGHHXarNB2fq4-6H-W2wwFwuk5DLZ67TbmYm1njySJbpcE-IEhC5QYUInIVnbtr848BrxWd9GhQGVNTVHOVhTkADN2JMn5bce673-w",
+         "types" : [ "car_rental", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "77 Hegenberger Rd, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7292139,
+               "lng" : -122.2013193
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.73045062989272,
+                  "lng" : -122.1996475701073
+               },
+               "southwest" : {
+                  "lat" : 37.72775097010728,
+                  "lng" : -122.2023472298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "c8f8a98c6e8c606b403cce27852bb447c0235527",
+         "name" : "Holiday Inn Hotel & Suites Oakland - Airport",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1418,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/108555009438328377972/photos\"\u003eThe Holiday Inn &amp; Suites Oakland Airport Hotel\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAlzpJVEbPD4MTKWx031MeY-KtbB6oh1qPY-J-WZqDBsflqNA0f7LYMB4o1oFf4fcalngOhl3-0zjR7uE2dJNP03N4vC_uI7US_nFiu3M0rOqxPi2EEQBgarW2bcwV5SJlEhBTS61WIOcvrGfJc8-5r1CjGhSKdVDCLvzQ8_S_ovA-r9oY9UIyjw",
+               "width" : 2048
+            }
+         ],
+         "place_id" : "ChIJObqO3aOFj4ARorp1qs0HtH0",
+         "rating" : 4.1,
+         "reference" : "CmRbAAAAv3BGk5R2xhyf68pUIcsSlzgxnaGTAjWg3qLe2Qhq10O6JB2nnJ5dAsOuhDcYgy__cP5mLK9cazBslBN-9LkEmMp95lOP7Qq42z3hLk8TdgpKLWisrfC-AwZBpszBYH0uEhCFdiCnWj39UY3T_H10WqvgGhTLWxE1KSG-GQCfyYefkr4QDPy9Cg",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "170 Hegenberger Loop, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7358377,
+               "lng" : -122.1948631
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.73725192989272,
+                  "lng" : -122.1937469701073
+               },
+               "southwest" : {
+                  "lat" : 37.73455227010728,
+                  "lng" : -122.1964466298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "09efebd91eeac817ce19c77e66d42b7037447d75",
+         "name" : "Best Western Plus Airport Inn & Suites",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2160,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115749746880127597220/photos\"\u003eBest Western Plus Airport Inn &amp; Suites\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA5bhXEquO-XA6d0jd0orXJ9fag0z7CylntH8cGb-sYwwssNOUKKQUCL4k52qaiHEWTqG1dhsBbQWm4nRAWD1bNkLUqIZMmARMobTj4f-dfUkZfqYIChXn0HUfYrJAbGzkEhAN117B2ZHEp6kRdKmzwJEKGhS7YNjmuU-mrX_8fJJcGR-nj3DiNg",
+               "width" : 3840
+            }
+         ],
+         "place_id" : "ChIJ70vjh5eFj4ARJG9ggZ4vj04",
+         "rating" : 4.2,
+         "reference" : "CmRbAAAAtL9169EAY5Bc3jbFCduClub0coO1kBYBtFU9uOEksA9pVCXjIAFB3BepmXx9sqvm_CCqRET1JlEIX11SDQw9kYFhbhUiU2UAvyT3bo1QLeanf5CJJx672lpFip68kQoPEhCp9kKLQi6dWU8aRmXkH7XLGhTh1Av0ruPStJuB79lduiwnT6mJUQ",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "350 Hegenberger Rd, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7349863,
+               "lng" : -122.1967272
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.73630807989272,
+                  "lng" : -122.1957566201073
+               },
+               "southwest" : {
+                  "lat" : 37.73360842010727,
+                  "lng" : -122.1984562798927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "07d85a28bcafe6dba4d143b587072d55191f565b",
+         "name" : "Courtyard by Marriott Oakland Airport",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 423,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116919996772618776057/photos\"\u003eCourtyard by Marriott Oakland Airport\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAREbxZ5x72CWDjDXgfMGduotiUIUm95_P84YUK1RKcrUkPdsxFnPTmGkUOs4tR7SESc03ffcO8hfTwOTTpEjdUxMCo0Ii5b2PEzCBr66SVVFK3xkofjtnncWTfHvymJY3EhAgeyr0yXzJwk43Q1h1B2BnGhTTOi-tWitfuIdmOHqEJdPbwII1Nw",
+               "width" : 610
+            }
+         ],
+         "place_id" : "ChIJScRJ_peFj4ARVXwgLhxSeRI",
+         "rating" : 4.1,
+         "reference" : "CmRbAAAA2NONcZ4wY6Ph72CetBe77rMvZhY3h93EJ59fzn8xmESmKjyRO_KL5okQMw-osSSHzI0e626fMud7OcOB8AT1ncGIVNMqdSeFIXIVK6Nie31nJdNZr3TyHZnEhljOjU1XEhDFouSRAwI8G2Q8vm6-2keNGhSVVpTTSl6NiiAdhmo609ub0GxyLA",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "8452 Edes Ave, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.74105,
+               "lng" : -122.1941438
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.74226047989273,
+                  "lng" : -122.1931108701073
+               },
+               "southwest" : {
+                  "lat" : 37.73956082010729,
+                  "lng" : -122.1958105298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "aafa2e8bca769b2a5dfc78232eda76cd2e604ce6",
+         "name" : "Comfort Inn & Suites",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1463,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/117509838196250909713/photos\"\u003eComfort Inn &amp; Suites\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAEwQDcxvygDw753xFKvrCw0dYFGDK3As8bkiZsI6KnSYhaS54chSKUUYJmegcD0RqZlVYBnr3AJVw5dyZK1btKpY6BYqitfXnK65iYJXYKULnsP0hvYeeLiqzWx9DhHSgEhBg957EC8Rd5RgmHJkk1-8NGhTlsDvsOxK5M9Etzk_3iAe6doFAQg",
+               "width" : 2048
+            }
+         ],
+         "place_id" : "ChIJPVc3gJaFj4ARQx77A579dX4",
+         "rating" : 4,
+         "reference" : "CmRbAAAAOfdFCrZY3JsX1PBovozjrlakIHTxUFnpzQ0fWdU8YGHdMPFUmBPedeqGNYDZkml1rhV9hlJQLUsyEJt6jFVKpleHO6AylkDIqOfsIUSCTfZMKYwUp8sbh10eN3h_nJrEEhAPkPKMEiwpYrHhJQV-QNICGhSjpzgm1d6mHwNQpkJLt3eVL80SLA",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "8465 Enterprise Way, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7426847,
+               "lng" : -122.1939881
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.74430292989273,
+                  "lng" : -122.1922420201073
+               },
+               "southwest" : {
+                  "lat" : 37.74160327010728,
+                  "lng" : -122.1949416798928
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "77a8836b65ac9db139d974f7f78147ea8d213209",
+         "name" : "La Quinta Inn & Suites Oakland Airport Coliseum",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1919,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/103894928662992601092/photos\"\u003eLa Quinta Inn &amp; Suites Oakland Airport Coliseum\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA2p24hLtcaE60IsRvy3cp4QZNdDiSsLkPrlBxBax1AnB67Zu-DZd4xE1Au5_FNb8gilSwIfiNYnRDoT-icTuUYJMzsU1hCGnUNdBVhD17CJQvB3zaV1rgEv3b1wabTMtAEhAy37e9RmRh1CmUcYiH1PbxGhQI5oIlE7o95w-gOh2A4d36Hl_hdg",
+               "width" : 2880
+            }
+         ],
+         "place_id" : "ChIJ45hkRJSFj4ARV7SszfZFo1M",
+         "rating" : 3.5,
+         "reference" : "CmRbAAAA363uZfRDd9S5VtWwu3ghZzgwqlbtOwV48oOyWs9AG69ai7DnRl77OvzoUYFHygbUyC116TPojBne3IlMaKmAEJej9At-Bv-mSMEzh-KVMRDqo5DtMs7Z63A_a0up5Q5VEhD77PBhbacwGVMdq_vyx6dQGhRcT0FHilkIpE3165BPQJRHihcWJQ",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      },
+      {
+         "formatted_address" : "8400 Edes Ave, Oakland, CA 94621, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7420079,
+               "lng" : -122.1949219
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.74290592989271,
+                  "lng" : -122.1938750201073
+               },
+               "southwest" : {
+                  "lat" : 37.74020627010727,
+                  "lng" : -122.1965746798927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "2b4793eb3f12bb8e597f76fc998b5de7010fab13",
+         "name" : "Radisson Hotel Oakland Airport",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112219084345384419716/photos\"\u003eRadisson Oakland Airport\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAE5akj5H1kX49OFAJjaF4Ec7crGEmi8_m5fGpLUhZl9G_Ltzq9VedUZzOu0r1XrIALrIAF3TyVIg8FfYpGCniVO5r40SKnTvkAtCI3HAioXhi5bFCIl0Dj1LlUkcHggbREhDaYf7xwSP5c00gZrkFIJWzGhSzArbIZLYOh43POPconEvppQ4iLA",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJI5sutJWFj4ARaQCRBv2OIno",
+         "rating" : 4,
+         "reference" : "CmRbAAAAVn7kzqHZrAxPy9JUE5W-r0eF-L-KmnK5u8aldc7am-wJh42HRBPgtrlbZ2vR7KWjMjlMuQ_zeO_bXo4X4DBYiqI3a_1lu5aDm72Q8pblMt5prXhkjeloQItLEUt_KJn8EhB6C4N9sDoGc9FCvX1c0RegGhT6crmevBJhyR72YG99uE9HBl3clA",
+         "types" : [ "lodging", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

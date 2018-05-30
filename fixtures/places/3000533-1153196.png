@@ -1,0 +1,32 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "1500 Pearl St # 302, Boulder, CO 80302, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.0186593,
+               "lng" : -105.2756245
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 40.02007217989272,
+                  "lng" : -105.2742974701073
+               },
+               "southwest" : {
+                  "lat" : 40.01737252010728,
+                  "lng" : -105.2769971298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/civic_building-71.png",
+         "id" : "904f1fbadba450179345d7f04b8276d306adf373",
+         "name" : "Boulder Parking Services Department",
+         "place_id" : "ChIJu5bl_Cjsa4cRzzi5kjQs7lE",
+         "rating" : 1.4,
+         "reference" : "CmRbAAAALkfk2AjLqueBc6jWPbvjnu85tQuYxv4FBIOzpSbQzRXR4Hyoi7Ue3MhylW2Jityl-mM2YGyfr4MOSLEvJJVG8hlaCA0UaF23vV2MBGEQNNHVIA_059ifR7k3nXhTCe_nEhDYlunX3rbxkQkCPto2oH6SGhQIQDGq4phbzqME7EmoxAn5By5E8A",
+         "types" : [ "local_government_office", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,53 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "47255 Michigan Ave, Canton, MI 48188, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.265381,
+               "lng" : -83.502562
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.26673082989272,
+                  "lng" : -83.50121217010728
+               },
+               "southwest" : {
+                  "lat" : 42.26403117010727,
+                  "lng" : -83.50391182989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png",
+         "id" : "feb8bfbd761c9ba1a21edf5071d2edf6e8fb6971",
+         "name" : "Mans Lumber & Millwork",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 716,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110979654067734176306/photos\"\u003eMans Lumber &amp; Millwork\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAt7xgvzaG7esBqtOFlD9uo4gi3h5vP9w_AbToP36NQT0IC9VgK54kTEzNTLuShtXfZ209OvEpRAPbHzagbgU5R_k_A932boK_1hY-EHoURY676g5L_AVnKPdZyCa-DOAkEhBlXioyJ82WfToDFLo1WgK_GhQ0MVmcQ5nUrsG-NXAkqquvZNrU5w",
+               "width" : 742
+            }
+         ],
+         "place_id" : "ChIJ2WG1PTRRO4gRfjnimdPsW04",
+         "rating" : 4.3,
+         "reference" : "CmRbAAAAYs570Ra_4lh2cq7wVz-etjMSIOeT6O34FZ1c1ZeGDNRyglmv5iVGe3d7kv06K1cQnQPsZH6ONOm42YaX8b7QVAIGOt0DmZ7CURImQ0hKtxcs8Bnx9khrVprKNAqNmcPMEhDowhyaccaM_Xv0afu0_cAXGhT8IWP3mSdoF7iOH42dTOxvGsH5RQ",
+         "types" : [
+            "hardware_store",
+            "home_goods_store",
+            "store",
+            "general_contractor",
+            "point_of_interest",
+            "establishment"
+         ]
+      }
+   ],
+   "status" : "OK"
+}

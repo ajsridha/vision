@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "899 Mission St, San Francisco, CA 94103, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 37.7827153,
+               "lng" : -122.4061669
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.78410347989273,
+                  "lng" : -122.4049055701072
+               },
+               "southwest" : {
+                  "lat" : 37.78140382010728,
+                  "lng" : -122.4076052298927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "35743f8eb097eb1b7c7a27c4b9748f96dd8cb475",
+         "name" : "Fifth & Mission Parking Garage",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2340,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/109960107169319449823/photos\"\u003eGeorge Vrattos\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAG7vhiLtZngCIbAn7IUqtNAbOkvIJVTaczLz-O4txVsaeW-QND7b22uwk0J13OrCVS_uPhJ5DxmIC2dToB7O_Tq8nDq4xK0QVss4ulnuxipN1OOKWeNrAFRlSNJiWzMbjEhBu_YgKabdtE2aSDv61gjdhGhQ10qVwmn_cFD-L_jX-Nld4EeEthg",
+               "width" : 4160
+            }
+         ],
+         "place_id" : "ChIJ3Wx1koaAhYARVemJwBv0JrQ",
+         "rating" : 4,
+         "reference" : "CmRbAAAArTu049Vvm2NEr3ty-7x7HcMpi6n5TCvHYldvGkzI5njnzCzNwCl-AJqd00VxX48ClcdnAij1dzc9_QGifEy200ckxm9ug2eCmDId857JCqet-P-5fa4Jvjpw1MFVBKJzEhDquUCTbSqvI0C-7MhPAZfOGhRi_Cmhee72j8UAQ9niSCl4jOg64g",
+         "types" : [ "parking", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

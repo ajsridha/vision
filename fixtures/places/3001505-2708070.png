@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "8773 N Haggerty Rd, Canton, MI 48187, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.3515909,
+               "lng" : -83.445061
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.35303072989272,
+                  "lng" : -83.44369672010727
+               },
+               "southwest" : {
+                  "lat" : 42.35033107010728,
+                  "lng" : -83.44639637989272
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "16f2d0d1a55f39298acde30a097dae778b97ac35",
+         "name" : "Mobil",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2448,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/103662171128362458680/photos\"\u003eSam B\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAAlpegNqOQ_mDASrshzCkW12B-oRjr4ZyjSdBC-9MxcQbCUV7Asjjqled1YxRqaNLxC0XSXrnBICODyunCQ7SGGDqFNdMIuhATye6aFQxr5wMKOsGzB3mhIIcOd9fCHdTREhC7UFME2dFYslgvaHIgO-hWGhRvBTJsSMamCaZr67GQHigJ6RLVfw",
+               "width" : 3264
+            }
+         ],
+         "place_id" : "ChIJTfBBpsdSO4gRXG4OEur9-zk",
+         "rating" : 3.8,
+         "reference" : "CmRbAAAA0D3CyLd8q4V6HGbI1sW6nnhOuMrnnP5CNqDC89p3LpZAadEJPsF6LHhf_d0NxC4WZqIw7-jODtNWv1qd8-NGDZ1lvKfqhLgfdeYMfLCIxndDbQ9Cvginkq-HhNTBDS07EhCtRWbLITF6Xp7yYEEOMbUGGhTCf7Jn4bvDXgxwWHlq9kTB9uoB5A",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

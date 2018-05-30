@@ -1,0 +1,47 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "2183 Vista way suit B-9, Oceanside, CA 92054, United States",
+         "geometry" : {
+            "location" : {
+               "lat" : 33.1826343,
+               "lng" : -117.3409077
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 33.18404517989272,
+                  "lng" : -117.3396638201073
+               },
+               "southwest" : {
+                  "lat" : 33.18134552010728,
+                  "lng" : -117.3423634798927
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+         "id" : "051ffc87960a264af5553fa830a6245ad8ff5712",
+         "name" : "Los Tacos Vista way, Oceanside Ca",
+         "opening_hours" : {
+            "open_now" : false,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2988,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/111804956536431271876/photos\"\u003eMiguel Salcido\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA5NzBrFV2aTtSFTUO5Fy_S9-bhKbrrMT1GkTPX-zeMWtLZDB2WPSahLDjx2RI34jFAODdFdRjtb88qd525pL-d-Jj5acPylfCcPH-MHJ5HaQKom1fQ5pI2QeTGZsJQwkzEhAnki13QID8zuK5ocw1Hx0VGhQARTc092Tr6Erz473wdmh3jC8Rug",
+               "width" : 5312
+            }
+         ],
+         "place_id" : "ChIJNzCpiPJx3IARp9qL3i9R9BA",
+         "price_level" : 1,
+         "rating" : 4.4,
+         "reference" : "CmRbAAAAkGHimmx0p6ZEVdbEnoRuRdEctazzmOMT-_aYMAbXr2WyWyiTwCnLK2UNlvQB5QWtyOHckNYE2imgI9OZKwBtloJ3eA2p2FHBCh8b0YmgUcQX1pZWoVd-37-hsINb0_7YEhDsamxvzinndQKS6YBhdyF8GhTATFomPQimnbJHK9mKS3aeVfIYqA",
+         "types" : [ "restaurant", "food", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}

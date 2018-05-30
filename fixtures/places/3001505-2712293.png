@@ -1,0 +1,46 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "29401 Five Mile Road, Livonia, MI 48154, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.39776699999999,
+               "lng" : -83.334942
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.39930042989273,
+                  "lng" : -83.33335712010727
+               },
+               "southwest" : {
+                  "lat" : 42.39660077010728,
+                  "lng" : -83.33605677989271
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png",
+         "id" : "1b3673fa9644adf9952001f8600eea11bfd5d41c",
+         "name" : "Mobil",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1836,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/104017768336306449037/photos\"\u003eKevin M Wise\u003c/a\u003e"
+               ],
+               "photo_reference" : "CmRaAAAA0GAuQeiHVDW4NqzxdoAhGTQ_0dlVj8od6_0-cnPyKsZWOj1U1Xfxki5erot2ye_kK9Jeg2rYHgZWjRHYKM3IKD53xF43hKYGxVtQmxxcqvQA4sZDreVRo-Nfr-hx1wglEhD1OgWaSxZLo0DoNwldZDEYGhT7v5hd5ReMPIYLwlapSYgwmLWaOw",
+               "width" : 3264
+            }
+         ],
+         "place_id" : "ChIJFYT9v3-0JIgRIQKULomOTlg",
+         "rating" : 4,
+         "reference" : "CmRbAAAAkRv8NWhI7jGxYG6PBm4aVGAsrVWuDqjSf22-WFW-mgnbFq5Ub8_S7VFjpOlsf5Nz7zl_v3Db8Dhn5Xd4vtGRE1-UXDw_zKsAUuPDthlEbgM4bLgB2UX3S3bboPWq_QDQEhCQsRbjvWv0k-mv0cj8-CjAGhQYoMYKG2ir2dmSnrbWNmfyXKSYeg",
+         "types" : [ "gas_station", "point_of_interest", "establishment" ]
+      }
+   ],
+   "status" : "OK"
+}
