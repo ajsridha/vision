@@ -2,10 +2,6 @@ import os
 import urllib
 import json
 import requests
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib2 import urlopen
 from datetime import datetime
 from decimal import Decimal
 from google.cloud import vision
@@ -38,8 +34,8 @@ def scan_content(content):
 
 
 def scan(image_uri):
-    content = urlopen(image_uri).read()
-    return scan_content(content)
+    response = requests.get(image_uri)
+    return scan_content(response.content)
 
 
 def build(annotated_image_response):
