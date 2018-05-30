@@ -2,6 +2,7 @@ import os
 import urllib
 import json
 import requests
+import base64
 from datetime import datetime
 from decimal import Decimal
 from google.cloud import vision
@@ -14,29 +15,46 @@ from commonregex import CommonRegex
 def scan_file(file_path):
     # Instantiates a client
     with open(file_path, 'rb') as fp:
-        data = fp.read()
-        return scan_content(data)
+        content = fp.read()
+        content = encode_file(content)
+        return scan_content(content)
 
 
 def scan_content(content):
-    # Instantiates a client
-    client = vision.ImageAnnotatorClient()
-    annotated_image_response = client.annotate_image({
-        'image': {
-            'content': content
-        },
-        'features': [
-            {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-            {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
-        ],
-    })
-    return build(annotated_image_response)
+    google_api_key = os.environ.get('GOOGLE_API_KEY')
+    if not google_api_key:
+        raise Exception("Unable to find Google API Key")
+
+    response = requests.post(
+        'https://vision.googleapis.com/v1/images:annotate?key={}'.format(google_api_key),
+        json={
+                "requests": [{
+                    "image": {
+                        "content": content
+                    },
+                    "features": [
+                        {'type': vision.enums.Feature.Type.LOGO_DETECTION},
+                        {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+                    ]
+                }]
+            })
+
+    if response.status_code != 200:
+        raise Exception("Google Error")
+
+    data = response.json()['responses'][0]
+    return build(data)
 
 
 def scan(image_uri):
     response = requests.get(image_uri)
-    return scan_content(response.content)
+    content = encode_file(response.content)
+    return scan_content(content)
 
+
+def encode_file(bytes):
+    content = base64.b64encode(bytes)
+    return content.decode('ascii')
 
 def build(annotated_image_response):
     receipt = {
@@ -48,7 +66,7 @@ def build(annotated_image_response):
         'tax3_amount': '',
         'grand_total': ''
     }
-    if not annotated_image_response.text_annotations:
+    if not annotated_image_response.get('textAnnotations'):
         return receipt
 
     sub_total, taxes, grand_total = build_amounts(annotated_image_response)
@@ -66,15 +84,15 @@ def build(annotated_image_response):
 
 
 def determine_vendor(annotated_image_response):
-    if annotated_image_response.logo_annotations:
-        return annotated_image_response.logo_annotations[0].description
+    if annotated_image_response.get('logoAnnotations'):
+        return annotated_image_response.get('logoAnnotations')[0].get('description')
 
     places_api_key = os.environ.get('GOOGLE_PLACES_API_KEY')
     if not places_api_key:
         return
 
     lines = build_lines(
-        annotated_image_response.text_annotations[0].description)
+        annotated_image_response.get('textAnnotations')[0].get('description'))
 
     search_query = ""
     enough_data = False
@@ -96,7 +114,7 @@ def determine_vendor(annotated_image_response):
         return data['results'][0]['name']
 
 def determine_date(annotated_image_response):
-    description = annotated_image_response.text_annotations[0].description
+    description = annotated_image_response.get('textAnnotations')[0].get('description')
     parser = Parser()
     dates = []
     for match in parser.parse(description):
@@ -108,7 +126,7 @@ def determine_date(annotated_image_response):
         return dates[0]
 
 def determine_address(annotated_image_response):
-    description = annotated_image_response.text_annotations[0].description
+    description = annotated_image_response.get('textAnnotations')[0].get('description')
     parsed_text = CommonRegex(description.replace('\n', ' '))
     addresses = parsed_text.street_addresses
     if len(addresses):
@@ -129,7 +147,7 @@ def build_lines(description):
 
 def build_amounts(annotated_image_response):
     lines = build_lines(
-        annotated_image_response.text_annotations[0].description)
+        annotated_image_response.get('textAnnotations')[0].get('description'))
     grand_total = Word('0.00')
     sub_total = Word('')
     taxes = []
