@@ -13,6 +13,8 @@ prettytable = "*"
 date-detector = "*"
 termcolor = "*"
 commonregex = "*"
+shapely = "*"
+numpy = "*"
 
 [dev-packages]
 nose = "*"
