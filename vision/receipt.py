@@ -36,14 +36,17 @@ class Receipt(object):
         self.offset_y = (self.height - original_height) / 2
 
         self.rotation_degrees = degrees
-        self.rotation_radians = radians(90)
+        self.rotation_radians = 0
+        if degrees == 90:
+            self.rotation_radians = radians(90)
+        elif degrees == 180:
+            self.rotation_radians = radians(90)
+        elif degrees == 270:
+            self.rotation_radians = radians(90)
 
     def calculate_rotation(self):
-        self.rotation_degrees = 0
-        self.rotation_radians = 0
         self.orientation_known = False
-
-        if type(self.image) is PngImageFile or self.image._getexif() is None:
+        if not hasattr(self.image, '_getexif') or self.image._getexif() is None:
             return 0
 
         for orientation in ExifTags.TAGS.keys() :
@@ -51,31 +54,26 @@ class Receipt(object):
         exif = dict(self.image._getexif().items())
 
         if orientation not in exif:
-            self.rotation_degrees = 0
-            self.rotation_radians = 0
+            self.orientation_known = False
+            return 0
         elif exif[orientation] == 3 :
-            self.rotation_degrees = 180
-            self.orientation_known = True
-            import pdb; pdb.set_trace()
+            return 180
         elif exif[orientation] == 6 :
-            self.rotation_degrees = 270
-            self.rotation_radians = radians(90)
-            self.orientation_known = True
+            return 270
         elif exif[orientation] == 8 :
-            import pdb; pdb.set_trace()
-            self.rotation_degrees = 90
-            self.orientation_known = True
+            return 90
 
-        return self.rotation_degrees
+        return 0
 
     def preview(self, boxes=None):
+        image = self.image.copy()
         if boxes:
-            self._draw_boxes(boxes)
+            self._draw_boxes(boxes, image)
 
-        self.image.show()
+        image.show()
 
-    def _draw_boxes(self, boxes):
-        draw = ImageDraw.Draw(self.image)
+    def _draw_boxes(self, boxes, image):
+        draw = ImageDraw.Draw(image)
         for box in boxes:
             vertices = box['vertices']
             draw.polygon([

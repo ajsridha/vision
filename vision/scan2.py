@@ -77,8 +77,8 @@ def build(data, image):
     extractor = LinesExtractor(data, image)
     lines = extractor.text()
     sub_total, taxes, grand_total = build_amounts(lines)
-
-    import pdb; pdb.set_trace()
+    # extractor.preview_original()
+    # extractor.preview()
     # receipt['address'] = determine_address(lines)
     # receipt['vendor'] = determine_vendor(lines)
     # receipt['date'] = determine_date(lines)
@@ -87,7 +87,7 @@ def build(data, image):
 
 
     # if grand_total == Decimal('0.00'):
-    #     extractor.preview()
+        # extractor.preview()
     # for i, tax in enumerate(taxes):
     #     receipt['tax{}_amount'.format(i + 1)] = tax
 

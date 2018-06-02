@@ -7,15 +7,14 @@ from math import (
     sqrt,
     pow
 )
+import math
 
 class LinesExtractor(object):
     def __init__(self, document, receipt):
         self.receipt = receipt
-
         if not receipt.orientation_known:
             degrees = self._calculate_orientation_from_fragments(document)
             self.receipt.rotate(degrees)
-
         word_fragments, highest_x = self._get_fragments(document)
         self.word_fragments = word_fragments
         self.words = self._extract_text(word_fragments, highest_x)
@@ -41,27 +40,56 @@ class LinesExtractor(object):
         count = 0
         width_sum = 0
         height_sum = 0
+        vertices = []
 
         for page in document['fullTextAnnotation']['pages']:
             for block in page['blocks']:
                 for paragraph in block['paragraphs']:
                     for word in paragraph['words']:
-                        width, height = self._measure_box(word['boundingBox'])
-                        width_sum += width
-                        height_sum += height
+                        vertices = word['boundingBox']['vertices']
+                        break
 
-                        count = count + 1
-        average_width = width_sum / count
-        average_height = height_sum / count
+        center_x = 0
+        center_y = 0
+        for vertice in vertices:
+            center_x += vertice["x"]
+            center_y += vertice["y"]
 
-        if average_height > average_width:
+        center_x = center_x/4
+        center_y = center_y/4
+
+        point_x = vertices[0]["x"]
+        point_y = vertices[0]["y"]
+
+        if point_x < center_x:
+            # 0 --- 1
+            # |     |
+            # 3 --- 2
+            if point_y < center_y:
+                return 0
+
+            # 1 --- 2
+            # |     |
+            # 0 --- 3
             return 270
-        return 0
+
+        # 3 --- 0
+        # |     |
+        # 2 --- 1
+        if point_y < center_y:
+            return 90
+
+        # 2 --- 3
+        # |     |
+        # 1 --- 0
+        return 180
 
     def _measure_box(self, bounds):
-        top_left_corner = bounds['vertices'][0]
-        top_right_corner = bounds['vertices'][1]
-        bottom_right_corner = bounds['vertices'][2]
+        bottom_left_corner = bounds['vertices'][0]
+        bottom_right_corner = bounds['vertices'][1]
+        top_right_corner = bounds['vertices'][2]
+        top_left_corner = bounds['vertices'][3]
+
         try:
             width = fabs(sqrt((
                 pow(top_right_corner['x'] - top_left_corner['x'], 2) +
@@ -69,8 +97,8 @@ class LinesExtractor(object):
             )))
 
             height = fabs(sqrt((
-                pow(bottom_right_corner['x'] - top_left_corner['x'], 2) +
-                pow(bottom_right_corner['y'] - top_left_corner['y'], 2)
+                pow(bottom_right_corner['x'] - top_right_corner['x'], 2) +
+                pow(bottom_right_corner['y'] - top_right_corner['y'], 2)
             )))
             return width, height
         except:
@@ -91,18 +119,53 @@ class LinesExtractor(object):
                         try:
                             bounds = self._rotate_word(word['boundingBox'])
                             highest_x = self._find_highest_x(bounds, highest_x)
-
+                            # sorted_bounds = self._sort_bounds(bounds)
                             fragments.append({
                                 "id": count,
                                 "text": detected_word,
                                 "polygon": self._get_polygon(bounds),
                                 "bounds": bounds
                             })
+                            count = count + 1
                         except:
-                            pass
-                        count = count + 1
+                            continue
 
         return fragments, highest_x
+
+    # def _sort_bounds(self, bounds):
+    #     points = self._get_vertices(bounds)
+    #     vertices = []
+    #     for vertice in sorted(points, key=self._clockwiseangle_and_distance):
+    #         vertices.append({
+    #             'x': vertice[0],
+    #             'y': vertice[1]
+    #         })
+
+    #     return {
+    #         'vertices': vertices
+    #     }
+
+    # def _clockwiseangle_and_distance(self, point):
+    #     refvec = [0, 1]
+    #     # Vector between point and the origin: v = p - o
+    #     vector = [point[0], point[1]]
+    #     # Length of vector: ||v||
+    #     lenvector = math.hypot(vector[0], vector[1])
+    #     # If length is zero there is no angle
+    #     if lenvector == 0:
+    #         return -math.pi, 0
+    #     # Normalize vector: v/||v||
+    #     normalized = [vector[0]/lenvector, vector[1]/lenvector]
+    #     dotprod  = normalized[0]*refvec[0] + normalized[1]*refvec[1]     # x1*x2 + y1*y2
+    #     diffprod = refvec[1]*normalized[0] - refvec[0]*normalized[1]     # x1*y2 - y1*x2
+    #     angle = math.atan2(diffprod, dotprod)
+    #     # Negative angles represent counter-clockwise angles so we need to subtract them
+    #     # from 2*pi (360 degrees)
+    #     if angle < 0:
+    #         return 2*math.pi+angle, lenvector
+    #     # I return first the angle because that's the primary sorting criterium
+    #     # but if two vectors have the same angle then the shorter distance should come first.
+    #     return angle, lenvector
 
     def _get_polygon(self, boundings):
         vertices = self._get_vertices(boundings)
@@ -171,6 +234,7 @@ class LinesExtractor(object):
                 continue
 
             # 36% - 1:23pm
+            # Back at 36% - June 2nd at 1:18 pm
             # Add no spaces if the last word was pretty close to each other
             if word['polygon'].distance(last_word['polygon']) < 15:
                 new_word += word['text']
@@ -197,6 +261,7 @@ class LinesExtractor(object):
 
     def _fragments_touch(self, big_line, collision_fragment):
         polygon = collision_fragment['polygon']
+
         if not big_line.intersects(polygon):
             return False
         try:
@@ -212,13 +277,14 @@ class LinesExtractor(object):
     def _extend_to_the_right(self, word, highest_x):
         vertices = self._get_vertices(word['bounds'])
         try:
-            top_right_coordinate = self._calculate_right_most_coordinate(
+            top_right_coordinate, slope = self._calculate_right_most_coordinate(
                 vertices[0], vertices[1], highest_x)
 
             # We want the right and left sides to be parallel with each other
             # So we offset the x coordinate
-            bottom_right_coordinate = self._calculate_right_most_coordinate(
-                vertices[3], vertices[2], highest_x - (vertices[3][0] - vertices[0][0]))
+            bottom_right_coordinate = self._calculate_new_line(
+                slope, vertices[3], highest_x - (vertices[3][0] - vertices[0][0]))
+
         except ZeroDivisionError:
             return Polygon([
                 vertices[0],
@@ -242,11 +308,21 @@ class LinesExtractor(object):
         intercept = ((slope * point1[X]) - point1[Y]) * -1
 
         new_y = (new_x * slope) + intercept
+        return (new_x, new_y), slope
+
+    def _calculate_new_line(self, slope, point, new_x):
+        Y = 1
+        X = 0
+
+        intercept = ((slope * point[X]) - point[Y]) * -1
+        new_y = (new_x * slope) + intercept
         return (new_x, new_y)
 
     def _rotate_word(self, bounds):
         new_vertices = []
         for bound in bounds['vertices']:
+            if "x" not in bound or "y" not in bound:
+                raise Exception("Incomplete vertice")
             new_x, new_y = self._rotate_point(bound["x"], bound["y"])
             new_vertices.append({
                 "x": new_x,
