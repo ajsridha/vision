@@ -84,6 +84,8 @@ def build(data, image):
     # receipt['date'] = determine_date(lines)
     receipt['sub_total'] = sub_total
     receipt['grand_total'] = grand_total
+    receipt['lines'] = lines
+    receipt['extractor'] = extractor
 
 
     # if grand_total == Decimal('0.00'):

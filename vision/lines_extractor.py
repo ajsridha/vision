@@ -15,9 +15,8 @@ class LinesExtractor(object):
         if not receipt.orientation_known:
             degrees = self._calculate_orientation_from_fragments(document)
             self.receipt.rotate(degrees)
-        word_fragments, highest_x = self._get_fragments(document)
-        self.word_fragments = word_fragments
-        self.words = self._extract_text(word_fragments, highest_x)
+        self.word_fragments = self._get_fragments(document)
+        self.words = self._extract_text(self.word_fragments, self.receipt.width)
 
     def text(self):
         return list(map(lambda x: x['text'], self.words))
@@ -118,7 +117,7 @@ class LinesExtractor(object):
                             detected_word += symbol['text']
                         try:
                             bounds = self._rotate_word(word['boundingBox'])
-                            highest_x = self._find_highest_x(bounds, highest_x)
+
                             # sorted_bounds = self._sort_bounds(bounds)
                             fragments.append({
                                 "id": count,
@@ -130,7 +129,7 @@ class LinesExtractor(object):
                         except:
                             continue
 
-        return fragments, highest_x
+        return fragments
 
     # def _sort_bounds(self, bounds):
     #     points = self._get_vertices(bounds)
@@ -196,7 +195,6 @@ class LinesExtractor(object):
 
         new_word_fragments = []
         extracted_text = []
-
         for fragment in original_fragments:
             # Skip words that already belong to something
             if fragment['id'] in collisions:
@@ -212,14 +210,24 @@ class LinesExtractor(object):
 
             # Take the left-most word and extend its box all the way to the right
             big_line = self._extend_to_the_right(fragment, highest_x)
-
             # Check what collides with this big line
             for collision_fragment in fragments_for_collision_checks:
+                if collision_fragment['id'] in collisions:
+                    continue
                 if self._fragments_touch(big_line, collision_fragment):
                     collisions.append(collision_fragment['id'])
                     new_word_fragments.append(collision_fragment)
 
         return extracted_text
+
+    def print_polygon(self, polygon):
+        x_list, y_list = polygon.exterior.xy
+        print("Polygon({}, {}, {}, {})".format(
+            (x_list[0], y_list[0]),
+            (x_list[1], y_list[1]),
+            (x_list[2], y_list[2]),
+            (x_list[3], y_list[3]),
+        ))
 
     def _combine_words(self, words):
         new_word = ""
@@ -267,7 +275,8 @@ class LinesExtractor(object):
         try:
             # We dont' want to add fragments that only barely touch the big line
             collision_percentage = (polygon.intersection(big_line).area / polygon.area) * 100
-            if collision_percentage > 50:
+
+            if collision_percentage > 40:
                 return True
 
             return False

@@ -608,3 +608,9 @@ class TestExtractor(BaseTestCase):
         expense = self.scan_expense('3002745-189919.jpeg')
         # eq_(expense['sub_total'], Decimal("109.00"))
         eq_(expense['grand_total'], Decimal("109.00"))
+
+
+    def debug(self, expense):
+        print(expense['lines'])
+        expense['extractor'].preview_original()
+        expense['extractor'].preview()
