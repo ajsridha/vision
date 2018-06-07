@@ -30,6 +30,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/4.yaml', filter_query_parameters=['key'])
     def test_4(self):
         expense = self.scan_expense('3000119-4598605.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("107.35"))
         eq_(expense['grand_total'], Decimal("107.35"))
 
@@ -54,6 +55,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/8.yaml', filter_query_parameters=['key'])
     def test_8(self):
         expense = self.scan_expense('3000138-1304099.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("6.09"))
         eq_(expense['grand_total'], Decimal("6.09"))
 
@@ -78,6 +80,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/12.yaml', filter_query_parameters=['key'])
     def test_12(self):
         expense = self.scan_expense('3000171-119353.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("63.08"))
         eq_(expense['grand_total'], Decimal("68.36"))
 
@@ -90,6 +93,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/14.yaml', filter_query_parameters=['key'])
     def test_14(self):
         expense = self.scan_expense('3000399-26743.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("18.50"))
         eq_(expense['grand_total'], Decimal("18.50"))
 
@@ -103,13 +107,13 @@ class TestExtractor(BaseTestCase):
     def test_16(self):
         expense = self.scan_expense('3000495-11665.jpeg')
         # eq_(expense['sub_total'], Decimal("0.00"))
-        eq_(expense['grand_total'], Decimal("0.00"))
+        eq_(expense['grand_total'], '')
 
     @vcr.use_cassette('fixtures/vcr_cassettes/17.yaml', filter_query_parameters=['key'])
     def test_17(self):
         expense = self.scan_expense('3000527-1332.jpeg')
         # eq_(expense['sub_total'], Decimal("0.00"))
-        eq_(expense['grand_total'], Decimal("0.00"))
+        eq_(expense['grand_total'], '')
 
     @vcr.use_cassette('fixtures/vcr_cassettes/18.yaml', filter_query_parameters=['key'])
     def test_18(self):
@@ -120,18 +124,21 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/19.yaml', filter_query_parameters=['key'])
     def test_19(self):
         expense = self.scan_expense('3000533-17606.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("5.80"))
         eq_(expense['grand_total'], Decimal("5.80"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/20.yaml', filter_query_parameters=['key'])
     def test_20(self):
         expense = self.scan_expense('3000533-2350236.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("55.83"))
         eq_(expense['grand_total'], Decimal("55.83"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/21.yaml', filter_query_parameters=['key'])
     def test_21(self):
         expense = self.scan_expense('3000533-2350240.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("4.84"))
         eq_(expense['grand_total'], Decimal("4.84"))
 
@@ -144,12 +151,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/23.yaml', filter_query_parameters=['key'])
     def test_23(self):
         expense = self.scan_expense('3000533-42941.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("21.18"))
         eq_(expense['grand_total'], Decimal("22.93"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/24.yaml', filter_query_parameters=['key'])
     def test_24(self):
         expense = self.scan_expense('3000542-12521.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("99.96"))
         eq_(expense['grand_total'], Decimal("108.71"))
 
@@ -180,6 +189,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/29.yaml', filter_query_parameters=['key'])
     def test_29(self):
         expense = self.scan_expense('3000618-4988077.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("31.12"))
         eq_(expense['grand_total'], Decimal("32.98"))
 
@@ -192,6 +202,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/31.yaml', filter_query_parameters=['key'])
     def test_31(self):
         expense = self.scan_expense('3000715-1999.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("136.46"))
         eq_(expense['grand_total'], Decimal("136.46"))
 
@@ -204,6 +215,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/33.yaml', filter_query_parameters=['key'])
     def test_33(self):
         expense = self.scan_expense('3000793-2112957.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("224.79"))
         eq_(expense['grand_total'], Decimal("254.01"))
 
@@ -228,6 +240,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/37.yaml', filter_query_parameters=['key'])
     def test_37(self):
         expense = self.scan_expense('3000793-3131917.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("10.00"))
         eq_(expense['grand_total'], Decimal("11.30"))
 
@@ -240,18 +253,21 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/39.yaml', filter_query_parameters=['key'])
     def test_39(self):
         expense = self.scan_expense('3000793-3233389.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("4.74"))
         eq_(expense['grand_total'], Decimal("41.21"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/40.yaml', filter_query_parameters=['key'])
     def test_40(self):
         expense = self.scan_expense('3000793-3233459.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("19.96"))
         eq_(expense['grand_total'], Decimal("22.55"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/41.yaml', filter_query_parameters=['key'])
     def test_41(self):
         expense = self.scan_expense('3001071-10570.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("11.50"))
         eq_(expense['grand_total'], Decimal("11.50"))
 
@@ -264,12 +280,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/43.yaml', filter_query_parameters=['key'])
     def test_43(self):
         expense = self.scan_expense('3001110-3995.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("44.97"))
         eq_(expense['grand_total'], Decimal("49.78"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/44.yaml', filter_query_parameters=['key'])
     def test_44(self):
         expense = self.scan_expense('3001252-5698.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("36.03"))
         eq_(expense['grand_total'], Decimal("36.03"))
 
@@ -277,11 +295,12 @@ class TestExtractor(BaseTestCase):
     def test_45(self):
         expense = self.scan_expense('3001256-4117.png')
         # eq_(expense['sub_total'], Decimal("0.00"))
-        eq_(expense['grand_total'], Decimal("0.00"))
+        eq_(expense['grand_total'], '')
 
     @vcr.use_cassette('fixtures/vcr_cassettes/46.yaml', filter_query_parameters=['key'])
     def test_46(self):
         expense = self.scan_expense('3001288-7325.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("4.00"))
         eq_(expense['grand_total'], Decimal("4.00"))
 
@@ -289,17 +308,18 @@ class TestExtractor(BaseTestCase):
     def test_47(self):
         expense = self.scan_expense('3001400-6913.jpeg')
         # eq_(expense['sub_total'], Decimal("0.00"))
-        eq_(expense['grand_total'], Decimal("0.00"))
+        eq_(expense['grand_total'], '')
 
     @vcr.use_cassette('fixtures/vcr_cassettes/48.yaml', filter_query_parameters=['key'])
     def test_48(self):
         expense = self.scan_expense('3001421-16722.jpeg')
         # eq_(expense['sub_total'], Decimal("0.00"))
-        eq_(expense['grand_total'], Decimal("0.00"))
+        eq_(expense['grand_total'], '')
 
     @vcr.use_cassette('fixtures/vcr_cassettes/49.yaml', filter_query_parameters=['key'])
     def test_49(self):
         expense = self.scan_expense('3001427-2253740.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("13.48"))
         eq_(expense['grand_total'], Decimal("13.48"))
 
@@ -312,6 +332,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/51.yaml', filter_query_parameters=['key'])
     def test_51(self):
         expense = self.scan_expense('3001505-2238320.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("257.81"))
         eq_(expense['grand_total'], Decimal("273.28"))
 
@@ -330,12 +351,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/54.yaml', filter_query_parameters=['key'])
     def test_54(self):
         expense = self.scan_expense('3001505-2712293.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("40.00"))
         eq_(expense['grand_total'], Decimal("40.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/55.yaml', filter_query_parameters=['key'])
     def test_55(self):
         expense = self.scan_expense('3001505-2779361.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("40.00"))
         eq_(expense['grand_total'], Decimal("40.00"))
 
@@ -354,6 +377,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/58.yaml', filter_query_parameters=['key'])
     def test_58(self):
         expense = self.scan_expense('3001505-3123233.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("95.59"))
         eq_(expense['grand_total'], Decimal("95.59"))
 
@@ -366,12 +390,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/60.yaml', filter_query_parameters=['key'])
     def test_60(self):
         expense = self.scan_expense('3001505-3217169.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("15.89"))
         eq_(expense['grand_total'], Decimal("16.84"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/61.yaml', filter_query_parameters=['key'])
     def test_61(self):
         expense = self.scan_expense('3001505-3623851.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("10.64"))
         eq_(expense['grand_total'], Decimal("11.19"))
 
@@ -396,6 +422,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/65.yaml', filter_query_parameters=['key'])
     def test_65(self):
         expense = self.scan_expense('3001505-4846925.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("26.05"))
         eq_(expense['grand_total'], Decimal("26.05"))
 
@@ -414,12 +441,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/68.yaml', filter_query_parameters=['key'])
     def test_68(self):
         expense = self.scan_expense('3001505-5216581.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("588.31"))
         eq_(expense['grand_total'], Decimal("623.61"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/69.yaml', filter_query_parameters=['key'])
     def test_69(self):
         expense = self.scan_expense('3001505-5261225.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("628.51"))
         eq_(expense['grand_total'], Decimal("666.22"))
 
@@ -450,12 +479,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/74.yaml', filter_query_parameters=['key'])
     def test_74(self):
         expense = self.scan_expense('3001840-978704.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("20.00"))
         eq_(expense['grand_total'], Decimal("20.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/75.yaml', filter_query_parameters=['key'])
     def test_75(self):
         expense = self.scan_expense('3001848-6212.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("7.50"))
         eq_(expense['grand_total'], Decimal("8.13"))
 
@@ -492,6 +523,7 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/81.yaml', filter_query_parameters=['key'])
     def test_81(self):
         expense = self.scan_expense('3002054-2108818.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("185.00"))
         eq_(expense['grand_total'], Decimal("185.00"))
 
@@ -504,48 +536,56 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/83.yaml', filter_query_parameters=['key'])
     def test_83(self):
         expense = self.scan_expense('3002054-996844.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("80.00"))
         eq_(expense['grand_total'], Decimal("80.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/84.yaml', filter_query_parameters=['key'])
     def test_84(self):
         expense = self.scan_expense('3002082-6898.png')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("21.16"))
         eq_(expense['grand_total'], Decimal("21.16"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/85.yaml', filter_query_parameters=['key'])
     def test_85(self):
         expense = self.scan_expense('3002126-3177433.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("15.00"))
         eq_(expense['grand_total'], Decimal("15.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/86.yaml', filter_query_parameters=['key'])
     def test_86(self):
         expense = self.scan_expense('3002206-27069.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("105.00"))
         eq_(expense['grand_total'], Decimal("105.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/87.yaml', filter_query_parameters=['key'])
     def test_87(self):
         expense = self.scan_expense('3002211-2743039.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("27.15"))
         eq_(expense['grand_total'], Decimal("27.15"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/88.yaml', filter_query_parameters=['key'])
     def test_88(self):
         expense = self.scan_expense('3002211-3051555.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("8.00"))
         eq_(expense['grand_total'], Decimal("8.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/89.yaml', filter_query_parameters=['key'])
     def test_89(self):
         expense = self.scan_expense('3002346-3377405.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("33.89"))
         eq_(expense['grand_total'], Decimal("33.89"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/90.yaml', filter_query_parameters=['key'])
     def test_90(self):
         expense = self.scan_expense('3002346-3377983.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("8.00"))
         eq_(expense['grand_total'], Decimal("8.62"))
 
@@ -564,12 +604,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/93.yaml', filter_query_parameters=['key'])
     def test_93(self):
         expense = self.scan_expense('3002365-1165312.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("50.21"))
         eq_(expense['grand_total'], Decimal("50.21"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/94.yaml', filter_query_parameters=['key'])
     def test_94(self):
         expense = self.scan_expense('3002421-7536.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("210.00"))
         eq_(expense['grand_total'], Decimal("210.00"))
 
@@ -582,12 +624,14 @@ class TestExtractor(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/96.yaml', filter_query_parameters=['key'])
     def test_96(self):
         expense = self.scan_expense('3002677-53694.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("83.98"))
         eq_(expense['grand_total'], Decimal("83.98"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/97.yaml', filter_query_parameters=['key'])
     def test_97(self):
         expense = self.scan_expense('3002677-53696.jpeg')
+        self.debug(expense)
         # eq_(expense['sub_total'], Decimal("18.50"))
         eq_(expense['grand_total'], Decimal("21.09"))
 
@@ -611,6 +655,13 @@ class TestExtractor(BaseTestCase):
 
 
     def debug(self, expense):
-        print(expense['lines'])
-        expense['extractor'].preview_original()
-        expense['extractor'].preview()
+        if not expense:
+            print("No expense found")
+            return
+
+        if 'lines' in expense:
+            print(expense['lines'])
+
+        # if 'extractor' in expense:
+        #     expense['extractor'].preview_original()
+        #     expense['extractor'].preview()

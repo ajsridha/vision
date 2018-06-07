@@ -16,12 +16,15 @@ EFECTIVO = 'efectivo'
 GRAND_TOTAL_FIELDS = [
     TOTAL.upper(),
     BALANCE_DUE.upper(),
-    FARE.upper()]
+    FARE.upper(),
+    "INCL"
+]
 
 SUBTOTAL_FIELDS = [
     SUBTOTAL.upper(),
     SUB.upper(),
-    SUB_TOTAL.upper()
+    SUB_TOTAL.upper(),
+    "EXCL"
 ]
 
 TAX_FIELDS = [

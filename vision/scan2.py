@@ -117,7 +117,7 @@ def build_amounts(lines):
         lines_with_amounts = lines_with_amounts[sub_total_line + 1:]
     for line_number, line in enumerate(lines_with_amounts):
         for field in GRAND_TOTAL_FIELDS:
-            if field.upper() in line.upper():
+            if field.upper() in line.upper() and "SUB" not in line.upper() and "TAX" not in line.upper():
                 grand_total_line = line_number
                 results = money_regex().findall(line)
                 grand_total = Word(results[0].strip())
@@ -139,7 +139,9 @@ def build_amounts(lines):
     return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()
 
 def money_regex():
-    return re.compile(u'\s?[+-]?[0-9]{1,3}(?:(?:,?[0-9]{3}))*(?:\.[0-9]{1,2})')
+    # ^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$
+    # https://stackoverflow.com/questions/354044/what-is-the-best-u-s-currency-regex
+    return re.compile(u'[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})')
 
 def has_price(text):
     results = money_regex().findall(text)

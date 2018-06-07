@@ -1,4 +1,5 @@
 from shapely.geometry import Polygon
+import re
 from math import (
     fabs,
     cos,
@@ -131,41 +132,6 @@ class LinesExtractor(object):
 
         return fragments
 
-    # def _sort_bounds(self, bounds):
-    #     points = self._get_vertices(bounds)
-    #     vertices = []
-    #     for vertice in sorted(points, key=self._clockwiseangle_and_distance):
-    #         vertices.append({
-    #             'x': vertice[0],
-    #             'y': vertice[1]
-    #         })
-
-    #     return {
-    #         'vertices': vertices
-    #     }
-
-    # def _clockwiseangle_and_distance(self, point):
-    #     refvec = [0, 1]
-    #     # Vector between point and the origin: v = p - o
-    #     vector = [point[0], point[1]]
-    #     # Length of vector: ||v||
-    #     lenvector = math.hypot(vector[0], vector[1])
-    #     # If length is zero there is no angle
-    #     if lenvector == 0:
-    #         return -math.pi, 0
-    #     # Normalize vector: v/||v||
-    #     normalized = [vector[0]/lenvector, vector[1]/lenvector]
-    #     dotprod  = normalized[0]*refvec[0] + normalized[1]*refvec[1]     # x1*x2 + y1*y2
-    #     diffprod = refvec[1]*normalized[0] - refvec[0]*normalized[1]     # x1*y2 - y1*x2
-    #     angle = math.atan2(diffprod, dotprod)
-    #     # Negative angles represent counter-clockwise angles so we need to subtract them
-    #     # from 2*pi (360 degrees)
-    #     if angle < 0:
-    #         return 2*math.pi+angle, lenvector
-    #     # I return first the angle because that's the primary sorting criterium
-    #     # but if two vectors have the same angle then the shorter distance should come first.
-    #     return angle, lenvector
-
     def _get_polygon(self, boundings):
         vertices = self._get_vertices(boundings)
         return Polygon(vertices)
@@ -241,10 +207,16 @@ class LinesExtractor(object):
                 last_word = word
                 continue
 
-            # 36% - 1:23pm
+            # 36% - May 30  1:23pm
             # Back at 36% - June 2nd at 1:18 pm
+            # 54% June 4 at 8:22 am
+            # 66% June 7 at 8:22 am
             # Add no spaces if the last word was pretty close to each other
-            if word['polygon'].distance(last_word['polygon']) < 15:
+
+            # TODO: Why 15? Let's try the mode (most repeated)
+            if (word['polygon'].distance(last_word['polygon']) < 15) or \
+                    (re.match(r'\d', new_word[-1]) and word['text'] in ['.', '/']) or \
+                    (re.match(r'\d', word['text'][-1]) and new_word[-1] == in ['.', '/']):
                 new_word += word['text']
                 last_word = word
                 continue
@@ -276,7 +248,7 @@ class LinesExtractor(object):
             # We dont' want to add fragments that only barely touch the big line
             collision_percentage = (polygon.intersection(big_line).area / polygon.area) * 100
 
-            if collision_percentage > 40:
+            if collision_percentage > 41:
                 return True
 
             return False
