@@ -1,5 +1,7 @@
 import re
 from commonregex import CommonRegex
+from decimal import Decimal
+
 
 class Line(object):
     def __init__(self, line):
@@ -11,6 +13,12 @@ class Line(object):
         results = self.money_regex().search(self.text)
         if results:
             return results.group(0)
+        return None
+
+    @property
+    def decimal_amount(self):
+        if self.amount:
+            return Decimal(self.amount)
         return None
 
     @property

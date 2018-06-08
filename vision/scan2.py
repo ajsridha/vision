@@ -123,7 +123,7 @@ def build_amounts(lines):
             break
 
     if not grand_total or grand_total.numeric_money_amount() == 0:
-        grand_total_line, grand_total = find_largest_amount(lines, index=0)
+        grand_total_line, grand_total = find_largest_amount(lines_with_amounts, index=0)
 
     if sub_total_line and grand_total_line:
         lines_with_amounts = lines_with_amounts[:grand_total_line]
@@ -136,6 +136,40 @@ def build_amounts(lines):
                 break
 
     return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()
+
+def find_largest_amount(lines, index, ignore_amount=None):
+    cash_used = False
+    for line in lines:
+        for field in CASH_FIELDS:
+            if line.contains(field):
+                cash_used = True
+                break
+
+    amounts = []
+    for line_number, line in enumerate(lines[index:]):
+        if ignore_amount and line.decimal_amount == ignore_amount.numeric_money_amount:
+            continue
+
+        amounts.append({
+            'line_number': index + line_number,
+            'line': line
+        })
+
+    if amounts:
+        if ignore_amount:
+            amounts = list(filter(lambda x: x["line"].decimal_amount != ignore_amount.numeric_money_amount(), amounts))
+        amounts.sort(key=lambda x: x["line"].decimal_amount, reverse=True)
+
+        if cash_used and len(amounts) > 1:
+            return amounts[1]['line_number'], Word(amounts[1]['line'].amount)
+
+        if amounts:
+            return amounts[0]['line_number'], Word(amounts[0]['line'].amount)
+
+        return 0, Word('0.00')
+
+    return 0, Word('0.00')
+
 
 def has_price(line):
     return True if line.amount is not None else False
