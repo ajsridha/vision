@@ -75,7 +75,7 @@ def build(data, image):
         return receipt
 
     extractor = LinesExtractor(data, image)
-    lines = extractor.text()
+    lines = extractor.lines
     sub_total, taxes, grand_total = build_amounts(lines)
     # extractor.preview_original()
     # extractor.preview()
@@ -86,7 +86,6 @@ def build(data, image):
     receipt['grand_total'] = grand_total
     receipt['lines'] = lines
     receipt['extractor'] = extractor
-
 
     # if grand_total == Decimal('0.00'):
         # extractor.preview()
@@ -105,10 +104,9 @@ def build_amounts(lines):
     lines_with_amounts = list(filter(has_price, lines))
     for line_number, line in enumerate(lines_with_amounts):
         for field in SUBTOTAL_FIELDS:
-            if field.upper() in line.upper():
+            if line.contains(field):
                 sub_total_line = line_number
-                results = money_regex().findall(line)
-                sub_total = Word(results[0].strip())
+                sub_total = Word(line.amount)
                 break
         if sub_total.numeric_money_amount():
             break
@@ -117,13 +115,15 @@ def build_amounts(lines):
         lines_with_amounts = lines_with_amounts[sub_total_line + 1:]
     for line_number, line in enumerate(lines_with_amounts):
         for field in GRAND_TOTAL_FIELDS:
-            if field.upper() in line.upper() and "SUB" not in line.upper() and "TAX" not in line.upper():
+            if line.contains(field) and line.not_contains("sub") and line.not_contains("tax"):
                 grand_total_line = line_number
-                results = money_regex().findall(line)
-                grand_total = Word(results[0].strip())
+                grand_total = Word(line.amount)
                 break
         if grand_total.numeric_money_amount():
             break
+
+    if not grand_total or grand_total.numeric_money_amount() == 0:
+        grand_total_line, grand_total = find_largest_amount(lines, index=0)
 
     if sub_total_line and grand_total_line:
         lines_with_amounts = lines_with_amounts[:grand_total_line]
@@ -131,20 +131,11 @@ def build_amounts(lines):
     taxes = []
     for line_number, line in enumerate(lines_with_amounts):
         for field in TAX_FIELDS:
-            if field.upper() in line.upper():
-                results = money_regex().findall(line)
-                taxes.append(Word(results[0].strip()))
+            if line.contains(field):
+                taxes.append(Word(line.text))
                 break
 
     return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()
 
-def money_regex():
-    # ^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$
-    # https://stackoverflow.com/questions/354044/what-is-the-best-u-s-currency-regex
-    return re.compile(u'[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})')
-
-def has_price(text):
-    results = money_regex().findall(text)
-    if results:
-        return True
-    return False
+def has_price(line):
+    return True if line.amount is not None else False

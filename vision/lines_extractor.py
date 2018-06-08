@@ -1,4 +1,5 @@
 from shapely.geometry import Polygon
+from vision.line import Line
 import re
 from math import (
     fabs,
@@ -10,6 +11,7 @@ from math import (
 )
 import math
 
+
 class LinesExtractor(object):
     def __init__(self, document, receipt):
         self.receipt = receipt
@@ -18,6 +20,7 @@ class LinesExtractor(object):
             self.receipt.rotate(degrees)
         self.word_fragments = self._get_fragments(document)
         self.words = self._extract_text(self.word_fragments, self.receipt.width)
+        self.lines = [Line(word) for word in self.words]
 
     def text(self):
         return list(map(lambda x: x['text'], self.words))
@@ -216,7 +219,7 @@ class LinesExtractor(object):
             # TODO: Why 15? Let's try the mode (most repeated)
             if (word['polygon'].distance(last_word['polygon']) < 15) or \
                     (re.match(r'\d', new_word[-1]) and word['text'] in ['.', '/']) or \
-                    (re.match(r'\d', word['text'][-1]) and new_word[-1] == in ['.', '/']):
+                    (re.match(r'\d', word['text'][-1]) and new_word[-1] in ['.', '/']):
                 new_word += word['text']
                 last_word = word
                 continue
