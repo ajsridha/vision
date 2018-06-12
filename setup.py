@@ -8,6 +8,8 @@ setup(
     description='Simple receipt parser',
     author="Anandh Sridharan",
     author_email="anandhs@freshbooks.com",
-    packages=find_packages(exclude=['*.test', '*.test.*']),
-    include_package_data=True
+    url="https://github.com/ajsridha/vision",
+    packages=find_packages(exclude=['test', '*.test', '*.test.*']),
+    include_package_data=True,
+    install_requires=open('requirements.txt').readlines()
 )

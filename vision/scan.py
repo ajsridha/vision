@@ -1,6 +1,7 @@
 import os
 import urllib
 import json
+import logging
 import requests
 import base64
 from datetime import datetime
@@ -10,6 +11,8 @@ from date_detector import Parser
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
 from commonregex import CommonRegex
+
+log = logging.getLogger(__name__)
 
 
 def scan_file(file_path):
@@ -40,6 +43,8 @@ def scan_content(content):
             })
 
     if response.status_code != 200:
+        log.info('Google Error. returned: %s', response.status_code)
+        log.info(response.text)
         raise Exception("Google Error")
 
     data = response.json()['responses'][0]
