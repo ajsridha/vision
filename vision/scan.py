@@ -10,6 +10,8 @@ from date_detector import Parser
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
 from vision.constants import LOGO_DETECTION, TEXT_DETECTION
+from vision.algorithms.polygon_detection.lines_extractor import LinesExtractor
+from vision.models.receipt import Receipt
 from commonregex import CommonRegex
 
 log = logging.getLogger(__name__)
@@ -19,11 +21,12 @@ def scan_file(file_path):
     # Instantiates a client
     with open(file_path, 'rb') as fp:
         content = fp.read()
+        image = Receipt(content)
         content = encode_file(content)
-        return scan_content(content)
+        return scan_content(content, image)
 
 
-def scan_content(content):
+def scan_content(content, image):
     google_api_key = os.environ.get('GOOGLE_API_KEY')
     if not google_api_key:
         raise Exception("Unable to find Google API Key")
@@ -48,20 +51,21 @@ def scan_content(content):
         raise Exception("Google Error")
 
     data = response.json()['responses'][0]
-    return build(data)
+    return build(data, image)
 
 
 def scan(image_uri):
     response = requests.get(image_uri)
+    image = Receipt(response.content)
     content = encode_file(response.content)
-    return scan_content(content)
+    return scan_content(content, image)
 
 
 def encode_file(bytes):
     content = base64.b64encode(bytes)
     return content.decode('ascii')
 
-def build(annotated_image_response):
+def build(annotated_image_response, image):
     receipt = {
         'vendor': '',
         'date': '',
@@ -73,6 +77,9 @@ def build(annotated_image_response):
     }
     if not annotated_image_response.get('textAnnotations'):
         return receipt
+
+    extractor = LinesExtractor(annotated_image_response, image)
+    lines = extractor.lines
 
     sub_total, taxes, grand_total = build_amounts(annotated_image_response)
 

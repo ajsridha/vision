@@ -1,5 +1,5 @@
 from shapely.geometry import Polygon
-from vision.line import Line
+from vision.models.line import Line
 import re
 from math import (
     fabs,
