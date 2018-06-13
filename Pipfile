@@ -4,16 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-google-cloud-vision = "*"
 requests = "*"
-pillow = "*"
+Pillow = "*"
 vcrpy = "*"
 vcrpy-unittest = "*"
-prettytable = "*"
+PrettyTable = "*"
 date-detector = "*"
 termcolor = "*"
 commonregex = "*"
-shapely = "*"
+Shapely = "*"
 numpy = "*"
 
 [dev-packages]

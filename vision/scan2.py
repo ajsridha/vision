@@ -6,12 +6,12 @@ import base64
 import re
 from datetime import datetime
 from decimal import Decimal
-from google.cloud import vision
 from date_detector import Parser
 from vision.word import Word
 from vision.lines_extractor import LinesExtractor
 from vision.receipt import Receipt
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
+from vision.constants import LOGO_DETECTION, TEXT_DETECTION
 from commonregex import CommonRegex
 
 
@@ -37,8 +37,8 @@ def scan_content(content, image):
                         "content": content
                     },
                     "features": [
-                        {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-                        {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+                        {'type': LOGO_DETECTION},
+                        {'type': DOCUMENT_TEXT_DETECTION}
                     ]
                 }]
             })

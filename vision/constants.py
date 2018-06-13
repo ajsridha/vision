@@ -10,6 +10,9 @@ PST="PST"
 HST_TAX = "HST"
 BALANCE_DUE  = 'Balance Due'
 
+LOGO_DETECTION = 3
+TEXT_DETECTION = 11
+
 CASH = 'Cash'
 EFECTIVO = 'efectivo'
 

@@ -6,10 +6,10 @@ import requests
 import base64
 from datetime import datetime
 from decimal import Decimal
-from google.cloud import vision
 from date_detector import Parser
 from vision.word import Word
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
+from vision.constants import LOGO_DETECTION, TEXT_DETECTION
 from commonregex import CommonRegex
 
 log = logging.getLogger(__name__)
@@ -36,8 +36,8 @@ def scan_content(content):
                         "content": content
                     },
                     "features": [
-                        {'type': vision.enums.Feature.Type.LOGO_DETECTION},
-                        {'type': vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION}
+                        {'type': LOGO_DETECTION},
+                        {'type': DOCUMENT_TEXT_DETECTION}
                     ]
                 }]
             })
