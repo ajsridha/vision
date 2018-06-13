@@ -72,7 +72,13 @@ class Receipt(object):
 
         image.show()
 
-    def _draw_boxes(self, boxes, image):
+    def preview_algorithm(self, big_lines, words):
+        image = self.image.copy()
+        self._draw_boxes(big_lines, image, color='yellow')
+        self._draw_boxes(words, image, color='red')
+        image.show()
+
+    def _draw_boxes(self, boxes, image, color="red"):
         draw = ImageDraw.Draw(image)
         for box in boxes:
             vertices = box['vertices']
@@ -80,4 +86,4 @@ class Receipt(object):
                 vertices[0]['x'], vertices[0]['y'],
                 vertices[1]['x'], vertices[1]['y'],
                 vertices[2]['x'], vertices[2]['y'],
-                vertices[3]['x'], vertices[3]['y']], None, "red")
+                vertices[3]['x'], vertices[3]['y']], None, color)

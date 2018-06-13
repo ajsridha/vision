@@ -36,7 +36,7 @@ class Line(object):
         return text.upper() not in self.text.upper()
 
     def money_regex(self):
-        return re.compile(u'([0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2}))')
+        return re.compile(u'([0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2}$))')
 
     def __repr__(self):
         return self.text

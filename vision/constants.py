@@ -9,6 +9,7 @@ GST="GST"
 PST="PST"
 HST_TAX = "HST"
 BALANCE_DUE  = 'Balance Due'
+AMOUNT_DUE = 'Amount Due'
 
 LOGO_DETECTION = 3
 TEXT_DETECTION = 11
@@ -20,14 +21,13 @@ GRAND_TOTAL_FIELDS = [
     TOTAL.upper(),
     BALANCE_DUE.upper(),
     FARE.upper(),
-    "INCL"
+    AMOUNT_DUE.upper()
 ]
 
 SUBTOTAL_FIELDS = [
     SUBTOTAL.upper(),
     SUB.upper(),
-    SUB_TOTAL.upper(),
-    "EXCL"
+    SUB_TOTAL.upper()
 ]
 
 TAX_FIELDS = [

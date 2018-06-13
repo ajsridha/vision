@@ -77,8 +77,6 @@ def build(data, image):
     extractor = LinesExtractor(data, image)
     lines = extractor.lines
     sub_total, taxes, grand_total = build_amounts(lines)
-    # extractor.preview_original()
-    # extractor.preview()
     # receipt['address'] = determine_address(lines)
     # receipt['vendor'] = determine_vendor(lines)
     # receipt['date'] = determine_date(lines)
@@ -89,8 +87,8 @@ def build(data, image):
 
     # if grand_total == Decimal('0.00'):
         # extractor.preview()
-    # for i, tax in enumerate(taxes):
-    #     receipt['tax{}_amount'.format(i + 1)] = tax
+    for i, tax in enumerate(taxes):
+        receipt['tax{}_amount'.format(i + 1)] = tax.numeric_money_amount()
 
     return receipt
 
@@ -112,27 +110,39 @@ def build_amounts(lines):
             break
 
     if sub_total_line:
-        lines_with_amounts = lines_with_amounts[sub_total_line + 1:]
+        del lines_with_amounts[sub_total_line]
+
     for line_number, line in enumerate(lines_with_amounts):
         for field in GRAND_TOTAL_FIELDS:
-            if line.contains(field) and line.not_contains("sub") and line.not_contains("tax"):
+            if line.contains(field) and \
+                    line.not_contains("sub") and \
+                    line.not_contains("tax") and \
+                    line.not_contains("beverage") and \
+                    line.not_contains("excl"):
                 grand_total_line = line_number
                 grand_total = Word(line.amount)
                 break
         if grand_total.numeric_money_amount():
             break
 
-    if not grand_total or grand_total.numeric_money_amount() == 0:
-        grand_total_line, grand_total = find_largest_amount(lines_with_amounts, index=0)
+    if grand_total_line:
+        del lines_with_amounts[grand_total_line]
 
-    if sub_total_line and grand_total_line:
-        lines_with_amounts = lines_with_amounts[:grand_total_line]
+    if (not grand_total or grand_total.numeric_money_amount() == 0):
+        if sub_total and sub_total.numeric_money_amount():
+            grand_total = sub_total
+        else:
+            _, grand_total = find_largest_amount(lines_with_amounts, index=0)
+
+    if not sub_total or not sub_total.numeric_money_amount():
+        if grand_total and grand_total.numeric_money_amount() > 0:
+            sub_total = grand_total
 
     taxes = []
     for line_number, line in enumerate(lines_with_amounts):
         for field in TAX_FIELDS:
-            if line.contains(field):
-                taxes.append(Word(line.text))
+            if line.contains(field) and line.amount:
+                taxes.append(Word(line.amount))
                 break
 
     return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()

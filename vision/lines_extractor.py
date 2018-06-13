@@ -39,6 +39,22 @@ class LinesExtractor(object):
         boxes = self.boxes()
         self.receipt.preview(boxes)
 
+    def preview_algorithm(self):
+        boxes = self.fragment_boxes()
+        big_lines = []
+        for line in self.big_lines:
+            vertices = []
+            for index, x_coordinate in enumerate(line.exterior.xy[0]):
+                vertices.append({
+                    'x': x_coordinate,
+                    'y': line.exterior.xy[1][index]
+                })
+            big_lines.append({
+                'vertices': vertices
+            })
+
+        self.receipt.preview_algorithm(big_lines, boxes)
+
     def _calculate_orientation_from_fragments(self, document):
         count = 0
         width_sum = 0
@@ -156,11 +172,24 @@ class LinesExtractor(object):
 
             return highest_x
 
+    def compare_distance_to_left(self, word):
+        # Sort by looking at the top left vertice, and figuring out how close it is to 0
+        return word['bounds']['vertices'][3]['x']
+
     def _extract_text(self, fragments, highest_x):
         original_fragments = fragments.copy()
         fragments_for_collision_checks = fragments.copy()
+        big_lines = []
 
         collisions = []
+
+        average_slope = 0
+        for fragment in original_fragments:
+            slope = self._calculate_slope(fragment)
+            if slope > 0:
+                average_slope += self._calculate_slope(fragment)
+
+        average_slope = average_slope/len(original_fragments)
 
         new_word_fragments = []
         extracted_text = []
@@ -178,15 +207,20 @@ class LinesExtractor(object):
             new_word_fragments = []
 
             # Take the left-most word and extend its box all the way to the right
-            big_line = self._extend_to_the_right(fragment, highest_x)
+            big_line = self._extend_to_the_right(fragment, average_slope, highest_x)
+            big_lines.append(big_line)
+
+            # print("Big Line: {}".format(fragment['text']))
             # Check what collides with this big line
             for collision_fragment in fragments_for_collision_checks:
                 if collision_fragment['id'] in collisions:
                     continue
                 if self._fragments_touch(big_line, collision_fragment):
+                    # print("Collision: {}".format(collision_fragment['text']))
+
                     collisions.append(collision_fragment['id'])
                     new_word_fragments.append(collision_fragment)
-
+        self.big_lines = big_lines
         return extracted_text
 
     def print_polygon(self, polygon):
@@ -200,10 +234,28 @@ class LinesExtractor(object):
 
     def _combine_words(self, words):
         new_word = ""
-        last_word = None
+        mode = 0
 
         if not words:
             return new_word
+
+        # Sort each word in the line left ro right
+        words = sorted(words, key=self.compare_distance_to_left)
+
+        last_word = None
+        distances = []
+        for word in words:
+            if last_word is None:
+                last_word = word
+                continue
+
+            distances.append(word['polygon'].distance(last_word['polygon']))
+            last_word = word
+
+        if len(distances) > 1:
+            mode = max(set(distances), key=distances.count)
+
+        last_word = None
         for word in words:
             if last_word is None:
                 new_word += word['text']
@@ -216,8 +268,7 @@ class LinesExtractor(object):
             # 66% June 7 at 8:22 am
             # Add no spaces if the last word was pretty close to each other
 
-            # TODO: Why 15? Let's try the mode (most repeated)
-            if (word['polygon'].distance(last_word['polygon']) < 15) or \
+            if (word['polygon'].distance(last_word['polygon']) < mode) or \
                     (re.match(r'\d', new_word[-1]) and word['text'] in ['.', '/']) or \
                     (re.match(r'\d', word['text'][-1]) and new_word[-1] in ['.', '/']):
                 new_word += word['text']
@@ -250,7 +301,6 @@ class LinesExtractor(object):
         try:
             # We dont' want to add fragments that only barely touch the big line
             collision_percentage = (polygon.intersection(big_line).area / polygon.area) * 100
-
             if collision_percentage > 41:
                 return True
 
@@ -258,16 +308,19 @@ class LinesExtractor(object):
         except:
             return False
 
-    def _extend_to_the_right(self, word, highest_x):
+    def _extend_to_the_right(self, word, slope, highest_x):
         vertices = self._get_vertices(word['bounds'])
         try:
-            top_right_coordinate, slope = self._calculate_right_most_coordinate(
-                vertices[0], vertices[1], highest_x)
+            top_right_coordinate = self._calculate_right_most_coordinate(
+                vertices[0], vertices[1], slope, highest_x)
 
             # We want the right and left sides to be parallel with each other
             # So we offset the x coordinate
             bottom_right_coordinate = self._calculate_new_line(
                 slope, vertices[3], highest_x - (vertices[3][0] - vertices[0][0]))
+
+            top_left_coordinate = (0, vertices[0][1])
+            bottom_left_coordinate = (0, vertices[3][1])
 
         except ZeroDivisionError:
             return Polygon([
@@ -278,21 +331,32 @@ class LinesExtractor(object):
             ])
 
         return Polygon([
-            vertices[0],
+            top_left_coordinate,
             top_right_coordinate,
             bottom_right_coordinate,
-            vertices[3]
+            bottom_left_coordinate
         ])
 
-    def _calculate_right_most_coordinate(self, point1, point2, new_x):
+    def _calculate_slope(self, word):
+        Y = 1
+        X = 0
+        vertices = self._get_vertices(word['bounds'])
+        point1 = vertices[0]
+        point2 = vertices[1]
+        try:
+            return (point2[Y] - point1[Y]) / (point2[X] - point1[X])
+        except ZeroDivisionError:
+            return 0
+
+
+    def _calculate_right_most_coordinate(self, point1, point2, slope, new_x):
         Y = 1
         X = 0
 
-        slope = (point2[Y] - point1[Y]) / (point2[X] - point1[X])
         intercept = ((slope * point1[X]) - point1[Y]) * -1
 
         new_y = (new_x * slope) + intercept
-        return (new_x, new_y), slope
+        return (new_x, new_y)
 
     def _calculate_new_line(self, slope, point, new_x):
         Y = 1
