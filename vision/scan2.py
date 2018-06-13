@@ -38,7 +38,7 @@ def scan_content(content, image):
                     },
                     "features": [
                         {'type': LOGO_DETECTION},
-                        {'type': DOCUMENT_TEXT_DETECTION}
+                        {'type': TEXT_DETECTION}
                     ]
                 }]
             })
