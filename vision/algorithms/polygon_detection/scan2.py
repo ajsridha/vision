@@ -2,7 +2,6 @@ import os
 import urllib
 import json
 import requests
-import base64
 import re
 from datetime import datetime
 from decimal import Decimal
@@ -13,6 +12,7 @@ from vision.receipt import Receipt
 from vision.constants import GRAND_TOTAL_FIELDS, SUBTOTAL_FIELDS, TAX_FIELDS, CASH_FIELDS
 from vision.constants import LOGO_DETECTION, TEXT_DETECTION
 from commonregex import CommonRegex
+
 
 
 def scan_file(file_path):

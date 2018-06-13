@@ -10,6 +10,11 @@ from math import (
     pow
 )
 import math
+import logging
+
+logging.basicConfig()
+shapely_log = logging.getLogger("shapely")
+shapely_log.setLevel(logging.ERROR)
 
 
 class LinesExtractor(object):
@@ -295,6 +300,11 @@ class LinesExtractor(object):
 
     def _fragments_touch(self, big_line, collision_fragment):
         polygon = collision_fragment['polygon']
+        if not big_line.is_valid:
+            big_line = big_line.buffer(0)
+
+        if not polygon.is_valid:
+            polygon = polygon.buffer(0)
 
         if not big_line.intersects(polygon):
             return False

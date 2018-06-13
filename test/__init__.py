@@ -11,3 +11,11 @@ class BaseTestCase(TestCase):
     def scan_expense(self, image):
         url = "http://afn85.webfactional.com/receipts/{}".format(image)
         return scan(url)
+
+    def debug(self, expense):
+        print(expense)
+        if 'line' in expense:
+            print(expense['lines'])
+
+        if 'extractor' in expense:
+            expense['extractor'].preview_original()
