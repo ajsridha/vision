@@ -36,7 +36,7 @@ class NewLineAnalyzer(object):
 
         response = requests.get(
             'https://maps.googleapis.com/maps/api/place/textsearch/json?query='
-            + urllib.parse.quote_plus(search_query)
+            + urllib.quote_plus(search_query)
             + "&key=" + places_api_key)
 
         data = response.json()

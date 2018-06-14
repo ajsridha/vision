@@ -182,8 +182,8 @@ class LinesExtractor(object):
         return word['bounds']['vertices'][3]['x']
 
     def _extract_text(self, fragments, highest_x):
-        original_fragments = fragments.copy()
-        fragments_for_collision_checks = fragments.copy()
+        original_fragments = list(fragments)
+        fragments_for_collision_checks = list(fragments)
         big_lines = []
 
         collisions = []
