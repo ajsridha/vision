@@ -1,4 +1,6 @@
 commonregex==1.5.4
 date-detector==1.0.2
 Pillow==5.1.0
+Shapely
+numpy
 requests

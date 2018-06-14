@@ -1,8 +1,9 @@
-import os
-import json
-import logging
-import requests
 import base64
+import logging
+import os
+
+import requests
+
 from vision.constants import LOGO_DETECTION, TEXT_DETECTION
 from vision.algorithms.polygon_detection.analyzer import PolygonAnalyzer
 from vision.algorithms.new_line_detection.analyzer import NewLineAnalyzer
@@ -12,16 +13,29 @@ from vision.models.receipt import Receipt
 log = logging.getLogger(__name__)
 
 
+def scan(image_uri):
+    response = requests.get(image_uri)
+    image = Receipt(response.content)
+    content = encode_file(response.content)
+    return _scan_content(content, image)
+
+
 def scan_file(file_path):
     # Instantiates a client
     with open(file_path, 'rb') as fp:
         content = fp.read()
         image = Receipt(content)
         content = encode_file(content)
-        return scan_content(content, image)
+        return _scan_content(content, image)
 
 
-def scan_content(content, image):
+def scan_content(content):
+    image = Receipt(content)
+    content = encode_file(content)
+    return _scan_content(content, image)
+
+
+def _scan_content(content, image):
     google_api_key = os.environ.get('GOOGLE_API_KEY')
     if not google_api_key:
         raise Exception("Unable to find Google API Key")
@@ -29,16 +43,16 @@ def scan_content(content, image):
     response = requests.post(
         'https://vision.googleapis.com/v1/images:annotate?key={}'.format(google_api_key),
         json={
-                "requests": [{
-                    "image": {
-                        "content": content
-                    },
-                    "features": [
-                        {'type': LOGO_DETECTION},
-                        {'type': TEXT_DETECTION}
-                    ]
-                }]
-            })
+            "requests": [{
+                "image": {
+                    "content": content
+                },
+                "features": [
+                    {'type': LOGO_DETECTION},
+                    {'type': TEXT_DETECTION}
+                ]
+            }]
+        })
 
     if response.status_code != 200:
         log.info('Google Error. returned: %s', response.status_code)
@@ -49,16 +63,10 @@ def scan_content(content, image):
     return build(data, image)
 
 
-def scan(image_uri):
-    response = requests.get(image_uri)
-    image = Receipt(response.content)
-    content = encode_file(response.content)
-    return scan_content(content, image)
-
-
 def encode_file(bytes):
     content = base64.b64encode(bytes)
     return content.decode('ascii')
+
 
 def build(annotated_image_response, image):
     receipt = {
