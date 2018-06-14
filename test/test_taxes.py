@@ -26,12 +26,15 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/4.yaml', filter_query_parameters=['key'])
     def test_4(self):
         expense = self.scan_expense('3000119-4598605.jpeg')
-        eq_(len(expense['taxes']), 3)
+        eq_(len(expense['taxes']), 2)
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("4.75"))
+        eq_(expense['taxes'][1]['name'], 'PST')
         eq_(expense['taxes'][1]['amount'], Decimal("7.60"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/5.yaml', filter_query_parameters=['key'])
     def test_5(self):
+        # Google fail
         expense = self.scan_expense('3000119-5304795.jpeg')
         eq_(len(expense['taxes']), 1)
         eq_(expense['taxes'][0]['name'], 'TAX')
@@ -40,8 +43,8 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/6.yaml', filter_query_parameters=['key'])
     def test_6(self):
         expense = self.scan_expense('3000119-804319.jpeg')
-        eq_(len(expense['taxes']), 2)
-        eq_(expense['taxes'][0]['name'], 'TAX')
+        eq_(len(expense['taxes']), 1)
+        eq_(expense['taxes'][0]['name'], 'TAXES')
         eq_(expense['taxes'][0]['amount'], Decimal("7.15"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/7.yaml', filter_query_parameters=['key'])
@@ -69,20 +72,22 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/11.yaml', filter_query_parameters=['key'])
     def test_11(self):
         expense = self.scan_expense('3000138-298017.png')
-        eq_(len(expense['taxes']), 0)
+        eq_(len(expense['taxes']), 1)
+        eq_(expense['taxes'][0]['name'], 'TAX')
+        eq_(expense['taxes'][0]['amount'], Decimal("0.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/12.yaml', filter_query_parameters=['key'])
     def test_12(self):
         expense = self.scan_expense('3000171-119353.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("5.28"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/13.yaml', filter_query_parameters=['key'])
     def test_13(self):
         expense = self.scan_expense('3000382-2771981.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("2.41"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/14.yaml', filter_query_parameters=['key'])
@@ -134,7 +139,7 @@ class TestTaxes(BaseTestCase):
     def test_23(self):
         expense = self.scan_expense('3000533-42941.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("1.75"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/24.yaml', filter_query_parameters=['key'])
@@ -155,7 +160,7 @@ class TestTaxes(BaseTestCase):
     def test_26(self):
         expense = self.scan_expense('3000582-2747685.png')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("0.10"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/27.yaml', filter_query_parameters=['key'])
@@ -167,14 +172,14 @@ class TestTaxes(BaseTestCase):
     def test_28(self):
         expense = self.scan_expense('3000618-2156.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("1.89"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/29.yaml', filter_query_parameters=['key'])
     def test_29(self):
         expense = self.scan_expense('3000618-4988077.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("1.86"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/30.yaml', filter_query_parameters=['key'])
@@ -198,14 +203,14 @@ class TestTaxes(BaseTestCase):
     def test_33(self):
         expense = self.scan_expense('3000793-2112957.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("29.22"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/34.yaml', filter_query_parameters=['key'])
     def test_34(self):
         expense = self.scan_expense('3000793-2112982.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TVH13')
         eq_(expense['taxes'][0]['amount'], Decimal("31.40"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/35.yaml', filter_query_parameters=['key'])
@@ -224,14 +229,14 @@ class TestTaxes(BaseTestCase):
     def test_37(self):
         expense = self.scan_expense('3000793-3131917.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("1.30"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/38.yaml', filter_query_parameters=['key'])
     def test_38(self):
         expense = self.scan_expense('3000793-3230225.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("5.18"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/39.yaml', filter_query_parameters=['key'])
@@ -245,7 +250,7 @@ class TestTaxes(BaseTestCase):
     def test_40(self):
         expense = self.scan_expense('3000793-3233459.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'HST')
         eq_(expense['taxes'][0]['amount'], Decimal("2.59"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/41.yaml', filter_query_parameters=['key'])
@@ -262,7 +267,7 @@ class TestTaxes(BaseTestCase):
     def test_43(self):
         expense = self.scan_expense('3001110-3995.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("4.81"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/44.yaml', filter_query_parameters=['key'])
@@ -312,7 +317,9 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/52.yaml', filter_query_parameters=['key'])
     def test_52(self):
         expense = self.scan_expense('3001505-2708070.png')
-        eq_(len(expense['taxes']), 0)
+        eq_(len(expense['taxes']), 1)
+        eq_(expense['taxes'][0]['name'], 'TAX')
+        eq_(expense['taxes'][0]['amount'], Decimal("0.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/53.yaml', filter_query_parameters=['key'])
     def test_53(self):
@@ -357,14 +364,14 @@ class TestTaxes(BaseTestCase):
     def test_60(self):
         expense = self.scan_expense('3001505-3217169.png')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'GENERAL SALES')
         eq_(expense['taxes'][0]['amount'], Decimal("0.95"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/61.yaml', filter_query_parameters=['key'])
     def test_61(self):
         expense = self.scan_expense('3001505-3623851.png')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("0.55"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/62.yaml', filter_query_parameters=['key'])
@@ -380,7 +387,9 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/64.yaml', filter_query_parameters=['key'])
     def test_64(self):
         expense = self.scan_expense('3001505-4712789.png')
-        eq_(len(expense['taxes']), 0)
+        eq_(len(expense['taxes']), 1)
+        eq_(expense['taxes'][0]['name'], 'TAX')
+        eq_(expense['taxes'][0]['amount'], Decimal("0.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/65.yaml', filter_query_parameters=['key'])
     def test_65(self):
@@ -395,7 +404,9 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/67.yaml', filter_query_parameters=['key'])
     def test_67(self):
         expense = self.scan_expense('3001505-5158983.png')
-        eq_(len(expense['taxes']), 0)
+        eq_(len(expense['taxes']), 1)
+        eq_(expense['taxes'][0]['name'], 'TAX')
+        eq_(expense['taxes'][0]['amount'], Decimal("0.00"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/68.yaml', filter_query_parameters=['key'])
     def test_68(self):
@@ -441,9 +452,13 @@ class TestTaxes(BaseTestCase):
     @vcr.use_cassette('fixtures/vcr_cassettes/75.yaml', filter_query_parameters=['key'])
     def test_75(self):
         expense = self.scan_expense('3001848-6212.jpeg')
-        eq_(len(expense['taxes']), 2)
+        eq_(len(expense['taxes']), 3)
+        eq_(expense['taxes'][0]['name'], 'STATE TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("0.47"))
+        eq_(expense['taxes'][1]['name'], 'COUNTY TAX')
         eq_(expense['taxes'][1]['amount'], Decimal("0.08"))
+        eq_(expense['taxes'][2]['name'], 'LOCAL TAX')
+        eq_(expense['taxes'][2]['amount'], Decimal("0.08"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/76.yaml', filter_query_parameters=['key'])
     def test_76(self):
@@ -464,7 +479,7 @@ class TestTaxes(BaseTestCase):
     def test_79(self):
         expense = self.scan_expense('3002033-8336.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("3.15"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/80.yaml', filter_query_parameters=['key'])
@@ -521,7 +536,7 @@ class TestTaxes(BaseTestCase):
     def test_90(self):
         expense = self.scan_expense('3002346-3377983.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("0.62"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/91.yaml', filter_query_parameters=['key'])
@@ -533,7 +548,7 @@ class TestTaxes(BaseTestCase):
     def test_92(self):
         expense = self.scan_expense('3002346-461708.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("7.16"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/93.yaml', filter_query_parameters=['key'])
@@ -560,14 +575,14 @@ class TestTaxes(BaseTestCase):
     def test_97(self):
         expense = self.scan_expense('3002677-53696.jpeg')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'TAX')
         eq_(expense['taxes'][0]['amount'], Decimal("2.59"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/98.yaml', filter_query_parameters=['key'])
     def test_98(self):
         expense = self.scan_expense('3002677-62001.png')
         eq_(len(expense['taxes']), 1)
-        eq_(expense['taxes'][0]['name'], 'SALES TAX')
+        eq_(expense['taxes'][0]['name'], 'VAT')
         eq_(expense['taxes'][0]['amount'], Decimal("6.88"))
 
     @vcr.use_cassette('fixtures/vcr_cassettes/99.yaml', filter_query_parameters=['key'])

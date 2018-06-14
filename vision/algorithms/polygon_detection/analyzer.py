@@ -67,10 +67,21 @@ class PolygonAnalyzer(object):
         taxes = []
         lines_with_amounts = list(filter(self.has_price, self.lines))
         for line_number, line in enumerate(lines_with_amounts):
+            if line.contains('Tax preparation'):
+                continue
+
+            if line.contains('Less tax'):
+                continue
+
+            if line.contains('Before tax'):
+                continue
+
             for field in TAX_FIELDS:
+
                 if line.contains(field) and line.amount:
                     if line.amount in found_amounts:
                         continue
+
 
                     found_amounts.append(line.amount)
                     taxes.append({

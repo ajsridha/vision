@@ -14,8 +14,6 @@ class BaseTestCase(TestCase):
 
     def debug(self, expense):
         print(expense)
-        if 'line' in expense:
-            print(expense['lines'])
-
-        if 'extractor' in expense:
-            expense['extractor'].preview_original()
+        if 'analyzer' in expense:
+            print(expense['analyzer'].extractor.lines)
+            expense['analyzer'].extractor.preview_original()

@@ -65,9 +65,6 @@ def build(annotated_image_response, image):
         'vendor': '',
         'date': '',
         'sub_total': '',
-        'tax1_amount': '',
-        'tax2_amount': '',
-        'tax3_amount': '',
         'grand_total': '',
         'taxes': []
     }
@@ -85,5 +82,6 @@ def build(annotated_image_response, image):
     receipt['sub_total'] = sub_total
     receipt['grand_total'] = grand_total
     receipt['taxes'] = polygon_analyzer.determine_taxes()
+    receipt['analyzer'] = polygon_analyzer
 
     return receipt

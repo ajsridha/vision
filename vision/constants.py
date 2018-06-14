@@ -31,11 +31,15 @@ SUBTOTAL_FIELDS = [
 ]
 
 TAX_FIELDS = [
+    "TAXES",
     SALES_TAX.upper(),
     HST_TAX.upper(),
     TAX.upper(),
     GST.upper(),
-    PST.upper()
+    PST.upper(),
+    "VAT",
+    "TVH13",
+    "GENERAL SALES"
 ]
 
 CASH_FIELDS = [
