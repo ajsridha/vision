@@ -71,9 +71,9 @@ def encode_file(bytes):
 def build(annotated_image_response, image):
     receipt = {
         'vendor': '',
-        'date': '',
-        'sub_total': '',
-        'grand_total': '',
+        'date': None,
+        'sub_total': None,
+        'grand_total': None,
         'taxes': []
     }
     if not annotated_image_response.get('textAnnotations'):
