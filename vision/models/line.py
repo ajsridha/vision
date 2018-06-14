@@ -20,7 +20,7 @@ class Line(object):
 
     @property
     def amount(self):
-        results = self.money_regex().search(self.text)
+        results = self.money_regex().search(self.text.replace(",", ""))
         if results:
             return results.group(0)
         return None

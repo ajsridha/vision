@@ -267,15 +267,12 @@ class LinesExtractor(object):
                 last_word = word
                 continue
 
-            # 36% - May 30  1:23pm
-            # Back at 36% - June 2nd at 1:18 pm
-            # 54% June 4 at 8:22 am
-            # 66% June 7 at 8:22 am
-            # Add no spaces if the last word was pretty close to each other
-
+            non_decimal_numerical_chars = [
+                ".", "/", ",", "$"
+            ]
             if (word['polygon'].distance(last_word['polygon']) < mode) or \
-                    (re.match(r'\d', new_word[-1]) and word['text'] in ['.', '/']) or \
-                    (re.match(r'\d', word['text'][-1]) and new_word[-1] in ['.', '/']):
+                    (re.match(r'\d', new_word[-1]) and word['text'] in non_decimal_numerical_chars) or \
+                    (re.match(r'\d', word['text'][-1]) and new_word[-1] in non_decimal_numerical_chars):
                 new_word += word['text']
                 last_word = word
                 continue
