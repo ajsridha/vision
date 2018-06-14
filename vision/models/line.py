@@ -9,6 +9,16 @@ class Line(object):
         self.parsed_text = CommonRegex(self.text)
 
     @property
+    def amount_field(self):
+        if not self.amount:
+            return ''
+
+        return self.text.replace(self.amount, '')\
+            .replace(':', '')\
+            .replace('$', '')\
+            .strip()
+
+    @property
     def amount(self):
         results = self.money_regex().search(self.text)
         if results:

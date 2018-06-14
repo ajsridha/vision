@@ -68,7 +68,8 @@ def build(annotated_image_response, image):
         'tax1_amount': '',
         'tax2_amount': '',
         'tax3_amount': '',
-        'grand_total': ''
+        'grand_total': '',
+        'taxes': []
     }
     if not annotated_image_response.get('textAnnotations'):
         return receipt
@@ -83,9 +84,6 @@ def build(annotated_image_response, image):
     receipt['date'] = new_line_analyzer.determine_date()
     receipt['sub_total'] = sub_total
     receipt['grand_total'] = grand_total
-    taxes = []
-
-    for i, tax in enumerate(taxes):
-        receipt['tax{}_amount'.format(i + 1)] = tax
+    receipt['taxes'] = polygon_analyzer.determine_taxes()
 
     return receipt

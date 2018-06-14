@@ -7,14 +7,14 @@ class PolygonAnalyzer(object):
         self.extractor = LinesExtractor(data, image)
         self.lines = self.extractor.lines
 
-    def build_amounts(self, lines):
+    def build_amounts(self):
         grand_total = Word('0.00')
         sub_total = Word('')
         taxes = []
         grand_total_line = None
         sub_total_line = None
 
-        lines_with_amounts = list(filter(self.has_price, lines))
+        lines_with_amounts = list(filter(self.has_price, self.lines))
         for line_number, line in enumerate(lines_with_amounts):
             for field in SUBTOTAL_FIELDS:
                 if line.contains(field):
@@ -62,13 +62,21 @@ class PolygonAnalyzer(object):
 
         return sub_total.numeric_money_amount(), taxes, grand_total.numeric_money_amount()
 
-    def determine_taxes(self, lines):
+    def determine_taxes(self):
+        found_amounts = []
         taxes = []
-        lines_with_amounts = list(filter(self.has_price, lines))
+        lines_with_amounts = list(filter(self.has_price, self.lines))
         for line_number, line in enumerate(lines_with_amounts):
             for field in TAX_FIELDS:
                 if line.contains(field) and line.amount:
-                    taxes.append(Word(line.amount))
+                    if line.amount in found_amounts:
+                        continue
+
+                    found_amounts.append(line.amount)
+                    taxes.append({
+                        'name': field,
+                        'amount': line.decimal_amount
+                    })
         return taxes
 
     def find_largest_amount(self, lines, index, ignore_amount=None):
