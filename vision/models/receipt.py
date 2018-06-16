@@ -8,6 +8,7 @@ from PIL import (
     ImageDraw,
     ExifTags
 )
+import numpy
 from PIL.PngImagePlugin import PngImageFile
 from io import BytesIO
 
@@ -90,6 +91,13 @@ class Receipt(object):
         self._draw_boxes_from_polygon(extended, image, color='yellow')
         self._draw_boxes_from_paragraphs(paragraphs, image, color='red')
         image.show()
+
+    def preview_scanner(self, big_line, uncollided_polygons, thumbnail=250):
+        image = self.image.copy()
+        self._draw_boxes_from_polygon([big_line], image, color='yellow')
+        self._draw_boxes_from_polygon(uncollided_polygons, image, color='red')
+        image.thumbnail((thumbnail, thumbnail), Image.ANTIALIAS)
+        return numpy.array(image)
 
 
     def _draw_boxes_from_polygon(self, polygons, image, color="red"):

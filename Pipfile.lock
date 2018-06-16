@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2c74f7e7d4266b9b6aefbefff0b3a10e114af9af39729507fb91f5228110fbac"
+            "sha256": "57a44bc642a7a246a4e991a8363caef477ed6acc98f849e868a3810e867a6493"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -66,6 +66,14 @@
                 "sha256:684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16"
             ],
             "version": "==2.7"
+        },
+        "imageio": {
+            "hashes": [
+                "sha256:0f8281453c74433fcf4c7a1cf36801e6da9a4ba3117799fffd5a4db7d745e1b7",
+                "sha256:c4fd5183c342d47fdc2e98552d14e3f24386021bbc3efedd1e3b579d7d249c07"
+            ],
+            "index": "pypi",
+            "version": "==2.3.0"
         },
         "mock": {
             "hashes": [

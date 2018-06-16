@@ -14,6 +14,7 @@ termcolor = "*"
 commonregex = "*"
 Shapely = "*"
 numpy = "*"
+imageio = "*"
 
 [dev-packages]
 nose = "*"
