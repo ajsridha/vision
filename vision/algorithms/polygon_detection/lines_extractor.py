@@ -19,6 +19,7 @@ shapely_log.setLevel(logging.ERROR)
 
 class LinesExtractor(object):
     def __init__(self, document, receipt):
+        self.document = document
         self.receipt = receipt
         if not receipt.orientation_known:
             degrees = self._calculate_orientation_from_fragments(document)
@@ -35,6 +36,21 @@ class LinesExtractor(object):
 
     def fragment_boxes(self):
         return list(map(lambda x: x['bounds'], self.word_fragments))
+
+    def preview_google(self):
+        block_bounds = []
+        para_bounds = []
+        word_bounds = []
+        for page in self.document['fullTextAnnotation']['pages']:
+            for block in page['blocks']:
+                for paragraph in block['paragraphs']:
+                    for word in paragraph['words']:
+                        word_bounds.append(word['boundingBox'])
+
+                    para_bounds.append(paragraph['boundingBox'])
+
+                block_bounds.append(block['boundingBox'])
+        self.receipt.preview_google(block_bounds, para_bounds, word_bounds)
 
     def preview_original(self):
         boxes = self.fragment_boxes()

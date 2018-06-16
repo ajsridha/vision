@@ -1,7 +1,9 @@
+import vcr
 import sys
 from vision.scan import scan
 from prettytable import PrettyTable
 
+@vcr.use_cassette('fixtures/vcr_cassettes/ocr.yaml', filter_query_parameters=['key'])
 def main():
     if len(sys.argv) != 2:
         print("USAGE: python ocr.py url")
@@ -19,7 +21,7 @@ def main():
             tax['amount']
         ])
     results.add_row(['Grand Total', expense['grand_total']])
-
+    # expense['analyzer'].extractor.preview_google()
     print(results)
 
 if __name__ == "__main__":

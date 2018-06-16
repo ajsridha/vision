@@ -78,6 +78,40 @@ class Receipt(object):
         self._draw_boxes(words, image, color='red')
         image.show()
 
+    def preview_google(self, blocks, paras, words):
+        image = self.image.copy()
+        self._draw_boxes(blocks, image, color='yellow')
+        # self._draw_boxes(paras, image, color='red')
+        # self._draw_boxes(words, image, color='blue')
+        image.show()
+
+    def preview_hybrid(self, extended, paragraphs):
+        image = self.image.copy()
+        self._draw_boxes_from_polygon(extended, image, color='yellow')
+        self._draw_boxes_from_paragraphs(paragraphs, image, color='red')
+        image.show()
+
+
+    def _draw_boxes_from_polygon(self, polygons, image, color="red"):
+        draw = ImageDraw.Draw(image)
+        for polygon in polygons:
+            coordinates = polygon.exterior.xy
+            draw.polygon([
+                coordinates[0][0], coordinates[1][0],
+                coordinates[0][1], coordinates[1][1],
+                coordinates[0][2], coordinates[1][2],
+                coordinates[0][3], coordinates[1][3]], None, color)
+
+    def _draw_boxes_from_paragraphs(self, paragraphs, image, color="red"):
+        draw = ImageDraw.Draw(image)
+        for paragraph in paragraphs:
+            coordinates = paragraph['vertices']
+            draw.polygon([
+                coordinates[0][0], coordinates[0][1],
+                coordinates[1][0], coordinates[1][1],
+                coordinates[2][0], coordinates[2][1],
+                coordinates[3][0], coordinates[3][1]], None, color)
+
     def _draw_boxes(self, boxes, image, color="red"):
         draw = ImageDraw.Draw(image)
         for box in boxes:
