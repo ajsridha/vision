@@ -9,7 +9,7 @@ class Word(object):
     def __init__(self, id, text, word):
         self.id = id
         self.word = word
-        self.vertices = self.get_vertices(word['boundingBox'])
+        self.vertices, self.orientation  = self.get_vertices(word['boundingBox'])
         self.text = text
 
         polygon, expanded_polygon = self.build_polygons()
@@ -54,7 +54,8 @@ class Word(object):
             # |     |
             # 3 --- 2
             if point_y < center_y:
-                return vertices
+                # right to left
+                return vertices, 0
 
             # 1 --- 2
             # |     |
@@ -64,7 +65,7 @@ class Word(object):
                 vertices[2],
                 vertices[3],
                 vertices[0]
-            ]
+            ], 270
 
         # 3 --- 0
         # |     |
@@ -75,7 +76,7 @@ class Word(object):
                 vertices[0],
                 vertices[1],
                 vertices[2]
-            ]
+            ], 90
 
         # 2 --- 3
         # |     |
@@ -85,7 +86,7 @@ class Word(object):
             vertices[3],
             vertices[0],
             vertices[1]
-        ]
+        ], 180
 
     def debug_polygon(self):
         x, y = self.polygon.exterior.xy
