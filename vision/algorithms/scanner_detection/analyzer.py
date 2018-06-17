@@ -23,7 +23,11 @@ class ScannerAnalyzer(object):
             if sub_total:
                 break
 
-        for line_number, line in enumerate(lines_with_amounts[sub_total_line + 1:]):
+        lines_without_subtotal = list(lines_with_amounts)
+        if sub_total:
+            lines_without_subtotal = lines_with_amounts[sub_total_line + 1:]
+
+        for line_number, line in enumerate(lines_without_subtotal):
             for field in GRAND_TOTAL_FIELDS:
                 if line.contains(field) and \
                         line.not_contains("sub") and \
@@ -36,15 +40,15 @@ class ScannerAnalyzer(object):
             if grand_total:
                 break
 
-        # if (not grand_total or grand_total.numeric_money_amount() == 0):
-        #     if sub_total and sub_total.numeric_money_amount():
-        #         grand_total = sub_total
-        #     else:
-        #         _, grand_total = self.find_largest_amount(lines_with_amounts, index=0)
+        if not grand_total:
+            if sub_total:
+                grand_total = sub_total
+            else:
+                grand_total = self.find_largest_amount(lines_with_amounts, index=0)
 
-        # if not sub_total or not sub_total.numeric_money_amount():
-        #     if grand_total and grand_total.numeric_money_amount() > 0:
-        #         sub_total = grand_total
+        if not sub_total:
+            if grand_total and grand_total > 0:
+                sub_total = grand_total
 
         # taxes = []
         # for line_number, line in enumerate(lines_with_amounts):
@@ -103,18 +107,18 @@ class ScannerAnalyzer(object):
 
         if amounts:
             if ignore_amount:
-                amounts = list(filter(lambda x: x["line"].decimal_amount != ignore_amount.numeric_money_amount(), amounts))
+                amounts = list(filter(lambda x: x["line"].decimal_amount != ignore_amount, amounts))
             amounts.sort(key=lambda x: x["line"].decimal_amount, reverse=True)
 
             if cash_used and len(amounts) > 1:
-                return amounts[1]['line_number'], Word(amounts[1]['line'].amount)
+                return amounts[1]['line'].decimal_amount
 
             if amounts:
-                return amounts[0]['line_number'], Word(amounts[0]['line'].amount)
+                return amounts[0]['line'].decimal_amount
 
-            return 0, Word('0.00')
+            return None
 
-        return 0, Word('0.00')
+        return None
 
 
     def has_price(self, line):
