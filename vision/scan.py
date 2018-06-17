@@ -1,12 +1,14 @@
 import base64
 import logging
 import os
-
 import requests
 
+from decimal import Decimal
 from vision.constants import LOGO_DETECTION, TEXT_DETECTION
 from vision.algorithms.polygon_detection.analyzer import PolygonAnalyzer
 from vision.algorithms.new_line_detection.analyzer import NewLineAnalyzer
+from vision.algorithms.hybrid_detection.analyzer import HybridAnalyzer
+from vision.algorithms.scanner_detection.analyzer import ScannerAnalyzer
 from vision.models.receipt import Receipt
 
 
@@ -80,16 +82,16 @@ def build(annotated_image_response, image):
         return receipt
 
     new_line_analyzer = NewLineAnalyzer(annotated_image_response)
-    polygon_analyzer = PolygonAnalyzer(annotated_image_response, image)
-
-    sub_total, _, grand_total = new_line_analyzer.build_amounts()
+    scanner_analyzyer = ScannerAnalyzer(annotated_image_response, image)
+    sub_total, taxes, grand_total = scanner_analyzyer.build_amounts()
 
     receipt['address'] = new_line_analyzer.determine_address()
     receipt['vendor'] = new_line_analyzer.determine_vendor()
     receipt['date'] = new_line_analyzer.determine_date()
     receipt['sub_total'] = sub_total
+    receipt['taxes'] = taxes
     receipt['grand_total'] = grand_total
-    receipt['taxes'] = polygon_analyzer.determine_taxes()
-    receipt['analyzer'] = polygon_analyzer
+
+    receipt['analyzer'] = scanner_analyzyer
 
     return receipt

@@ -29,6 +29,8 @@ class ScannerExtractor(object):
     def __init__(self, document, receipt):
         self.debug = False
         self.thumbnail_size = 1000
+        self.collision_sensitivity_percentage = 0.10
+        self.fattened_big_line_percentage = 0.15
 
         self.document = document
         self.receipt = receipt
@@ -41,8 +43,8 @@ class ScannerExtractor(object):
         # 270 - Sideways: We can scan left to right
         self.orientation = np.median([word.orientation for word in self.words])
 
-        # Fatten it up
-        self.scan_height = np.median([word.height for word in self.words]) * 1.15
+        self.big_line_height = np.median([word.height for word in self.words]) * \
+            (1 + self.fattened_big_line_percentage)
         self.big_line_slope = self.calculate_big_line_slope()
 
         self.algorithm_frames = []
@@ -112,7 +114,7 @@ class ScannerExtractor(object):
                 words_in_line = []
 
             big_line = self.get_big_line(total_height)
-            total_height = total_height + self.scan_height
+            total_height = total_height + self.big_line_height
             # if self.debug:
             #     print("\nBig Line:")
             #     self.print_polygon(big_line)
@@ -148,18 +150,16 @@ class ScannerExtractor(object):
             curr_char = current_word[0] if current_word else ""
 
             if re.search('[a-zA-Z]', last_char):
-                if re.search('[a-zA-Z0-9&$]', curr_char):
+                if re.search('[a-zA-Z0-9&$(]', curr_char):
                     line += " "
                 elif  re.search('[:]', curr_char):
                     pass
             elif re.search('[0-9]', last_char):
-                if re.search('[a-zA-Z0-9]', curr_char):
+                if re.search('[a-zA-Z0-9$]', curr_char):
                     line += " "
                 elif re.search('[.]', curr_char):
                     pass
-            elif re.search('[&]', last_char) and re.search('[a-zA-Z]', curr_char):
-                line += " "
-            elif re.search('[#]', last_char) and re.search('[a-zA-Z]', curr_char):
+            elif re.search('[%&#]', last_char) and re.search('[a-zA-Z]', curr_char):
                 line += " "
             elif re.search('[:]', last_char) and re.search('[a-zA-Z]', curr_char):
                 line += " "
@@ -185,8 +185,8 @@ class ScannerExtractor(object):
 
         collision = big_line.intersection(polygon)
         # We dont' want to add fragments that only barely touch the big line
-        collision_percentage = (polygon.intersection(big_line).area / polygon.area) * 100
-        if collision_percentage > 10:
+        collision_percentage = (polygon.intersection(big_line).area / polygon.area)
+        if collision_percentage > self.collision_sensitivity_percentage:
             return True
 
         return False
@@ -203,9 +203,9 @@ class ScannerExtractor(object):
 
         if self.orientation in [0, 180]:
             top_left = (0, position)
-            bottom_left = (0, position + self.scan_height)
+            bottom_left = (0, position + self.big_line_height)
             top_right = (self.receipt.width, position)
-            bottom_right = (self.receipt.width, position + self.scan_height)
+            bottom_right = (self.receipt.width, position + self.big_line_height)
 
             if self.big_line_slope is not None:
                 top_intercept = top_left[1] - (self.big_line_slope * top_left[0])
@@ -219,9 +219,9 @@ class ScannerExtractor(object):
 
         elif self.orientation in [90, 270]:
             top_left = (position, 0)
-            bottom_left = (position + self.scan_height, 0)
+            bottom_left = (position + self.big_line_height, 0)
             top_right = (position, self.receipt.height)
-            bottom_right = (position + self.scan_height, self.receipt.height)
+            bottom_right = (position + self.big_line_height, self.receipt.height)
 
             if self.big_line_slope is not None:
                 top_intercept = top_left[1] - (self.big_line_slope * top_left[0])

@@ -50,16 +50,11 @@ class ScannerAnalyzer(object):
             if grand_total and grand_total > 0:
                 sub_total = grand_total
 
-        # taxes = []
-        # for line_number, line in enumerate(lines_with_amounts):
-        #     for field in TAX_FIELDS:
-        #         if line.contains(field) and line.amount:
-        #             taxes.append(Word(line.amount))
-        #             break
+        taxes = self.determine_taxes(sub_total, grand_total)
 
         return sub_total, taxes, grand_total
 
-    def determine_taxes(self):
+    def determine_taxes(self, sub_total, grand_total):
         found_amounts = []
         taxes = []
         lines_with_amounts = list(filter(self.has_price, self.lines))
@@ -74,18 +69,17 @@ class ScannerAnalyzer(object):
                 continue
 
             for field in TAX_FIELDS:
-
                 if line.contains(field) and line.amount:
                     if line.amount in found_amounts:
                         continue
-
 
                     found_amounts.append(line.amount)
                     taxes.append({
                         'name': field,
                         'amount': line.decimal_amount
                     })
-        return taxes
+
+        return filter(lambda tax: tax['amount'] not in [sub_total, grand_total], taxes)
 
     def find_largest_amount(self, lines, index, ignore_amount=None):
         cash_used = False

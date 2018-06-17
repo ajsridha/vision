@@ -5,7 +5,10 @@ from decimal import Decimal
 
 class Line(object):
     def __init__(self, line):
-        self.text = line['text']
+        if type(line) is dict:
+            self.text = line['text'].encode('utf-8').strip()
+        else:
+            self.text = line.encode('utf-8').strip()
         self.parsed_text = CommonRegex(self.text)
 
     @property
