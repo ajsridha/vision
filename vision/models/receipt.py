@@ -22,8 +22,18 @@ class Receipt(object):
         self.offset_x = 0
         self.offset_y = 0
 
-        degrees = self.calculate_rotation()
-        self.rotate(degrees)
+        # degrees = self.calculate_rotation()
+        # self.rotate(degrees)
+
+    @property
+    def is_upright(self):
+        if self.calculate_rotation() == 0:
+            return True
+
+        if self.height > self.width:
+            return True
+
+        return False
 
     def rotate(self, degrees):
         original_width = self.width
@@ -46,8 +56,10 @@ class Receipt(object):
             self.rotation_radians = radians(90)
 
     def calculate_rotation(self):
+
         self.orientation_known = False
         if not hasattr(self.image, '_getexif') or self.image._getexif() is None:
+            self.orientation_known = False
             return 0
 
         for orientation in ExifTags.TAGS.keys() :
@@ -94,7 +106,7 @@ class Receipt(object):
 
     def preview_scanner(self, big_line, uncollided_polygons, thumbnail=250):
         image = self.image.copy()
-        self._draw_boxes_from_polygon([big_line], image, color='yellow')
+        self._draw_boxes_from_polygon([big_line], image, color='blue')
         self._draw_boxes_from_polygon(uncollided_polygons, image, color='red')
         image.thumbnail((thumbnail, thumbnail), Image.ANTIALIAS)
         return numpy.array(image)
@@ -104,11 +116,15 @@ class Receipt(object):
         draw = ImageDraw.Draw(image)
         for polygon in polygons:
             coordinates = polygon.exterior.xy
-            draw.polygon([
-                coordinates[0][0], coordinates[1][0],
-                coordinates[0][1], coordinates[1][1],
-                coordinates[0][2], coordinates[1][2],
-                coordinates[0][3], coordinates[1][3]], None, color)
+            points = (
+                (coordinates[0][0], coordinates[1][0]),
+                (coordinates[0][1], coordinates[1][1]),
+                (coordinates[0][2], coordinates[1][2]),
+                (coordinates[0][3], coordinates[1][3]),
+                (coordinates[0][0], coordinates[1][0]),
+            )
+
+            draw.line(points,  fill=color, width=2)
 
     def _draw_boxes_from_paragraphs(self, paragraphs, image, color="red"):
         draw = ImageDraw.Draw(image)
