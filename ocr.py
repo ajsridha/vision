@@ -3,7 +3,6 @@ import sys
 from vision.scan import scan
 from prettytable import PrettyTable
 
-@vcr.use_cassette('fixtures/vcr_cassettes/ocr.yaml', filter_query_parameters=['key'])
 def main():
     if len(sys.argv) != 2:
         print("USAGE: python ocr.py url")
