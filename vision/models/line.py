@@ -1,6 +1,9 @@
 import re
+import datetime
 from commonregex import CommonRegex
 from decimal import Decimal
+from date_detector import Parser
+from datetime import datetime
 
 
 class Line(object):
@@ -35,8 +38,29 @@ class Line(object):
         return None
 
     @property
+    def amounts(self):
+        results = self.money_regex().search(self.text.replace(",", ""))
+        if results:
+            return results.group(0)
+        return None
+
+    @property
+    def decimal_amounts(self):
+        if self.amount:
+            return Decimal(self.amount)
+        return None
+
+    @property
     def date(self):
-        return self.parsed_text.dates[0] if self.parsed_text.dates else None
+        parser = Parser()
+        dates = []
+        for match in parser.parse(self.text):
+            if match.date <= datetime.today().date():
+                dates.append(match.date)
+
+        if dates:
+            dates.sort(reverse=True)
+            return dates[0]
 
     @property
     def address(self):
