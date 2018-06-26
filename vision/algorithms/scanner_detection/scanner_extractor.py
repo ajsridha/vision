@@ -159,11 +159,11 @@ class ScannerExtractor(object):
                     line += " "
                 elif re.search('[.]', curr_char):
                     pass
-            elif re.search('[%&#]', last_char) and re.search('[a-zA-Z]', curr_char):
+            elif re.search('[%&#%]', last_char) and re.search('[a-zA-Z]', curr_char):
                 line += " "
             elif re.search('[:]', last_char) and re.search('[a-zA-Z]', curr_char):
                 line += " "
-            elif re.search('[:]', last_char) and re.search('[0-9]', curr_char):
+            elif re.search('[%:]', last_char) and re.search('[0-9]', curr_char):
                 line += " "
             elif re.search('[.]', last_char) and re.search('[0-9]', curr_char):
                 pass
