@@ -26,7 +26,12 @@ class Line(object):
 
     @property
     def amount(self):
-        results = self.money_regex().search(self.text.replace(",", ""))
+        text = self.text
+        percentage = self.percentage_regex().search(text)
+        if percentage:
+            text = text.replace(percentage.group(0), '')
+
+        results = self.money_regex().search(text.replace(",", ""))
         if results:
             return results.group(0)
         return None
@@ -39,7 +44,12 @@ class Line(object):
 
     @property
     def amounts(self):
-        results = self.money_regex().search(self.text.replace(",", ""))
+        text = self.text.replace(',', '')
+        percentage = self.percentage_regex().search(text)
+        if percentage:
+            text = text.replace(percentage.group(0), '')
+
+        results = self.money_regex().search(text)
         if results:
             return results.group(0)
         return None
@@ -72,8 +82,11 @@ class Line(object):
     def not_contains(self, text):
         return text.upper() not in self.text.upper()
 
+    def percentage_regex(self):
+        return re.compile(u'([0-9]?[0-9][.][0-9][0-9][0-9][%])')
+
     def money_regex(self):
-        return re.compile(u'([0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2}$))')
+        return re.compile(u'([0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2}))')
 
     def __repr__(self):
         return self.text

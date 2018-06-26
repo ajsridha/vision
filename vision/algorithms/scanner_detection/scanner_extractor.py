@@ -86,8 +86,15 @@ class ScannerExtractor(object):
         if num_undefined > len(slopes) - num_undefined:
             return None
 
-        # Figure out the average slope, minus outliers that can mess up the average
+        # If the median is the vast majority, return that instead
         slopes = filter(lambda slope: slope is not None, slopes)
+        median_slope = np.median(slopes)
+        count_median = slopes.count(median_slope)
+        median_percentage = count_median * 1.0 / len(slopes) * 100
+        if median_percentage > 80:
+            return median_slope
+
+        # Figure out the average slope, minus outliers that can mess up the average
         data = np.array(slopes)
         m = 2
         d = np.abs(data - np.median(data))
