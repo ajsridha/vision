@@ -9,6 +9,7 @@ from math import (
     sqrt,
     pow
 )
+import imageio
 import math
 import logging
 
@@ -19,6 +20,10 @@ shapely_log.setLevel(logging.ERROR)
 
 class LinesExtractor(object):
     def __init__(self, document, receipt):
+        self.debug = True
+        self.algorithm_frames = []
+        self.thumbnail_size = 1000
+
         self.document = document
         self.receipt = receipt
         if not receipt.orientation_known:
@@ -27,6 +32,9 @@ class LinesExtractor(object):
         self.word_fragments = self._get_fragments(document)
         self.words = self._extract_text(self.word_fragments, self.receipt.width)
         self.lines = [Line(word) for word in self.words]
+
+        if self.debug:
+            imageio.mimsave('/Users/anton/polygon.gif', self.algorithm_frames, duration=0.2)
 
     def text(self):
         return list(map(lambda x: x['text'], self.words))
@@ -148,7 +156,6 @@ class LinesExtractor(object):
         fragments = []
         count = 0
         highest_x = None
-
         for page in document['fullTextAnnotation']['pages']:
             for block in page['blocks']:
                 for paragraph in block['paragraphs']:
@@ -157,14 +164,12 @@ class LinesExtractor(object):
                         for symbol in word['symbols']:
                             detected_word += symbol['text']
                         try:
-                            bounds = self._rotate_word(word['boundingBox'])
-
                             # sorted_bounds = self._sort_bounds(bounds)
                             fragments.append({
                                 "id": count,
                                 "text": detected_word,
-                                "polygon": self._get_polygon(bounds),
-                                "bounds": bounds
+                                "polygon": self._get_polygon(word['boundingBox']),
+                                "bounds": word['boundingBox']
                             })
                             count = count + 1
                         except:
@@ -200,17 +205,21 @@ class LinesExtractor(object):
     def _extract_text(self, fragments, highest_x):
         original_fragments = list(fragments)
         fragments_for_collision_checks = list(fragments)
+        words = list(fragments)
         big_lines = []
 
         collisions = []
 
         average_slope = 0
-        for fragment in original_fragments:
-            slope = self._calculate_slope(fragment)
-            if slope > 0:
-                average_slope += self._calculate_slope(fragment)
+        try:
+            for fragment in original_fragments:
+                slope = self._calculate_slope(fragment)
+                if slope > 0:
+                    average_slope += self._calculate_slope(fragment)
 
-        average_slope = average_slope/len(original_fragments)
+            average_slope = average_slope/len(original_fragments)
+        except ZeroDivisionError:
+            pass
 
         new_word_fragments = []
         extracted_text = []
@@ -241,8 +250,22 @@ class LinesExtractor(object):
 
                     collisions.append(collision_fragment['id'])
                     new_word_fragments.append(collision_fragment)
+
+            if self.debug:
+                self.algorithm_frames.append(
+                    self.receipt.preview_scanner(
+                        big_line,
+                        self.uncombined_words(words, collisions),
+                        thumbnail=self.thumbnail_size))
         self.big_lines = big_lines
         return extracted_text
+
+    def uncombined_words(self, words, collisions):
+        polygons = []
+        for word in words:
+            if word['id'] not in collisions:
+                polygons.append(word['polygon'])
+        return polygons
 
     def print_polygon(self, polygon):
         x_list, y_list = polygon.exterior.xy
@@ -342,8 +365,8 @@ class LinesExtractor(object):
             bottom_right_coordinate = self._calculate_new_line(
                 slope, vertices[3], highest_x - (vertices[3][0] - vertices[0][0]))
 
-            top_left_coordinate = (0, vertices[0][1])
-            bottom_left_coordinate = (0, vertices[3][1])
+            top_left_coordinate = (vertices[0][0], vertices[0][1])
+            bottom_left_coordinate = (vertices[3][0], vertices[3][1])
 
         except ZeroDivisionError:
             return Polygon([

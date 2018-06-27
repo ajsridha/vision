@@ -84,11 +84,13 @@ def build(annotated_image_response, image):
     sub_total, taxes, grand_total = scanner_analyzyer.build_amounts()
 
     receipt['address'] = new_line_analyzer.determine_address()
-    receipt['vendor'] = new_line_analyzer.determine_vendor()
+    vendor, types = new_line_analyzer.determine_vendor()
+    receipt['vendor'] = vendor
     receipt['date'] = new_line_analyzer.determine_date()
     receipt['sub_total'] = sub_total
     receipt['taxes'] = taxes
     receipt['grand_total'] = grand_total
+    receipt['types'] = grand_total
 
     receipt['analyzer'] = scanner_analyzyer
 

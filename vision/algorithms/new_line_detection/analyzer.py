@@ -15,11 +15,11 @@ class NewLineAnalyzer(object):
 
     def determine_vendor(self):
         if self.annotated_image_response.get('logoAnnotations'):
-            return self.annotated_image_response.get('logoAnnotations')[0].get('description')
+            return self.annotated_image_response.get('logoAnnotations')[0].get('description'), ''
 
         places_api_key = os.environ.get('GOOGLE_PLACES_API_KEY')
         if not places_api_key:
-            return
+            return None, ''
 
         lines = self.build_lines(
             self.annotated_image_response.get('textAnnotations')[0].get('description'))
@@ -41,7 +41,8 @@ class NewLineAnalyzer(object):
 
         data = response.json()
         if data.get('results') and data['results'][0].get('name'):
-            return data['results'][0]['name']
+            results = data['results'][0]
+            return results['name'], results['types']
 
     def determine_date(self):
         description = self.annotated_image_response.get('textAnnotations')[0].get('description')
